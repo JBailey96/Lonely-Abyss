@@ -1,8 +1,17 @@
 apply plugin: 'com.android.application'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+    }
+}
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "uk.ac.qub.eeecs.gage"
         minSdkVersion 19
@@ -17,7 +26,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    return void;
 }
+
+repositories {
+    maven { url 'http://repo1.maven.org/maven2' }
+    jcenter { url "http://jcenter.bintray.com/" }
+}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
