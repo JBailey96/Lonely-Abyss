@@ -41,8 +41,8 @@ public class GridLevel extends GameScreen {
     private final int maxRanCardSquare = 3;
 
     //define the number of grids
-    private final int gridColumns = 4;
-    private final int gridRows = 4;
+    private final int gridColumns = 7;
+    private final int gridRows = 7;
 
     //gridArray to hold all the grid squares
     private Grid[][] gridArray;
@@ -82,7 +82,6 @@ public class GridLevel extends GameScreen {
         float gridWidth = mLayerViewport.getWidth()/gridColumns;
         float gridHeight = mLayerViewport.getHeight()/gridRows;
 
-        //float squareRectRegionWidth = gridWidth*0.95f;
         float squareRectRegionHeight = gridHeight*0.95f;
 
         //the bitmap grid image that is revealed when the user touches a grid
@@ -92,11 +91,30 @@ public class GridLevel extends GameScreen {
         float x = mLayerViewport.getLeft() + gridWidth/2;
         float y = mLayerViewport.getTop() - gridHeight/2;
 
+        //hold the default values to be changed during the for loop operation
+        GridType g = GridType.EMPTY;
+        boolean hideGrid = false;
+        boolean terminus = false;
+
         //fill the 2d array grid objects
         for (int i = 0; i < gridRows; i++) {
             for (int j = 0; j < gridColumns; j++) {
-                gridArray[i][j]  = new Grid(x, y, squareRectRegionHeight, squareRectRegionHeight, hiddenBitmap, this, true, selectBitmap(GridType.START)); //generate a new grid object
-                x = x + gridWidth;
+                hideGrid = true;
+                terminus = false;
+
+                if (i == 0 && j == 0) { //assigns top left grid to start
+                    g = GridType.START;
+                    hideGrid = false;
+                } else if (i == gridRows-1 && j == gridColumns-1) { //assigns bottom right grid to end
+                    g = GridType.END;
+                    hideGrid = false;
+                    terminus = true;
+                } else {
+                    g = GridType.EMPTY;
+                }
+
+                gridArray[i][j]  = new Grid(x, y, squareRectRegionHeight, squareRectRegionHeight, hiddenBitmap, this, hideGrid, selectBitmap(g), terminus); //generate a new grid object
+                x = x + gridWidth; //move the x co-ordinate by
             }
             x = mLayerViewport.getLeft() + gridWidth/2;
             y = y - gridHeight;
@@ -164,13 +182,34 @@ public class GridLevel extends GameScreen {
             if (t.type == TouchEvent.TOUCH_UP) {
                 for (int i = 0; i < gridRows; i++) {
                    for (int j = 0; j < gridColumns; j++) {
-                       if ((gridArray[i][j].getHidden()) && (gridArray[i][j].getBound().contains((int) t.x, (int) mLayerViewport.getTop()-t.y))) { //checks whether a grid is hidden and the user is touching a grid
-                           gridArray[i][j].reveal();
+                       if ((gridArray[i][j].getHidden()) && (gridArray[i][j].getBound().contains((int) t.x, (int) mLayerViewport.getTop()-t.y)))  { //checks whether a grid is hidden and the user is touching a grid
+                           if (validGridMove(gridArray[i][j], i, j)) {
+                               gridArray[i][j].reveal(); //reveal the grid square
+                           }
                        }
                    }
                 }
             }
         }
+
+    }
+
+    //method to validate that the grids to the top,bottom,right or left are not hidden and not the end grid (terminus)
+
+    public boolean validGridMove(Grid g, int i, int j) {
+        if ((i < gridRows-1) && (!gridArray[i+1][j].getHidden()) && (!gridArray[i+1][j].getTerminus())) {
+            return true;
+        } else if ((j < gridColumns-1) && (!gridArray[i][j+1].getHidden()) && (!gridArray[i][j+1].getTerminus())) {
+            return true;
+        }
+        else if ((j > 0) && (!gridArray[i][j-1].getHidden()) && (!gridArray[i][j-1].getTerminus())) {
+            return true;
+        }
+        else if ((i > 0) && (!gridArray[i-1][j].getHidden()) && (!gridArray[i-1][j].getTerminus())) {
+            return true;
+        }
+
+        return false;
 
     }
 
