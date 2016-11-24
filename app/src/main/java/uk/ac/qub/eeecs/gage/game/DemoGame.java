@@ -50,8 +50,11 @@ public class DemoGame extends Game {
 //        GridLevel level = new GridLevel(this);
 //        getScreenManager().addScreen(level);
 
-        DeckManagement DM = new DeckManagement(this);
-        getScreenManager().addScreen(DM);
+//        DeckManagement DM = new DeckManagement(this);
+//        getScreenManager().addScreen(DM);
+
+        GridLevel gl = new GridLevel(this);
+        getScreenManager().addScreen(gl);
 
 
 
@@ -66,7 +69,8 @@ public class DemoGame extends Game {
 
         // Go back to the menu screen
         getScreenManager().removeScreen(mScreenManager.getCurrentScreen().getName());
-        DeckManagement level = new DeckManagement(this);
+//        DeckManagement level = new DeckManagement(this);
+        GridLevel level = new GridLevel(this);
         getScreenManager().addScreen(level);
         return true;
     }

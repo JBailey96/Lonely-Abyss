@@ -21,10 +21,6 @@ public class Card extends GameObject {
 
 
 
-
-
-
-
     private String name, type;
     private int health, mana, stamina, armour, absorption;
 

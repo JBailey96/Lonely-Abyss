@@ -23,27 +23,29 @@ public class Grid extends GameObject {
         this.realBitmap = realBitmap;
         this.terminus = terminus;
 
-        if (!hidden) { //if the grid is hidden
-            reveal();
+        if (!hidden) { //if the grid is not hidden
+            reveal(); //reveal the grid square
         }
     }
 
-
-    //called when the grid has been touched and is hidden
+    //called when the grid has been touched or has been selected as not hidden
     public void reveal() {
-        setHidden(false);
-        this.mBitmap = realBitmap;
+        setHidden(false); //Change the hidden flag of the grid
+        this.mBitmap = realBitmap; //set the actual bitmap of the grid to be the 'actual' bitmap
     }
 
     public boolean getHidden() {
         return this.hidden;
     }
 
-    public boolean getTerminus() { return this.terminus; }
-
-    public void setHidden(boolean b) {
-        this.hidden = b;
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
+
+    public boolean getTerminus() {
+        return this.terminus;
+    }
+
 
 
 
