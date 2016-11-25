@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.gage.game;
 
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.DeckManagement;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.GridLevel;
+import uk.ac.qub.eeecs.LonelyAbyss.MenuScreen.MenuScreen;
 import uk.ac.qub.eeecs.gage.Game;
 
 import android.os.Bundle;
@@ -50,11 +51,15 @@ public class DemoGame extends Game {
 //        GridLevel level = new GridLevel(this);
 //        getScreenManager().addScreen(level);
 
-//        DeckManagement DM = new DeckManagement(this);
-//        getScreenManager().addScreen(DM);
+        DeckManagement DM = new DeckManagement(this);
+       getScreenManager().addScreen(DM);
 
-        GridLevel gl = new GridLevel(this);
-        getScreenManager().addScreen(gl);
+  //      GridLevel gl = new GridLevel(this);
+  //      getScreenManager().addScreen(gl);
+
+  //      MenuScreen MainMenu = new MenuScreen(this);
+   //     getScreenManager().addScreen(MainMenu);
+
 
 
 
