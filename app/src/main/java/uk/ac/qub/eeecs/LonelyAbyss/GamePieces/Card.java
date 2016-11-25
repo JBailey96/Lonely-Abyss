@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.gage.world;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
 
 import android.graphics.Bitmap;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.view.View;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 import java.util.ArrayList;
@@ -18,14 +19,12 @@ import java.util.ArrayList;
 public class Card extends GameObject {
 
     Bitmap cardGeneric;
-
-
-
     private String name, type;
     private int health, mana, stamina, armour, absorption;
 
-    public Card(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen, Bitmap cardGeneric, String name, String type, int health, int mana, int stamina, int armour, int absorption) {
-        super(x, y, width, height, bitmap, gameScreen);
+    public Card(float x, float y, Bitmap bitmap, GameScreen gameScreen, Bitmap cardGeneric,
+                String name, String type, int health, int mana, int stamina, int armour, int absorption) {
+        super(x, y, bitmap, gameScreen);
         this.cardGeneric = cardGeneric;
         this.name = name;
         this.type = type;
@@ -36,9 +35,7 @@ public class Card extends GameObject {
         this.absorption = absorption;
     }
 
-
     public String getName() {
-
         return name;
     }
 
@@ -53,17 +50,14 @@ public class Card extends GameObject {
     }
 
     public void setType(String type) {
-
         this.type = type;
     }
 
     public int getHealth() {
-
         return health;
     }
 
     public void setHealth(int health) {
-
         this.health = health;
     }
 
@@ -93,7 +87,6 @@ public class Card extends GameObject {
     }
 
     public void setArmour(int armour) {
-
         this.armour = armour;
     }
 
