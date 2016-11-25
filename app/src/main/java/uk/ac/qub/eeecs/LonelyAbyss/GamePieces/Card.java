@@ -19,6 +19,7 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 public class Card extends GameObject {
     private Bitmap icon, background;
     private String name, type;
+    int card;
 
 
     public Card(float x, float y, float width, float height, Bitmap bitmap,
