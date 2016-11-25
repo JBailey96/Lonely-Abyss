@@ -1,15 +1,15 @@
 package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
 
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.view.View;
+import android.widget.TextView;
 
-import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.gage.world.Sprite;
-import java.util.ArrayList;
+import uk.ac.qub.eeecs.gage.world.LayerViewport;
+import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 
 /**
@@ -17,35 +17,46 @@ import java.util.ArrayList;
  */
 
 public class Card extends GameObject {
-
-    Bitmap cardGeneric;
+    private Bitmap icon, background;
     private String name, type;
-    private int health, mana, stamina, armour, absorption;
 
-    public Card(float x, float y, Bitmap bitmap, GameScreen gameScreen, Bitmap cardGeneric,
-                String name, String type, int health, int mana, int stamina, int armour, int absorption) {
-        super(x, y, bitmap, gameScreen);
-        this.cardGeneric = cardGeneric;
+
+    public Card(float x, float y, float width, float height, Bitmap bitmap,
+                GameScreen gameScreen, Bitmap icon, Bitmap background,
+                String name, String type) {
+        super(x, y, width, height, bitmap, gameScreen);
+
+        this.icon = icon;
+        this.background = background;
         this.name = name;
         this.type = type;
-        this.health = health;
-        this.mana = mana;
-        this.stamina = stamina;
-        this.armour = armour;
-        this.absorption = absorption;
+    }
+
+    public Bitmap getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Bitmap icon) {
+        this.icon = icon;
+    }
+
+    public Bitmap getBackground() {
+        return background;
+    }
+
+    public void setBackground(Bitmap background) {
+        this.background = background;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
@@ -53,52 +64,22 @@ public class Card extends GameObject {
         this.type = type;
     }
 
-    public int getHealth() {
-        return health;
+
+    Card card1 = new Card(10, 10, 10, 10, mBitmap, mGameScreen, icon, background, "Professor", "Unimon");
+
+   // AssetManager assetManager = getBackground().getAssets();
+   // Bitmap background = setBackground(assetManager, "img/Cards/genericCard.PNG");
+
+
+    @Override
+    public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
+        super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+
+        graphics2D.drawBitmap(card1.getBackground(), null, null, null);
+        graphics2D.drawBitmap(card1.getIcon(), null, null, null);
+        graphics2D.drawText(card1.getName(),100, 50, null);
+        graphics2D.drawText(card1.getType(),200, 50, null);
+
+
     }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getMana()
-    {
-        return mana;
-    }
-
-    public void setMana(int mana)
-    {
-        this.mana = mana;
-    }
-
-    public int getStamina()
-    {
-        return stamina;
-    }
-
-    public void setStamina(int stamina) {
-
-        this.stamina = stamina;
-    }
-
-    public int getArmour()
-    {
-        return armour;
-    }
-
-    public void setArmour(int armour) {
-        this.armour = armour;
-    }
-
-    public int getAbsorption() {
-
-        return absorption;
-    }
-
-    public void setAbsorption(int absorption)
-    {
-        this.absorption = absorption;
-    }
-
-
 }
