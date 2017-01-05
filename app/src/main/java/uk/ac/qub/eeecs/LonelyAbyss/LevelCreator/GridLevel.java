@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grid;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.GridType;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
@@ -18,6 +19,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+
 
 /**
  * Created by James on 19/11/2016.
@@ -32,11 +34,6 @@ public class GridLevel extends GameScreen {
 
 
     public static Random rand = new Random();
-
-    //types of grid squares
-    protected enum GridType {
-        START, END, EMPTY, UNIMON, BATTLE, LOCATION, MOVEMENT, TRADE, HIDDEN
-    }
 
     //number of grid squares to be generated
     protected int numBattleSquare;
@@ -113,7 +110,7 @@ public class GridLevel extends GameScreen {
         float y = mLayerViewport.getTop() - gridHeight / 2;
 
         //hold the default values to be changed during the for loop operation
-        GridType g = GridType.EMPTY;
+        GridType gType = GridType.EMPTY;
         boolean hideGrid = false;
         boolean terminus = false;
 
@@ -123,17 +120,17 @@ public class GridLevel extends GameScreen {
                 hideGrid = true;
                 terminus = false;
                 if (i == 0 && j == 0) { //assigns top left grid to start
-                    g = GridType.START;
+                    gType = GridType.START;
                     hideGrid = false;
                 } else if (i == gridSize - 1 && j == gridSize - 1) { //assigns bottom right grid to end
-                    g = GridType.END;
+                    gType = GridType.END;
                     hideGrid = false;
                     terminus = true;
                 } else { //if the grid square needs to be filled randomly
-                    g = typeGrid();
+                    gType = typeGrid();
                 }
 
-                gridArray[i][j] = new Grid(x, y, squareDimen, squareDimen, hiddenBitmap, this, hideGrid, selectBitmap(g), terminus); //generate a new grid object
+                gridArray[i][j] = new Grid(x, y, squareDimen, squareDimen, hiddenBitmap, this, hideGrid, selectBitmap(gType), terminus, gType); //generate a new grid object
                 x = x + gridWidth; //move the x co-ordinate by the width of the grid Rectangle
             }
             x = mLayerViewport.getLeft() + gridWidth / 2; //reset the x co-ordinate back to the initial position, drawing left from right
@@ -205,6 +202,7 @@ public class GridLevel extends GameScreen {
                         if ((gridArray[i][j].getHidden()) && (gridArray[i][j].getBound().contains((int) t.x, (int) mLayerViewport.getTop() - t.y))) { //checks whether a grid is hidden and the user is touching a grid
                             if (validGridMove(gridArray[i][j], i, j)) {
                                 gridArray[i][j].reveal(); //reveal the grid square
+                                gridAction(gridArray[i][j]);
                             }
                         }
                     }
@@ -269,5 +267,15 @@ public class GridLevel extends GameScreen {
         }
         return GridType.EMPTY;
     }
-            }
+
+    public void gridAction(Grid selectGrid) {
+        GridType gridT = selectGrid.getType();
+
+        if (gridT == GridType.BATTLE) {
+            mGame.getScreenManager().removeScreen(this.getName());
+            PlayScreen playS = new PlayScreen(mGame);
+            mGame.getScreenManager().addScreen(playS);
+        }
+    }
+}
 

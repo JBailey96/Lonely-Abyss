@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.LonelyAbyss.PlayArea;
+package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;

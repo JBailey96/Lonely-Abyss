@@ -16,12 +16,15 @@ public class Grid extends GameObject {
     private boolean hidden; //true if the grid has not been selected, false if the grid has
     private Bitmap realBitmap; //the actual bitmap displayed after the grid has been touched
     private boolean terminus; //whether the grid square is an 'end' grid
+    private GridType type; //type of grid square e.g battle, location, start
 
-    public Grid(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen, boolean hidden, Bitmap realBitmap, boolean terminus) {
+
+    public Grid(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen, boolean hidden, Bitmap realBitmap, boolean terminus, GridType type) {
         super(x, y, width, height, bitmap, gameScreen);
         this.hidden = hidden;
         this.realBitmap = realBitmap;
         this.terminus = terminus;
+        this.type = type;
 
         if (!hidden) { //if the grid is not hidden
             reveal(); //reveal the grid square
@@ -44,6 +47,10 @@ public class Grid extends GameObject {
 
     public boolean getTerminus() {
         return this.terminus;
+    }
+
+    public GridType getType() {
+        return this.type;
     }
 
 
