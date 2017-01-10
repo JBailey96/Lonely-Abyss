@@ -2,8 +2,6 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 
 import java.util.List;
 import java.util.Random;
@@ -15,7 +13,6 @@ import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
-import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
@@ -31,7 +28,6 @@ public class GridLevel extends GameScreen {
     protected LayerViewport mLayerViewport;
     protected Input mInput;
     protected List<TouchEvent> touchEvents;
-
 
     public static Random rand = new Random();
 
@@ -110,9 +106,9 @@ public class GridLevel extends GameScreen {
         float y = mLayerViewport.getTop() - gridHeight / 2;
 
         //hold the default values to be changed during the for loop operation
-        GridType gType = GridType.EMPTY;
-        boolean hideGrid = false;
-        boolean terminus = false;
+        GridType gType;
+        boolean hideGrid;
+        boolean terminus;
 
         //fill the 2d array grid objects
         for (int i = 0; i < gridSize; i++) {
@@ -193,7 +189,6 @@ public class GridLevel extends GameScreen {
 
     //handling a grid being touched
     public void touchGrid(List<TouchEvent> touchEvents) {
-        int numTouchEvent = touchEvents.size();
 
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) {
@@ -202,7 +197,7 @@ public class GridLevel extends GameScreen {
                         if ((gridArray[i][j].getHidden()) && (gridArray[i][j].getBound().contains((int) t.x, (int) mLayerViewport.getTop() - t.y))) { //checks whether a grid is hidden and the user is touching a grid
                             if (validGridMove(gridArray[i][j], i, j)) {
                                 gridArray[i][j].reveal(); //reveal the grid square
-                                gridAction(gridArray[i][j]);
+                                gridAction(gridArray[i][j]); //called to do action needs to happen when this grid is revealed.
                             }
                         }
                     }
@@ -268,10 +263,14 @@ public class GridLevel extends GameScreen {
         return GridType.EMPTY;
     }
 
-    public void gridAction(Grid selectGrid) {
-        GridType gridT = selectGrid.getType();
 
+    //performs the action the revealed grid should perform
+    public void gridAction(Grid selectGrid) {
+        GridType gridT = selectGrid.getType(); //gets the type of grid revealed
+
+        //selection of the grid type to perform the action.
         if (gridT == GridType.BATTLE) {
+            //load the play area to begin battle.
             mGame.getScreenManager().removeScreen(this.getName());
             PlayScreen playS = new PlayScreen(mGame);
             mGame.getScreenManager().addScreen(playS);
