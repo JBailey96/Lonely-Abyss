@@ -41,7 +41,7 @@ public class MenuScreen extends GameScreen {
 
 
     protected Input mInput; //user input on the menu
-    List<TouchEvent> touchEvents;
+    protected List<TouchEvent> touchEvents;
 
     public MenuScreen(Game game) {
         super("MainMenu", game);
