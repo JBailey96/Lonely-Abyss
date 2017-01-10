@@ -16,57 +16,73 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
  * Created by jdevl on 19/11/2016.
  */
 
-public class Card extends GameObject {
-    private Bitmap icon, background;
-    private String name, type;
+public abstract class Card extends GameObject {
+
+    private String ID, name, description;
 
 
-
+    /**
+     * This is a constructor method for the card object.
+     * @param ID - to uniquely identify a card
+     * @param name - the name of the card
+     * @param description - description of the card
+     */
     public Card(float x, float y, float width, float height, Bitmap bitmap,
-                GameScreen gameScreen, Bitmap icon, Bitmap background,
-                String name, String type) {
+                GameScreen gameScreen, String ID, String name,String description) {
         super(x, y, width, height, bitmap, gameScreen);
 
-        this.icon = icon;
-        this.background = background;
+        this.ID = ID;
         this.name = name;
-        this.type = type;
+        this.description = description;
     }
 
-    public Bitmap getIcon() {
-        return icon;
+    /**
+     * This method returns the unique ID assigned to a specific card
+     * @return - the unique ID
+     */
+    public String getID() {
+        return ID;
     }
 
-    public void setIcon(Bitmap icon) {
-        this.icon = icon;
-    }
+    /**
+     * This method sets the ID of a card
+     * @param ID - Unique ID of a card
+     */
+    public void setID(String ID){this.ID = ID;}
 
-    public Bitmap getBackground() {
-        return background;
-    }
-
-    public void setBackground(Bitmap background) {
-        this.background = background;
-    }
-
+    /**
+     * This method returns the name assigned to a specific card
+     * @return - name of the card
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * This method sets the name of a card
+     * @param name - name of card
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    /**
+     * This method returns a description of a specific card
+     * @return - description of the card
+     */
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    /**
+     * This method sets the ID of a card
+     * @param description - description of the card
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 
-    Card card1 = new Card(10, 10, 10, 10, mBitmap, mGameScreen, icon, background, "Professor", "Unimon");
 
    // AssetManager assetManager = getBackground().getAssets();
    // Bitmap background = setBackground(assetManager, "img/Cards/genericCard.PNG");
@@ -75,12 +91,6 @@ public class Card extends GameObject {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
-
-        graphics2D.drawBitmap(card1.getBackground(), null, null, null);
-        graphics2D.drawBitmap(card1.getIcon(), null, null, null);
-        graphics2D.drawText(card1.getName(),100, 50, null);
-        graphics2D.drawText(card1.getType(),200, 50, null);
-
 
     }
 }
