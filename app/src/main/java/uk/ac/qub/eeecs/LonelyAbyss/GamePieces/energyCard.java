@@ -14,20 +14,13 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
  * Created by jdevl on 25/11/2016.
  */
 
-public class energyCard extends Card {
+public class EnergyCard extends Card {
 
     /**
      * Enum class of card Energy types
      */
-    public enum  EnergyType{
-        MANA,STAMINA,HEALTH
-    }
-
-    /**
-     * Enum class of card Applied types
-     */
-    public enum AppliedType{
-        SPIRITUNIMON,PHANTOMUNIMON,DEMONUNIMON,UNIQUEUNIMON
+    public enum  EnergyType   {
+        MANA, STAMINA, HEALTH, MIXED;
     }
 
     /**
@@ -41,17 +34,19 @@ public class energyCard extends Card {
     private EnergyType type;
 
     /**
-     * What value of energy based on evolution type
+     * The unimon evolution type to the energy types and the value associated with them.
      */
-    private Map<AppliedType,Integer>energy;
+    private Map<UnimonEvolveType, Map<EnergyType, Integer>>  energy;
 
-    public energyCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen,String ID,
-                      Bitmap backGround, Bitmap icon, String name,EnergyType type,Map<AppliedType,Integer>energy,String description) {
-        super(x, y, width, height, bitmap, gameScreen,ID,name,description);
+    protected boolean cardUsed; //the current use status of the card (used or not used).
+
+    public EnergyCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen,String ID,
+                      Bitmap backGround, Bitmap icon, String name, EnergyType type, Map<UnimonEvolveType,Map<EnergyType, Integer>> energy, String description, boolean revealed, CardStatus status) {
+        super(x, y, width, height, bitmap, gameScreen,ID,name,description, revealed, icon, status);
         this.backGround = backGround;
-        this.icon = icon;
         this.type = type;
-        this.energy = new HashMap<AppliedType, Integer>(energy);
+        this.energy = new HashMap<UnimonEvolveType, Map<EnergyType, Integer>>(energy);
+        this.cardUsed = false;
     }
 
     /**
@@ -102,9 +97,30 @@ public class energyCard extends Card {
         this.type = type;
     }
 
+    //Apply the energy card effect to the player's unimon card.
+    public void applyEnergy (UnimonCard playerCard) {
+        if (!cardUsed) { //validates that the card has nto been used yet by the player.
+            Map<EnergyType, Integer> energyEffects = energy.get(playerCard.getEvolveType()); //get the energy type effects for the player's unimon card
+            for (EnergyType energyEff: energyEffects.keySet()) { //for each energy effect
+                switch (energyEff) { //selection on the type of energy effect to be applied
+                    case MANA:
+                        playerCard.increaseMana(energyEffects.get(EnergyType.MANA)); //get the mana increase value and apply this to the player's unimon card.
+                        break;
+                    case HEALTH:
+                        playerCard.increaseHealth(energyEffects.get(EnergyType.HEALTH));
+                        break;
+                    case STAMINA:
+                        playerCard.increaseStamina(energyEffects.get(EnergyType.STAMINA));
+                    default:
+                        break;
+                }
+            }
+            this.cardUsed = true; //card has been used
+        }
+    }
+
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
-
     }
 }
 
