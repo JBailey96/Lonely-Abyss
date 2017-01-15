@@ -85,7 +85,6 @@ public class MenuScreen extends GameScreen {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 if (playButton.pushTriggered()) { //the status of the button is 'pressed'
-                    //the user has chosen to begin playing the game, the screen manager loads the grid level screen
                     mGame.getScreenManager().removeScreen(this.getName());
                     GridLevel gLevel = new GridLevel(mGame);
                     mGame.getScreenManager().addScreen(gLevel);

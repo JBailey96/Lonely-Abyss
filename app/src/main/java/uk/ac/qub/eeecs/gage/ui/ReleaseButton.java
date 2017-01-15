@@ -1,6 +1,8 @@
 package uk.ac.qub.eeecs.gage.ui;
 
 import android.graphics.Bitmap;
+import android.graphics.Paint;
+import android.graphics.Rect;
 
 import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -43,6 +45,9 @@ public class ReleaseButton extends GameObject {
      */
     protected Sound mReleaseSound;
 
+    protected Bitmap glowEffect;
+    protected Rect glowEffectDimen;
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Constructors                                                          //
@@ -70,6 +75,10 @@ public class ReleaseButton extends GameObject {
                 gameScreen.getGame().getAssetManager().getBitmap(defaultBitmap), gameScreen);
 
         AssetStore assetStore = gameScreen.getGame().getAssetManager();
+        assetStore.loadAndAddBitmap("GLOW", "img/Particles/gloweffect.png");
+
+        glowEffect = assetStore.getBitmap("GLOW");
+        glowEffectDimen = new Rect((int) (x - width/2 - 10), (int) (y - height*2 - 10), (int) (x + width/2 + 10), (int) (y + height/2 + 10));
 
         mDefaultBitmap = assetStore.getBitmap(defaultBitmap);
         mPushBitmap = assetStore.getBitmap(pushBitmap);
@@ -113,7 +122,7 @@ public class ReleaseButton extends GameObject {
     public void update(ElapsedTime elapsedTime) {
         // Consider any touch events occurring in this update
         Input input = mGameScreen.getGame().getInput();
-        BoundingBox bound = getBound();
+        BoundingBox bound = getBound(); //
 
 
         // Check for a press release on this button
@@ -192,7 +201,15 @@ public class ReleaseButton extends GameObject {
                 (int) (position.x + mBound.halfWidth),
                 (int) (position.y + mBound.halfHeight));
 
-        graphics2D.drawBitmap(mBitmap, null, drawScreenRect, null);
+
+        if (mIsPushed) {
+            graphics2D.drawBitmap(glowEffect, null, glowEffectDimen, null);
+            graphics2D.drawBitmap(mBitmap, null, drawScreenRect, null);
+            //mGameScreen.wait(10000);
+        } else {
+            graphics2D.drawBitmap(mBitmap, null, drawScreenRect, null);
+        }
     }
+
 
 }

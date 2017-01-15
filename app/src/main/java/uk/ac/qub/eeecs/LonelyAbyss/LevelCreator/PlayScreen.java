@@ -30,7 +30,9 @@ public class PlayScreen extends GameScreen {
     protected ScreenViewport mScreenViewport;
     protected LayerViewport mLayerViewport;
     protected Input mInput;
+
     List<TouchEvent> touchEvents;
+
     GameObject[] gameObject;
     Bitmap[] numOfCards;
     ArrayList<String> handCards;

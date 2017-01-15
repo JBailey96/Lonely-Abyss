@@ -19,6 +19,9 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 public abstract class Card extends GameObject {
 
     private String ID, name, description;
+    protected boolean revealed; // true - card is visible and 'in play', false - only the back of the card is visible.
+    protected Bitmap icon;
+    protected CardStatus status; //the status of the card (where it is)
 
 
     /**
@@ -28,12 +31,16 @@ public abstract class Card extends GameObject {
      * @param description - description of the card
      */
     public Card(float x, float y, float width, float height, Bitmap bitmap,
-                GameScreen gameScreen, String ID, String name,String description) {
+                GameScreen gameScreen, String ID, String name,String description, boolean revealed, Bitmap icon, CardStatus status) {
         super(x, y, width, height, bitmap, gameScreen);
 
         this.ID = ID;
         this.name = name;
         this.description = description;
+        this.revealed = revealed;
+        this.icon = icon;
+        this.status = status;
+
     }
 
     /**
@@ -91,6 +98,5 @@ public abstract class Card extends GameObject {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
-
     }
 }
