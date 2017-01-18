@@ -14,21 +14,11 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 public class UnimonCard extends Card {
 
-    /**
-     * Enum class of card evolving types
-     */
-
-    /**
-     * Enum of card type
-     */
-    public enum Type  {
-        DARK,EARTH,FIRE,WATER,HOLY
-    }
 
     /**
      * Bitmap images to make up areas of the card
      */
-    private Bitmap backGround, healthBar, manaBar, staminaBar;
+    private Bitmap backGround, healthBar, manaBar, staminaBar, absorption, weakness,armour;
 
 
     /**
@@ -39,16 +29,20 @@ public class UnimonCard extends Card {
     /**
      * The cards type(eg.Fire/Water etc)
      */
-    private Type type;
+    private CardType type;
 
     /**
      * The unimons current stats
      */
-    private int health, mana, stamina;
+    private int health, mana, stamina, absorptionValue, armourValue;
+
+    private float weaknessValue;
 
     protected int maxHealth; //the max health the unimon card can have
     protected int maxMana; //max mana
     protected int maxStamina; //max stamina
+
+    private UnimonMoves[] moves = new UnimonMoves[3];
 
     /**
      * This is a constructor method for the unimon card object.
@@ -65,7 +59,8 @@ public class UnimonCard extends Card {
      */
     public UnimonCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen,
                       String ID, Bitmap backGround, Bitmap typeIcon, Bitmap healthBar, Bitmap manaBar, Bitmap staminaBar, String name,
-                      UnimonEvolveType evolveType, Type type, int health, int mana, int stamina, String description, boolean revealed, CardStatus status) {
+                      UnimonEvolveType evolveType, CardType type, UnimonMoves[] moves, int health, int mana, int stamina, String description,
+                      Bitmap armour, int armourValue, Bitmap weakness, float weaknessValue, Bitmap absorption, int absorptionValue,  boolean revealed, CardStatus status) {
         super(x, y, width, height, bitmap, gameScreen, ID,name, description, revealed, typeIcon, status);
         this.backGround = backGround;
         this.health = health;
@@ -79,9 +74,20 @@ public class UnimonCard extends Card {
         this.staminaBar = staminaBar;
         this.evolveType = evolveType;
         this.type = type;
+        this.moves = moves;
+        this.absorption = absorption;
+        this.absorptionValue = absorptionValue;
+        this.weakness = weakness;
+        this.weaknessValue = weaknessValue;
+        this.armour = armour;
+        this.armourValue = armourValue;
+
 
     }
 
+    public UnimonMoves[] getMoves() {
+        return this.moves;
+    }
 
     public int getHealth() {
         return health;
@@ -137,11 +143,11 @@ public class UnimonCard extends Card {
 
     public void setEvolveType(UnimonEvolveType evolveType){this.evolveType = evolveType; }
 
-    public Type getType() {
+    public CardType getType() {
         return type;
     }
 
-    public void setType(Type type){this.type = type; }
+    public void setType(CardType type){this.type = type; }
 
     public int getMaxHealth() {
         return maxHealth;
@@ -166,6 +172,32 @@ public class UnimonCard extends Card {
     public void setMaxStamina(int maxStamina) {
         this.maxStamina = maxStamina;
     }
+
+
+    public Bitmap getAbsorption() {
+        return absorption;
+    }
+
+    public Bitmap getWeakness() {
+        return weakness;
+    }
+
+    public Bitmap getArmour() {
+        return armour;
+    }
+
+    public int getAbsorptionValue() {
+        return absorptionValue;
+    }
+
+    public int getArmourValue() {
+        return armourValue;
+    }
+
+    public float getWeaknessValue() {
+        return weaknessValue;
+    }
+
 
     //increase unimon card's mana (e.g when an energy card is applied)
     public void increaseMana(int addMana) {
@@ -332,6 +364,21 @@ public class UnimonCard extends Card {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Checks if the health is less than/equal to zero and if true sets it statue to Graveyard
+     * @return - the true;
+     */
+    public boolean dead(){
+        if(getHealth() <= 0){
+            this.status = CardStatus.GRAVEYARD;
+        }
+        return true;
+    }
+
+    public void update(ElapsedTime elapsedTime) {
+        dead();
     }
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {

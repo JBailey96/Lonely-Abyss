@@ -99,7 +99,7 @@ public class EnergyCard extends Card {
 
     //Apply the energy card effect to the player's unimon card.
     public void applyEnergy (UnimonCard playerCard) {
-        if (!cardUsed) { //validates that the card has nto been used yet by the player.
+        if (this.status == CardStatus.HAND) { //validates that the card has nto been used yet by the player.
             Map<EnergyType, Integer> energyEffects = energy.get(playerCard.getEvolveType()); //get the energy type effects for the player's unimon card
             for (EnergyType energyEff: energyEffects.keySet()) { //for each energy effect
                 switch (energyEff) { //selection on the type of energy effect to be applied
@@ -115,7 +115,7 @@ public class EnergyCard extends Card {
                         break;
                 }
             }
-            this.cardUsed = true; //card has been used
+            this.status = CardStatus.GRAVEYARD; //card has been used
         }
     }
 

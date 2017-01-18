@@ -89,7 +89,9 @@ public abstract class Card extends GameObject {
         this.description = description;
     }
 
+    public void update(ElapsedTime elapsedTime) {
 
+    }
 
    // AssetManager assetManager = getBackground().getAssets();
    // Bitmap background = setBackground(assetManager, "img/Cards/genericCard.PNG");
