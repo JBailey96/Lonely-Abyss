@@ -37,8 +37,6 @@ public class UnimonMoves {
      */
     private String description;
 
-    private int manaCost;
-    private int staminaCost;
 
     /**
      * Map of the energy type to make the move and the amount of that energy to do so
@@ -52,14 +50,12 @@ public class UnimonMoves {
      * @param description - What the attack does
      * @param moves - the energy needed to make the move and how much of that energy is needed
      */
-    public UnimonMoves(String name, Bitmap icon, String description,Map<MoveResource,Integer>moves, int baseDamage, int manaCost, int staminaCost, StatusEffect statusEffect1, int statusEffectCounter1, StatusEffect statusEffect2, int statusEffectCounter2, StatusEffect statusEffect3, int statusEffectCounter3, MoveType moveType ){
+    public UnimonMoves(String name, Bitmap icon, String description,Map<MoveResource,Integer>moves, int baseDamage, StatusEffect statusEffect1, int statusEffectCounter1, StatusEffect statusEffect2, int statusEffectCounter2, StatusEffect statusEffect3, int statusEffectCounter3, MoveType moveType ){
         this.name = name;
         this.icon = icon;
         this.description = description;
         this.moves = new HashMap<MoveResource, Integer>(moves);
         this.baseDamage = baseDamage;
-        this.manaCost = manaCost;
-        this.staminaCost = staminaCost;
         this.statusEffect1 = statusEffect1;
         this.statusEffectCounter1 = statusEffectCounter1;
         this.statusEffect2 = statusEffect2;
@@ -173,7 +169,7 @@ public class UnimonMoves {
 
     //PATRICK, THIS IS HOW I WOULD GO ABOUT DOING IT, BUT FEEL FREE TO DO IT DIFFERENTLY IF YOU FEEL A HASHMAP WOULD BE BETTER. NOTE; IF YOU ARE TO CHANGE THIS, THE THREE METHODS (PHYSATTACK,ELEMATTACK AND STATUSATTACK) ARE THE WAY TO MATHEMATICALLY TAKE INTO ALL STATS INTO CONSIDERATION AND HOW WEAKNESS AND ABSORTBTION WORK
 
-    public void doMove2(UnimonCard playerCard, UnimonCard opponentCard, UnimonMoves generalMove){
+    public void selectAttack(UnimonCard playerCard, UnimonCard opponentCard, UnimonMoves generalMove){
         switch (generalMove.moveType){
             case PHYSICAL:
                 physicalAttack(playerCard, opponentCard);
@@ -184,8 +180,6 @@ public class UnimonMoves {
             case STATUS:
                 statusAttack(playerCard, opponentCard);
                 break;
-
-
             default:
                 break;
 
@@ -194,24 +188,34 @@ public class UnimonMoves {
 
 
 
-//!!NOT COMPLETED. WAITING ON CALCULATION METHODS TO APPLY!!(I "Patrick" will finish it when they are ready.
-    public void doMove(UnimonCard playerCard, UnimonCard opponentCard){
+
+    public void doMove(UnimonCard playerCard, UnimonCard opponentCard,UnimonMoves generalMove){
         UnimonMoves[] tempArray = playerCard.getMoves();
         for(UnimonMoves move: tempArray) {
             if(!(moves.containsKey(MoveResource.MANA))){
-                if((move.getMoves().get(MoveResource.STAMINA)) == playerCard.getStamina()){
-
-                }
+               checkingStanmina(playerCard,opponentCard, generalMove, move);
             }else if(!(moves.containsKey(MoveResource.STAMINA))) {
-                if((move.getMoves().get(MoveResource.MANA)) == playerCard.getMana()){
-
-                }
+                checkingMana(playerCard, opponentCard,generalMove,move);
+            }else if((moves.containsKey(MoveResource.STAMINA)) && (moves.containsKey(MoveResource.MANA))){
+                checkingStanmina(playerCard,opponentCard, generalMove, move);
+                checkingMana(playerCard, opponentCard,generalMove,move);
             }
-                /*var = move.getMoves().get(energy.values());*/
-
         }
     }
 
+    public void checkingStanmina(UnimonCard playerCard, UnimonCard opponentCard,UnimonMoves generalMove,UnimonMoves move){
+            if(playerCard.getStamina() >= (move.getMoves().get(MoveResource.STAMINA))){
+                selectAttack(playerCard, opponentCard,generalMove);
+                playerCard.decreaseStamina(move.getMoves().get(MoveResource.STAMINA));
+            }
+    }
+
+    public void checkingMana(UnimonCard playerCard, UnimonCard opponentCard,UnimonMoves generalMove,UnimonMoves move){
+             if(playerCard.getMana() >= (move.getMoves().get(MoveResource.MANA))) {
+                 selectAttack(playerCard, opponentCard, generalMove);
+                 playerCard.decreaseStamina(move.getMoves().get(MoveResource.MANA));
+             }
+    }
 
 
 }
