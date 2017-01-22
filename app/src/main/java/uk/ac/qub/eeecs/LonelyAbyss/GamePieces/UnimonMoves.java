@@ -187,35 +187,69 @@ public class UnimonMoves {
     }
 
 
-
-
+    /**
+     * This method sets up a temp array of moves and sets it equal to the array of moves the players card has
+     * It then runs a loop through the temp array
+     * It then checks that the hash map of this move does not contain the key mana. If it doesn't it calls the checkStamina method
+     * If it returns true it calls the selectAttack method and deducts the stamina need for that move from the cards current stamina value.
+     * It then does similar for mana and finally checks if the hash map of the move contains both keys stamina and mana.
+     * then if so calls the selectAttack method and deducts both mana and stamina from there current values.
+     * [THE REASON FOR !NOT MANA/STAMINA- if we call a move which requires both mana and stamina and we check to see if it contains the key mana,
+     * which it would we would call the select attack method and then deduct the mana from the current value.
+     * However this move required both stamina and mana and stamina would never have been taken into account.
+     * (if not !NOT we never would access the last if condition)
+     * @param playerCard - the players card
+     * @param opponentCard - the opponents card
+     * @param generalMove - generalMove
+     */
     public void doMove(UnimonCard playerCard, UnimonCard opponentCard,UnimonMoves generalMove){
         UnimonMoves[] tempArray = playerCard.getMoves();
         for(UnimonMoves move: tempArray) {
-            if(!(moves.containsKey(MoveResource.MANA))){
-               checkingStanmina(playerCard,opponentCard, generalMove, move);
+            if(!(move.getMoves().containsKey(MoveResource.MANA))){
+               if(checkingStanmina(playerCard, move)){
+                   selectAttack(playerCard, opponentCard,generalMove);
+                   playerCard.decreaseStamina(move.getMoves().get(MoveResource.STAMINA));
+               }
             }else if(!(moves.containsKey(MoveResource.STAMINA))) {
-                checkingMana(playerCard, opponentCard,generalMove,move);
+                if(checkingMana(playerCard,move)){
+                    selectAttack(playerCard, opponentCard, generalMove);
+                    playerCard.decreaseStamina(move.getMoves().get(MoveResource.MANA));
+                }
             }else if((moves.containsKey(MoveResource.STAMINA)) && (moves.containsKey(MoveResource.MANA))){
-                checkingStanmina(playerCard,opponentCard, generalMove, move);
-                checkingMana(playerCard, opponentCard,generalMove,move);
+                if((checkingStanmina(playerCard,move)) && (checkingMana(playerCard,move))){
+                    selectAttack(playerCard, opponentCard, generalMove);
+                    playerCard.decreaseStamina(move.getMoves().get(MoveResource.STAMINA));
+                    playerCard.decreaseStamina(move.getMoves().get(MoveResource.MANA));
+                }
             }
         }
     }
 
-    public void checkingStanmina(UnimonCard playerCard, UnimonCard opponentCard,UnimonMoves generalMove,UnimonMoves move){
+    /**
+     * This method returns true if the players card has enough stamina to do the move
+     * @param playerCard - the players card
+     * @param move - temp array of moves
+     */
+    public boolean checkingStanmina(UnimonCard playerCard,UnimonMoves move){
             if(playerCard.getStamina() >= (move.getMoves().get(MoveResource.STAMINA))){
-                selectAttack(playerCard, opponentCard,generalMove);
-                playerCard.decreaseStamina(move.getMoves().get(MoveResource.STAMINA));
+                return true;
             }
+        return false;
     }
 
-    public void checkingMana(UnimonCard playerCard, UnimonCard opponentCard,UnimonMoves generalMove,UnimonMoves move){
+    /**
+     * This method returns true if the players card has enough mana to do the move
+     * @param playerCard - the players card
+     * @param move - temp array of moves
+     */
+    public boolean checkingMana(UnimonCard playerCard, UnimonMoves move){
              if(playerCard.getMana() >= (move.getMoves().get(MoveResource.MANA))) {
-                 selectAttack(playerCard, opponentCard, generalMove);
-                 playerCard.decreaseStamina(move.getMoves().get(MoveResource.MANA));
+                 return true;
              }
+        return false;
     }
+
+
 
 
 }
