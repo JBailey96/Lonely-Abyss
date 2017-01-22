@@ -210,12 +210,12 @@ public class UnimonMoves {
                    selectAttack(playerCard, opponentCard,generalMove);
                    playerCard.decreaseStamina(move.getMoves().get(MoveResource.STAMINA));
                }
-            }else if(!(moves.containsKey(MoveResource.STAMINA))) {
+            }else if(!(move.getMoves().containsKey(MoveResource.STAMINA))) {
                 if(checkingMana(playerCard,move)){
                     selectAttack(playerCard, opponentCard, generalMove);
                     playerCard.decreaseStamina(move.getMoves().get(MoveResource.MANA));
                 }
-            }else if((moves.containsKey(MoveResource.STAMINA)) && (moves.containsKey(MoveResource.MANA))){
+            }else if((move.getMoves().containsKey(MoveResource.STAMINA)) && (moves.containsKey(MoveResource.MANA))){
                 if((checkingStanmina(playerCard,move)) && (checkingMana(playerCard,move))){
                     selectAttack(playerCard, opponentCard, generalMove);
                     playerCard.decreaseStamina(move.getMoves().get(MoveResource.STAMINA));
