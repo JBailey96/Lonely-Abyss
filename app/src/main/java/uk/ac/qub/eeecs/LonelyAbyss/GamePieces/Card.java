@@ -21,7 +21,7 @@ public abstract class Card extends GameObject {
     private String ID, name, description;
     protected boolean revealed; // true - card is visible and 'in play', false - only the back of the card is visible.
     protected Bitmap icon;
-    protected CardStatus status; //the status of the card (where it is)
+    protected Container container; //the container where the card is. I (Jordan) changed the name to container to avoid confusion with statusEffects (in no way related)
 
 
     /**
@@ -31,7 +31,7 @@ public abstract class Card extends GameObject {
      * @param description - description of the card
      */
     public Card(float x, float y, float width, float height, Bitmap bitmap,
-                GameScreen gameScreen, String ID, String name,String description, boolean revealed, Bitmap icon, CardStatus status) {
+                GameScreen gameScreen, String ID, String name,String description, boolean revealed, Bitmap icon, Container container) {
         super(x, y, width, height, bitmap, gameScreen);
 
         this.ID = ID;
@@ -39,7 +39,7 @@ public abstract class Card extends GameObject {
         this.description = description;
         this.revealed = revealed;
         this.icon = icon;
-        this.status = status;
+        this.container = container;
 
     }
 
@@ -87,6 +87,14 @@ public abstract class Card extends GameObject {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Container getContainer(){
+        return container;
+    }
+
+    public void setContainer ( Container newContainer){
+        this.container = newContainer;
     }
 
     public void update(ElapsedTime elapsedTime) {

@@ -16,12 +16,6 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 public class EnergyCard extends Card {
 
-    /**
-     * Enum class of card Energy types
-     */
-    public enum  EnergyType   {
-        MANA, STAMINA, HEALTH, MIXED;
-    }
 
     /**
      * Bitmap images to make up areas of the card
@@ -41,8 +35,8 @@ public class EnergyCard extends Card {
     protected boolean cardUsed; //the current use status of the card (used or not used).
 
     public EnergyCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen,String ID,
-                      Bitmap backGround, Bitmap icon, String name, EnergyType type, Map<UnimonEvolveType,Map<EnergyType, Integer>> energy, String description, boolean revealed, CardStatus status) {
-        super(x, y, width, height, bitmap, gameScreen,ID,name,description, revealed, icon, status);
+                      Bitmap backGround, Bitmap icon, String name, EnergyType type, Map<UnimonEvolveType,Map<EnergyType, Integer>> energy, String description, boolean revealed, Container container) {
+        super(x, y, width, height, bitmap, gameScreen,ID,name,description, revealed, icon, container);
         this.backGround = backGround;
         this.type = type;
         this.energy = new HashMap<UnimonEvolveType, Map<EnergyType, Integer>>(energy);
@@ -99,7 +93,7 @@ public class EnergyCard extends Card {
 
     //Apply the energy card effect to the player's unimon card.
     public void applyEnergy (UnimonCard playerCard) {
-        if (this.status == CardStatus.HAND) { //validates that the card has nto been used yet by the player.
+        if (this.container == Container.HAND) { //validates that the card is in the players hand
             Map<EnergyType, Integer> energyEffects = energy.get(playerCard.getEvolveType()); //get the energy type effects for the player's unimon card
             for (EnergyType energyEff: energyEffects.keySet()) { //for each energy effect
                 switch (energyEff) { //selection on the type of energy effect to be applied
@@ -111,11 +105,20 @@ public class EnergyCard extends Card {
                         break;
                     case STAMINA:
                         playerCard.increaseStamina(energyEffects.get(EnergyType.STAMINA));
+                    case CURE:
+                        playerCard.setStatusEffect1(StatusEffect.NONE);
+                        playerCard.setStatusEffect2(StatusEffect.NONE);
+                        playerCard.setStatusEffect3(StatusEffect.NONE);
+                        break;
+
+
+
+
                     default:
                         break;
                 }
             }
-            this.status = CardStatus.GRAVEYARD; //card has been used
+            this.setContainer(Container.GRAVEYARD); //card has been used
         }
     }
 

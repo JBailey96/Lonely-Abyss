@@ -27,9 +27,16 @@ public class UnimonCard extends Card {
     private UnimonEvolveType evolveType;
 
     /**
-     * The cards type(eg.Fire/Water etc)
+     * The cards element(eg.Fire/Water etc)
      */
-    private CardType type;
+    private Element cardElement;
+
+    private StatusEffect statusEffect1;
+    private int statusEffectCounter1;
+    private StatusEffect statusEffect2;
+    private int statusEffectCounter2;
+    private StatusEffect statusEffect3;
+    private int statusEffectCounter3;
 
     /**
      * The unimons current stats
@@ -37,6 +44,9 @@ public class UnimonCard extends Card {
     private int health, mana, stamina, absorptionValue, armourValue;
 
     private float weaknessValue;
+
+    private Element weaknessElement;
+    private Element absorbtionElement;
 
     protected int maxHealth; //the max health the unimon card can have
     protected int maxMana; //max mana
@@ -55,32 +65,48 @@ public class UnimonCard extends Card {
      * @param manaBar - Bitmap used to represent mana value
      * @param staminaBar - Bitmap used to represent stamina value
      * @param evolveType - the evolution type of the card
-     * @param type - the type of card
+     * @param cardElement - the element of the card
      */
     public UnimonCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen,
                       String ID, Bitmap backGround, Bitmap typeIcon, Bitmap healthBar, Bitmap manaBar, Bitmap staminaBar, String name,
-                      UnimonEvolveType evolveType, CardType type, UnimonMoves[] moves, int health, int mana, int stamina, String description,
-                      Bitmap armour, int armourValue, Bitmap weakness, float weaknessValue, Bitmap absorption, int absorptionValue,  boolean revealed, CardStatus status) {
-        super(x, y, width, height, bitmap, gameScreen, ID,name, description, revealed, typeIcon, status);
+                      UnimonEvolveType evolveType, Element cardElement, UnimonMoves[] moves, int health, int mana, int stamina, String description,
+                      Bitmap armour, int armourValue, Bitmap weakness, float weaknessValue, Element weaknessElement, Bitmap absorption, int absorptionValue, Element absorbtionElement, boolean revealed, Container container, StatusEffect statusEffect1, int statusEffectCounter1, StatusEffect statusEffect2,int statusEffectCounter2, StatusEffect statusEffect3, int statusEffectCounter3) {
+        super(x, y, width, height, bitmap, gameScreen, ID,name, description, revealed, typeIcon, container);
         this.backGround = backGround;
+
+        //stats
         this.health = health;
         this.mana = mana;
         this.stamina = stamina;
         this.maxHealth = health;
         this.maxMana = mana;
         this.maxStamina = stamina;
+
+
         this.healthBar = healthBar;
         this.manaBar = manaBar;
         this.staminaBar = staminaBar;
         this.evolveType = evolveType;
-        this.type = type;
+        this.cardElement = cardElement;
         this.moves = moves;
+
+        //defensive stats
         this.absorption = absorption;
         this.absorptionValue = absorptionValue;
         this.weakness = weakness;
         this.weaknessValue = weaknessValue;
         this.armour = armour;
         this.armourValue = armourValue;
+        this.weaknessElement = weaknessElement;
+        this.absorbtionElement = absorbtionElement;
+
+        //setting status effects
+        this.statusEffect1 = statusEffect1;
+        this.statusEffectCounter1 = statusEffectCounter1;
+        this.statusEffect2 = statusEffect2;
+        this.statusEffectCounter2 = statusEffectCounter2;
+        this.statusEffect3 = statusEffect3;
+        this.statusEffectCounter3 = statusEffectCounter3;
 
 
     }
@@ -143,11 +169,11 @@ public class UnimonCard extends Card {
 
     public void setEvolveType(UnimonEvolveType evolveType){this.evolveType = evolveType; }
 
-    public CardType getType() {
-        return type;
+    public Element getCardElement() {
+        return cardElement;
     }
 
-    public void setType(CardType type){this.type = type; }
+    public void setElement(Element cardElement){this.cardElement = cardElement; }
 
     public int getMaxHealth() {
         return maxHealth;
@@ -182,6 +208,9 @@ public class UnimonCard extends Card {
         return weakness;
     }
 
+    public Element getWeaknessElement(){ return weaknessElement; }
+
+
     public Bitmap getArmour() {
         return armour;
     }
@@ -190,6 +219,8 @@ public class UnimonCard extends Card {
         return absorptionValue;
     }
 
+    public Element getAbsorbtionElement() { return absorbtionElement; }
+
     public int getArmourValue() {
         return armourValue;
     }
@@ -197,6 +228,20 @@ public class UnimonCard extends Card {
     public float getWeaknessValue() {
         return weaknessValue;
     }
+
+    //getters and setters for status effects
+
+    public StatusEffect getStatusEffect1(){ return statusEffect1; }
+
+    public void setStatusEffect1( StatusEffect statusEffect1){ this.statusEffect1 = statusEffect1; }
+
+    public StatusEffect getStatusEffect2(){ return statusEffect2; }
+
+    public void setStatusEffect2( StatusEffect statusEffect2){ this.statusEffect2 = statusEffect2; }
+
+    public StatusEffect getStatusEffect3(){ return statusEffect3; }
+
+    public void setStatusEffect3( StatusEffect statusEffect3){ this.statusEffect3 = statusEffect3; }
 
 
     //increase unimon card's mana (e.g when an energy card is applied)
@@ -372,7 +417,7 @@ public class UnimonCard extends Card {
      */
     public boolean dead(){
         if(getHealth() <= 0){
-            this.status = CardStatus.GRAVEYARD;
+            this.container = Container.GRAVEYARD;
         }
         return true;
     }
