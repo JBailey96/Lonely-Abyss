@@ -1,9 +1,7 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids;
 
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 
-import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 

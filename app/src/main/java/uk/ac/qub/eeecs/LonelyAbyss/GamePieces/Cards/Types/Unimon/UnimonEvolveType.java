@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon;
 
 /**
  * Created by appcamp on 14/01/2017.

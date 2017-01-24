@@ -6,8 +6,8 @@ import android.graphics.Color;
 import java.util.List;
 import java.util.Random;
 
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grid;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.GridType;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.Grid;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.GridType;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;

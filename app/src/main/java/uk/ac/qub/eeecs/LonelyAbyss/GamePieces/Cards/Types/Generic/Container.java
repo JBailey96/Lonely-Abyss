@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic;
 
 /**
  * Created by appcamp on 15/01/2017.

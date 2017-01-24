@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy;
 
 /**
  * Created by Jordan on 21/01/2017.

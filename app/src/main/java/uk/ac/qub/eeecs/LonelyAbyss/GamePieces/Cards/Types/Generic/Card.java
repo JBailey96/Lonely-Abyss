@@ -1,8 +1,6 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic;
 
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.widget.TextView;
 
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
@@ -18,10 +16,12 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 public abstract class Card extends GameObject {
 
-    private String ID, name, description;
+    protected String ID;
+    protected String name;
+    protected String description;
     protected boolean revealed; // true - card is visible and 'in play', false - only the back of the card is visible.
-    protected Bitmap icon;
-    protected Container container; //the container where the card is. I (Jordan) changed the name to container to avoid confusion with statusEffects (in no way related)
+    protected Bitmap icon; //icon on the top left of the card.
+    protected Container container; //the container where the card is.
 
 
     /**
@@ -100,9 +100,6 @@ public abstract class Card extends GameObject {
     public void update(ElapsedTime elapsedTime) {
 
     }
-
-   // AssetManager assetManager = getBackground().getAssets();
-   // Bitmap background = setBackground(assetManager, "img/Cards/genericCard.PNG");
 
 
     @Override

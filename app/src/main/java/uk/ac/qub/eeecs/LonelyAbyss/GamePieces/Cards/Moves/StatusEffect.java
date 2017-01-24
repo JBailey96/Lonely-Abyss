@@ -1,10 +1,9 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves;
 
 /**
  * Created by Jordan on 21/01/2017.
  */
 
 public enum StatusEffect {
-
     POISON, CURSE, SLEEP, BERSERK, DEATH, ARMOUR_BREAK, DAMAGE_BREAK, ARMOUR_BUFF, DAMAGE_BUFF, WEAKNESS_INCREASE, WEAKNESS_DECREASE, ABSORBTION_INCREASE, ABSORBTION_DECREASE, NONE, SUMMON
 }

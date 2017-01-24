@@ -1,7 +1,14 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon;
 
 import android.graphics.Bitmap;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.StatusEffect;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
@@ -18,7 +25,13 @@ public class UnimonCard extends Card {
     /**
      * Bitmap images to make up areas of the card
      */
-    private Bitmap backGround, healthBar, manaBar, staminaBar, absorption, weakness,armour;
+    private Bitmap backGround; //background of the card (character image)
+    private Bitmap healthBar; //health bar bitmap representing how much health the player has
+    private Bitmap manaBar;
+    private Bitmap staminaBar;
+    private Bitmap absorption; //bitmap representing absorption
+    private Bitmap weakness; //representing weakness
+    private Bitmap armour; //representing armour
 
 
     /**
@@ -31,22 +44,25 @@ public class UnimonCard extends Card {
      */
     private Element cardElement;
 
-    private StatusEffect statusEffect1;
-    private int statusEffectCounter1;
-    private StatusEffect statusEffect2;
-    private int statusEffectCounter2;
-    private StatusEffect statusEffect3;
-    private int statusEffectCounter3;
+    private Map<StatusEffect, Integer> statusEffects; ///The status effect applying on the card and how many turns it is to be applied for.
+
 
     /**
-     * The unimons current stats
+     * The unimon's current stats
      */
-    private int health, mana, stamina, absorptionValue, armourValue;
+    private int health; // 0-100, number of healthpoints the card has. 0 and the card is no longer active and 'knocked out'
+    private int mana; // number of mana points the card has, some moves require mana 
+    private int stamina; //number of mana points the card has, some moves require stamina
+    
+    private int absorptionValue; // percentage value 0-100 how well the card can absorb a specific elemental attack
+    private Element absorptionElement; //the specific elemental attack the card can absorb.
 
-    private float weaknessValue;
 
-    private Element weaknessElement;
-    private Element absorbtionElement;
+    private int weaknessValue; // multipler xINT, how well the card is vunerable to specific elemental attack
+    private Element weaknessElement; //the specific elemental attack the card is vunerable to.
+
+    private int armourValue; // percentage value 0-100 of how well the card can absorb attacks in general.
+    
 
     protected int maxHealth; //the max health the unimon card can have
     protected int maxMana; //max mana
@@ -70,11 +86,10 @@ public class UnimonCard extends Card {
     public UnimonCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen,
                       String ID, Bitmap backGround, Bitmap typeIcon, Bitmap healthBar, Bitmap manaBar, Bitmap staminaBar, String name,
                       UnimonEvolveType evolveType, Element cardElement, UnimonMoves[] moves, int health, int mana, int stamina, String description,
-                      Bitmap armour, int armourValue, Bitmap weakness, float weaknessValue, Element weaknessElement, Bitmap absorption, int absorptionValue, Element absorbtionElement, boolean revealed, Container container, StatusEffect statusEffect1, int statusEffectCounter1, StatusEffect statusEffect2,int statusEffectCounter2, StatusEffect statusEffect3, int statusEffectCounter3) {
+                      Bitmap armour, int armourValue, Bitmap weakness, int weaknessValue, Element weaknessElement, Bitmap absorption, int absorptionValue, Element absorptionElement, boolean revealed, Container container) {
         super(x, y, width, height, bitmap, gameScreen, ID,name, description, revealed, typeIcon, container);
         this.backGround = backGround;
 
-        //stats
         this.health = health;
         this.mana = mana;
         this.stamina = stamina;
@@ -98,15 +113,7 @@ public class UnimonCard extends Card {
         this.armour = armour;
         this.armourValue = armourValue;
         this.weaknessElement = weaknessElement;
-        this.absorbtionElement = absorbtionElement;
-
-        //setting status effects
-        this.statusEffect1 = statusEffect1;
-        this.statusEffectCounter1 = statusEffectCounter1;
-        this.statusEffect2 = statusEffect2;
-        this.statusEffectCounter2 = statusEffectCounter2;
-        this.statusEffect3 = statusEffect3;
-        this.statusEffectCounter3 = statusEffectCounter3;
+        this.absorptionElement = absorptionElement;
 
 
     }
@@ -219,7 +226,7 @@ public class UnimonCard extends Card {
         return absorptionValue;
     }
 
-    public Element getAbsorbtionElement() { return absorbtionElement; }
+    public Element getAbsorptionElement() { return absorptionElement; }
 
     public int getArmourValue() {
         return armourValue;
@@ -231,18 +238,13 @@ public class UnimonCard extends Card {
 
     //getters and setters for status effects
 
-    public StatusEffect getStatusEffect1(){ return statusEffect1; }
+    public Map<StatusEffect, Integer> getStatusEffects() {
+        return statusEffects;
+    }
 
-    public void setStatusEffect1( StatusEffect statusEffect1){ this.statusEffect1 = statusEffect1; }
-
-    public StatusEffect getStatusEffect2(){ return statusEffect2; }
-
-    public void setStatusEffect2( StatusEffect statusEffect2){ this.statusEffect2 = statusEffect2; }
-
-    public StatusEffect getStatusEffect3(){ return statusEffect3; }
-
-    public void setStatusEffect3( StatusEffect statusEffect3){ this.statusEffect3 = statusEffect3; }
-
+    public void setStatusEffects(Map<StatusEffect, Integer> statusEffects) {
+        this.statusEffects = statusEffects;
+    }
 
     //increase unimon card's mana (e.g when an energy card is applied)
     public void increaseMana(int addMana) {
@@ -411,6 +413,21 @@ public class UnimonCard extends Card {
         return true;
     }
 
+    //process the overall damage to be inflicted when the armour reduces it
+    public int processArmourDAM(int baseDamage) {
+        return (int) baseDamage * ((100 - getArmourValue()) / 100);
+    }
+
+    //processes the overall damage to be inflicted when the weakness multiplies it
+    public int processWeaknessDAM(int baseDamage) {
+        return (int) (baseDamage * getWeaknessValue());
+    }
+
+    //processes the overall damage absorbed by the attack
+    public int processAbsorb(int baseDamage) {
+        return (int) (baseDamage * getAbsorptionValue()/ 100);
+    }
+
     /**
      * Checks if the health is less than/equal to zero and if true sets it statue to Graveyard
      * @return - the true;
@@ -421,6 +438,7 @@ public class UnimonCard extends Card {
         }
         return true;
     }
+
 
     public void update(ElapsedTime elapsedTime) {
         dead();
