@@ -1,6 +1,7 @@
 package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,10 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
  */
 
 public class UnimonCard extends Card {
+
+     Rect backgroundRect, healthRect, manaRect, staminaRect, absorptionRect, weaknessRect, armourRect;
+
+
 
 
     /**
@@ -446,8 +451,17 @@ public class UnimonCard extends Card {
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+        backgroundRect = new Rect(0, 0, mGameScreen.getScreenWidth(),  mGameScreen.getScreenHeight());
+
     }
 
+    public void loadCardBitmaps(){
+        //mGameScreen.getGame().getAssetManager().loadAndAddBitmap("TypeIcon", "img/Cards/TypeIcon.PNG");
+        backGround = mGameScreen.getGame().getAssetManager().getBitmap("genericCard");
+
+
+
+    }
 }
 
 

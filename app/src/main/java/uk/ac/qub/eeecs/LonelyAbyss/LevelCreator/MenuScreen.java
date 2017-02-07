@@ -52,8 +52,7 @@ public class MenuScreen extends GameScreen {
         mLayerViewport = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
 
-        //Declaring the dimensions for the various Bitmaps
-        backgroundRect = new Rect(0, 0, game.getScreenWidth(),  game.getScreenHeight());
+        //Declaring the dimensions for the various Bitmap
         playButtonRect = new Rect((int) mLayerViewport.halfWidth-200, (int) mLayerViewport.halfHeight+300, (int) mLayerViewport.halfWidth+200, (int) mLayerViewport.halfHeight+400);
         logoRect = new Rect((int) mLayerViewport.halfWidth-800, (int) mLayerViewport.halfHeight-600, (int) mLayerViewport.halfWidth+800, (int) mLayerViewport.halfHeight);
         exitButtonRect = new Rect((int) mLayerViewport.getWidth()-110, 10, (int) mLayerViewport.getWidth()-10, 110);
