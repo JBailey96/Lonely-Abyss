@@ -1,6 +1,10 @@
 package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +13,7 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.StatusEffect;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
@@ -25,14 +30,11 @@ public class UnimonCard extends Card {
     /**
      * Bitmap images to make up areas of the card
      */
-    private Bitmap backGround; //background of the card (character image)
+
+    protected Rect templateRect;
     private Bitmap healthBar; //health bar bitmap representing how much health the player has
     private Bitmap manaBar;
     private Bitmap staminaBar;
-    private Bitmap absorption; //bitmap representing absorption
-    private Bitmap weakness; //representing weakness
-    private Bitmap armour; //representing armour
-
 
     /**
      * The cards current evolution type
@@ -70,25 +72,26 @@ public class UnimonCard extends Card {
 
     private UnimonMoves[] moves = new UnimonMoves[3];
 
+    public enum StatType {
+        HEALTH, MANA, STAMINA
+    }
+
     /**
      * This is a constructor method for the unimon card object.
-     * @param backGround - the cards image
      * @param health - the Health points of the card
      * @param mana - the number of mana points of the card
      * @param stamina - the number of stamina points of the card
-     * @param typeIcon - Bitmap used to represent the type of the card
      * @param healthBar - Bitmap used to represent health value
      * @param manaBar - Bitmap used to represent mana value
      * @param staminaBar - Bitmap used to represent stamina value
      * @param evolveType - the evolution type of the card
      * @param cardElement - the element of the card
      */
-    public UnimonCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen,
-                      String ID, Bitmap backGround, Bitmap typeIcon, Bitmap healthBar, Bitmap manaBar, Bitmap staminaBar, String name,
+    public UnimonCard(float x, float y, float width, float height, Bitmap bitmapTemplate, GameScreen gameScreen,
+                      String ID, Bitmap healthBar, Bitmap manaBar, Bitmap staminaBar, String name,
                       UnimonEvolveType evolveType, Element cardElement, UnimonMoves[] moves, int health, int mana, int stamina, String description,
-                      Bitmap armour, int armourValue, Bitmap weakness, int weaknessValue, Element weaknessElement, Bitmap absorption, int absorptionValue, Element absorptionElement, boolean revealed, Container container) {
-        super(x, y, width, height, bitmap, gameScreen, ID,name, description, revealed, typeIcon, container);
-        this.backGround = backGround;
+                      int armourValue,int weaknessValue, Element weaknessElement, int absorptionValue, Element absorptionElement, boolean revealed, Container container) {
+        super(x, y, width, height, bitmapTemplate, gameScreen, ID,name, description, revealed, container);
 
         this.health = health;
         this.mana = mana;
@@ -106,11 +109,8 @@ public class UnimonCard extends Card {
         this.moves = moves;
 
         //defensive stats
-        this.absorption = absorption;
         this.absorptionValue = absorptionValue;
-        this.weakness = weakness;
         this.weaknessValue = weaknessValue;
-        this.armour = armour;
         this.armourValue = armourValue;
         this.weaknessElement = weaknessElement;
         this.absorptionElement = absorptionElement;
@@ -145,12 +145,6 @@ public class UnimonCard extends Card {
     public void setStamina(int stamina) {
         this.stamina = stamina;
     }
-
-    public Bitmap getBackGround() {
-        return backGround;
-    }
-
-    public void setBackGround(Bitmap backGround){this.backGround = backGround; }
 
     public Bitmap getHealthBar() {
         return healthBar;
@@ -206,21 +200,8 @@ public class UnimonCard extends Card {
         this.maxStamina = maxStamina;
     }
 
-
-    public Bitmap getAbsorption() {
-        return absorption;
-    }
-
-    public Bitmap getWeakness() {
-        return weakness;
-    }
-
     public Element getWeaknessElement(){ return weaknessElement; }
 
-
-    public Bitmap getArmour() {
-        return armour;
-    }
 
     public int getAbsorptionValue() {
         return absorptionValue;
@@ -439,6 +420,9 @@ public class UnimonCard extends Card {
         return true;
     }
 
+    public void developCard() {
+        templateRect = new Rect((int) (position.x-mBound.halfWidth), (int) (position.y-mBound.halfHeight), (int) (position.x+mBound.halfWidth), (int) (position.y+mBound.halfHeight));
+    }
 
     public void update(ElapsedTime elapsedTime) {
         dead();
@@ -446,8 +430,62 @@ public class UnimonCard extends Card {
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+        developCard();
+
+        Paint textFormat = formatText();
+        drawStats(graphics2D, textFormat);
     }
 
+    public void drawStats(IGraphics2D graphics2D, Paint formatText) {
+        drawHealthStat(graphics2D, formatText);
+        drawStaminaStat(graphics2D, formatText);
+        drawManaStat(graphics2D, formatText);
+    }
+
+    public Paint formatText() {
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(20f);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        return paint;
+    }
+
+    public void drawHealthStat(IGraphics2D graphics2D, Paint formatText) {
+        Rect healthPointTextRect = constructStatRect(StatType.HEALTH);
+        String healthString = ("Health | " +  Integer.toString(health) + "/" + Integer.toString(maxHealth));
+        graphics2D.drawText(healthString,healthPointTextRect.centerX(), healthPointTextRect.centerY(), formatText);
+    }
+
+    public void drawManaStat(IGraphics2D graphics2D, Paint formatText) {
+        Rect manaPointTextRect = constructStatRect(StatType.MANA);
+        String manaString = ("Mana | " +  Integer.toString(mana) + "/" + Integer.toString(maxMana));
+        graphics2D.drawText(manaString,manaPointTextRect.centerX(), manaPointTextRect.centerY(), formatText);
+    }
+
+
+    public void drawStaminaStat(IGraphics2D graphics2D, Paint formatText) {
+        Rect staminaPointTextRect = constructStatRect(StatType.STAMINA);
+        String staminaString = ("Stamina | " +  Integer.toString(stamina) + "/" + Integer.toString(maxStamina));
+        graphics2D.drawText(staminaString,staminaPointTextRect.centerX(), staminaPointTextRect.centerY(), formatText);
+    }
+
+    public Rect constructStatRect(StatType statToBeDrawn) {
+        Rect statRect = new Rect();
+        switch (statToBeDrawn) {
+            case HEALTH:
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.265f)), (int) (templateRect.right-(mBound.getWidth())*0.77f),  templateRect.bottom);
+                break;
+            case STAMINA:
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.42f)), (int) (templateRect.right-(mBound.getWidth())*0.77f),  templateRect.bottom);
+                break;
+            case MANA:
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.34f)), (int) (templateRect.right-(mBound.getWidth())*0.77f),  templateRect.bottom);
+                break;
+            default:
+                break;
+        }
+        return statRect;
+    }
 }
 
 

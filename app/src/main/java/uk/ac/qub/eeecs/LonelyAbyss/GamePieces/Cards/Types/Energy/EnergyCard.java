@@ -38,8 +38,8 @@ public class EnergyCard extends Card {
     private Map<UnimonEvolveType, Map<EnergyType, Integer>>  energy;
 
     public EnergyCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen, String ID,
-                      Bitmap backGround, Bitmap icon, String name, EnergyType type, Map<UnimonEvolveType,Map<EnergyType, Integer>> energy, String description, boolean revealed, Container container) {
-        super(x, y, width, height, bitmap, gameScreen,ID,name,description, revealed, icon, container);
+                      Bitmap backGround, String name, EnergyType type, Map<UnimonEvolveType,Map<EnergyType, Integer>> energy, String description, boolean revealed, Container container) {
+        super(x, y, width, height, bitmap, gameScreen,ID,name,description, revealed, container);
         this.backGround = backGround;
         this.type = type;
         this.energy = new HashMap<UnimonEvolveType, Map<EnergyType, Integer>>(energy);

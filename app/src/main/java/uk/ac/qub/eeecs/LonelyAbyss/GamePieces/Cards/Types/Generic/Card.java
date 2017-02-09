@@ -31,14 +31,13 @@ public abstract class Card extends GameObject {
      * @param description - description of the card
      */
     public Card(float x, float y, float width, float height, Bitmap bitmap,
-                GameScreen gameScreen, String ID, String name,String description, boolean revealed, Bitmap icon, Container container) {
+                GameScreen gameScreen, String ID, String name,String description, boolean revealed, Container container) {
         super(x, y, width, height, bitmap, gameScreen);
 
         this.ID = ID;
         this.name = name;
         this.description = description;
         this.revealed = revealed;
-        this.icon = icon;
         this.container = container;
 
     }
