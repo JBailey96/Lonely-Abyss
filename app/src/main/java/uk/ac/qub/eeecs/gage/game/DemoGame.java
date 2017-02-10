@@ -47,23 +47,13 @@ public class DemoGame extends Game {
         // Create and add a stub game screen to the screen manager. We don't
         // want to do this within the onCreate method as the menu screen
         // will layout the buttons based on the size of the view.
-//        getScreenManager().removeScreen(mScreenManager.getCurrentScreen().getName());
-//        GridLevel level = new GridLevel(this);
-//        getScreenManager().addScreen(level);
 
-//        DeckManagement DM = new DeckManagement(this);
- //       getScreenManager().addScreen(DM);
- //      GridLevel gl = new GridLevel(this);
- //       getScreenManager().addScreen(gl);
 
-        /*PlayScreen PS = new PlayScreen(this);
-        getScreenManager().addScreen(PS);*/
+        MenuScreen MS = new MenuScreen(this);
+        getScreenManager().addScreen(MS);
 
-        /*MenuScreen MS = new MenuScreen(this);
-        getScreenManager().addScreen(MS);*/
-
-        CardTest CT = new CardTest(this);
-        getScreenManager().addScreen(CT);
+      //  CardTest CT = new CardTest(this);
+       // getScreenManager().addScreen(CT);
 
 
         return view;
