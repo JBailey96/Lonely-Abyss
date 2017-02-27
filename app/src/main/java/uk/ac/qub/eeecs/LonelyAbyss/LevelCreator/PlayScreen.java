@@ -2,14 +2,21 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.Element;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonEvolveType;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -39,22 +46,27 @@ public class PlayScreen extends GameScreen {
     List<GameObject> playAreaOverviewCards = new ArrayList<GameObject>(); //the play area cards displayed.
 
     public enum PlayAreaState { //the state of the player area, decides what to draw
-        OVERVIEW, ACTIVEUNIMON, ENERGYCARD
+        NONE, ACTIVEUNIMON, ENERGYCARD
     }
 
-    private PlayAreaState currentState = PlayAreaState.OVERVIEW; // choose the state to be overview first
+    private PlayAreaState currentState = PlayAreaState.NONE;
 
     //this will be replaced by the player's battlesetup class being called - but just for clarity
     private int numHandCards = 5;
     private int numBenchCards = 3;
     private int numPrizeCards = 3;
 
+    UnimonCard testCard; //testCard used to test the active unimon view
+
+    protected LayerViewport activeUnimonLayerViewPort;
+
     public PlayScreen(Game game) {
         super("PlayScreen", game);
-        mLayerViewPort = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
+        mLayerViewPort = new LayerViewport(mScreenViewport.width/2, mScreenViewport.height/2, mScreenViewport.width/2, mScreenViewport.height/2);
         handlePlayAreaBitmaps();
         generateCards();
+        loadTestCard();
     }
 
     /*
@@ -66,14 +78,15 @@ public class PlayScreen extends GameScreen {
         mInput = mGame.getInput();
         touchEvents = mInput.getTouchEvents();
 
-        //if (currentState == PlayAreaState.OVERVIEW) {
+        if (currentState == PlayAreaState.ACTIVEUNIMON) {
+
+        } else {
             for (GameObject card : playAreaOverviewCards) {
                 card.update(elapsedTime);
             }
-        //}
+        }
 
         touchButton(touchEvents);
-
     }
 
     @Override
@@ -81,11 +94,20 @@ public class PlayScreen extends GameScreen {
         graphics2D.clear(Color.WHITE);
         graphics2D.clipRect(mScreenViewport.toRect());
 
-       // if (currentState == PlayAreaState.OVERVIEW) { //draw the overview playarea cards
-            for (GameObject card : playAreaOverviewCards) {
-                card.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
-            }
-       // }
+        for (GameObject card : playAreaOverviewCards) {
+            card.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+        }
+
+        if (currentState == PlayAreaState.ACTIVEUNIMON) {
+            Paint myPaint = new Paint();
+
+            Rect paintRect = new Rect(0, 0, mScreenViewport.width, mScreenViewport.height);
+            myPaint.setAlpha(200);
+
+            graphics2D.drawBitmap(selectBitmap("BLACK"), null, paintRect, myPaint);
+
+            testCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+        }
     }
 
     public void generateCards() {
@@ -233,15 +255,27 @@ public class PlayScreen extends GameScreen {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 for (GameObject card: playAreaOverviewCards) { //(for now) if the user presses any of the cards
                     if (card.getBound().contains((int) t.x, (int) mLayerViewPort.getTop()-t.y)) {
-                        //transition to unimon card overview
-                        mGame.getScreenManager().removeScreen(this.getName());
-                        CardTest cardOverviewScreen = new CardTest(mGame);
-                        mGame.getScreenManager().addScreen(cardOverviewScreen);
+                        currentState = PlayAreaState.ACTIVEUNIMON;
+                    } else if (currentState == PlayAreaState.ACTIVEUNIMON) {
+                        if (!(testCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop()-t.y))) {
+                            currentState = PlayAreaState.NONE;
+                        }
                     }
                 }
             }
         }
     }
+
+    public void loadTestCard() {
+    getGame().getAssetManager().loadAndAddBitmap("CARD", "img/Cards/Earth Dragon.png");
+        getGame().getAssetManager().loadAndAddBitmap("BLACK", "img/Particles/black.png");
+        Bitmap cardImage = selectBitmap("CARD");
+        testCard = new UnimonCard((mScreenViewport.width/2), (mScreenViewport.height/2), (mScreenViewport.width/3), (int)(mScreenViewport.height/1.3f), cardImage, this,
+                "0", null, null, null, "Earth Dragon",
+                UnimonEvolveType.DEMON, Element.EARTH, null, 5, 6, 7, "test Description",
+                20 ,30, Element.FIRE, 50, Element.HOLY, true, Container.ACTIVE);
+    }
+
     /*
     This is to draw a random card from the deck that will then be placed into the hand. Messed around with the code and could not get it working :(
      */

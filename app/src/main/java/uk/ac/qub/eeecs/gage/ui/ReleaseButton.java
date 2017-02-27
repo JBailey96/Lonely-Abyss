@@ -78,7 +78,7 @@ public class ReleaseButton extends GameObject {
         assetStore.loadAndAddBitmap("GLOW", "img/Particles/gloweffect.png");
 
         glowEffect = assetStore.getBitmap("GLOW");
-        glowEffectDimen = new Rect((int) (x - width/2 - 10), (int) (y - height*2 - 10), (int) (x + width/2 + 10), (int) (y + height/2 + 10));
+        glowEffectDimen = new Rect((int) (x-mBound.halfWidth-10), (int) (y-mBound.halfHeight-10), (int) (x+mBound.halfWidth+10), (int) (y+mBound.halfHeight+10));
 
         mDefaultBitmap = assetStore.getBitmap(defaultBitmap);
         mPushBitmap = assetStore.getBitmap(pushBitmap);
@@ -197,7 +197,7 @@ public class ReleaseButton extends GameObject {
 
         // Assumed to be in screen space so just draw the whole thing
         drawScreenRect.set((int) (position.x - mBound.halfWidth),
-                (int) (position.y - mBound.halfWidth),
+                (int) (position.y - mBound.halfHeight),
                 (int) (position.x + mBound.halfWidth),
                 (int) (position.y + mBound.halfHeight));
 

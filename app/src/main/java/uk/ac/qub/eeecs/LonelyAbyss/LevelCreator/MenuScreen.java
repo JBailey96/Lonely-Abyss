@@ -47,23 +47,17 @@ public class MenuScreen extends GameScreen {
         super("MainMenu", game);
 
         loadMenuBitmaps(); //load bitmaps needed for the various bitmaps used (buttons and logo)
-
-
         mLayerViewport = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
 
-        //Declaring the dimensions for the various Bitmaps
-        backgroundRect = new Rect(0, 0, game.getScreenWidth(),  game.getScreenHeight());
-        playButtonRect = new Rect((int) mLayerViewport.halfWidth-200, (int) mLayerViewport.halfHeight+300, (int) mLayerViewport.halfWidth+200, (int) mLayerViewport.halfHeight+400);
-        logoRect = new Rect((int) mLayerViewport.halfWidth-800, (int) mLayerViewport.halfHeight-600, (int) mLayerViewport.halfWidth+800, (int) mLayerViewport.halfHeight);
-        exitButtonRect = new Rect((int) mLayerViewport.getWidth()-110, 10, (int) mLayerViewport.getWidth()-10, 110);
+        //Declaring the dimensions for the backgorunds
+        backgroundRect = new Rect(0, 0, mScreenViewport.width,  mScreenViewport.height);
 
-        //the exit and play button constructed with the dimensions above and the bitmaps loaded
-        exitButton = new ReleaseButton(exitButtonRect.exactCenterX(), exitButtonRect.exactCenterY(), exitButtonRect.width(), exitButtonRect.height(), "EXIT", "EXIT", "", this);
-        playButton = new ReleaseButton(playButtonRect.exactCenterX(), playButtonRect.exactCenterY(), playButtonRect.width(), playButtonRect.height(), "PLAY", "PLAY", "", this);
+        loadMenuBitmaps();
+        generateButtonsDimen();
+        loadButtons();
+        accessBitmaps();
 
-        background = mGame.getAssetManager().getBitmap("BACKGROUND");
-        logo = mGame.getAssetManager().getBitmap("LOGO");
     }
 
     @Override
@@ -96,12 +90,39 @@ public class MenuScreen extends GameScreen {
         }
     }
 
+    public void generateButtonsDimen() {
+        int playLeftDimen = mScreenViewport.width/2-mScreenViewport.width/8;
+        int playTopDimen = (int) (mScreenViewport.height*0.75)-mScreenViewport.height/8;
+        int playRightDimen = (mScreenViewport.width/2+mScreenViewport.width/8);
+        int playBottomDimen = (int) (mScreenViewport.height*0.75)+mScreenViewport.height/8;
+        playButtonRect = new Rect(playLeftDimen, playTopDimen, playRightDimen, playBottomDimen);
+
+        int logoLeftDimen = mScreenViewport.width/8;
+        int logoTopDimen = mScreenViewport.height/8;
+        int logoRightDimen = mScreenViewport.width-mScreenViewport.width/8;
+        int logoBottomDimen = logoTopDimen+mScreenViewport.height/4;
+        logoRect = new Rect(logoLeftDimen, logoTopDimen, logoRightDimen, logoBottomDimen);
+
+
+        int exitLeftDimen = mScreenViewport.width-mScreenViewport.width/18;
+        int exitTopDimen = 0;
+        int exitRightDimen = mScreenViewport.width;
+        int exitBottomDimen = mScreenViewport.height/12;
+        exitButtonRect = new Rect(exitLeftDimen, exitTopDimen, exitRightDimen, exitBottomDimen);
+    }
+
+    public void loadButtons() {
+        //the exit and play button constructed with the dimensions above and the bitmaps loaded
+        exitButton = new ReleaseButton(exitButtonRect.exactCenterX(), exitButtonRect.exactCenterY(), exitButtonRect.width(), exitButtonRect.height(), "EXIT", "EXIT", "", this);
+        playButton = new ReleaseButton(playButtonRect.exactCenterX(), playButtonRect.exactCenterY(), playButtonRect.width(), playButtonRect.height(), "PLAY", "PLAY", "", this);
+    }
+
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         graphics2D.drawBitmap(background, null, backgroundRect, null); //draw the background bitmap,
+        graphics2D.drawBitmap(logo, null, logoRect, null); //the logo
         exitButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //exit button
         playButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //play button
-        graphics2D.drawBitmap(logo, null, logoRect, null); //the logo
     }
 
     //load the bitmaps needed to construct the interactive and non-interactive buttons
@@ -110,5 +131,10 @@ public class MenuScreen extends GameScreen {
         getGame().getAssetManager().loadAndAddBitmap("PLAY", "img/MenuImages/PlayButton.png");
         getGame().getAssetManager().loadAndAddBitmap("LOGO", "img/MenuImages/Logo.png");
         getGame().getAssetManager().loadAndAddBitmap("EXIT", "img/MenuImages/ExitButton.png");
+    }
+
+    public void accessBitmaps() {
+        background = mGame.getAssetManager().getBitmap("BACKGROUND");
+        logo = mGame.getAssetManager().getBitmap("LOGO");
     }
 }

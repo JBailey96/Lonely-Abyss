@@ -61,7 +61,7 @@ public class CardTest extends GameScreen {
 
         Bitmap cardImage = mGame.getAssetManager().getBitmap("CARD");
 
-        testCard = new UnimonCard((int)(mScreenViewport.width/2), (int) (mScreenViewport.height/2), (int)(mScreenViewport.width/3), (int)(mScreenViewport.height/1.5), cardImage, this,
+        testCard = new UnimonCard((mScreenViewport.width/2), (mScreenViewport.height/2), (mScreenViewport.width/3), (int)(mScreenViewport.height/1.5f), cardImage, this,
                 "0", null, null, null, "Earth Dragon",
                 UnimonEvolveType.DEMON, Element.EARTH, null, 5, 6, 7, "test Description",
         20 ,30, Element.FIRE, 50, Element.HOLY, true, Container.ACTIVE);

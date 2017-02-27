@@ -39,7 +39,6 @@ public class DeckManagement extends GameScreen {
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
         loadCardBitmaps();
         createCard();
-
     }
 
     //For response to a touch event
