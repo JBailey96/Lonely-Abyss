@@ -8,6 +8,7 @@ import java.util.Random;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.Grid;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.GridType;
+import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.PlayScreen;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
@@ -171,7 +172,7 @@ public class GridLevel extends GameScreen {
                 break;
             }
         }
-        return getGame().getAssetManager().getBitmap(bitmap); //return the grid square bitmap from assetmanager
+        return super.selectBitmap(bitmap);
     }
 
     //load the grid square bitmaps into the asset manager to use to create the grid squares.

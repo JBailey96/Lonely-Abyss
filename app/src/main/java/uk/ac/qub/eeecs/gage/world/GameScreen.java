@@ -1,5 +1,7 @@
 package uk.ac.qub.eeecs.gage.world;
 
+import android.graphics.Bitmap;
+
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
@@ -104,5 +106,10 @@ public abstract class GameScreen {
 	 * Invoked automatically by the game whenever the app is disposed.
 	 */
 	public void dispose() {
+	}
+
+	//useful method for retrieving a specific bitmap from the asset manager using the string key
+	public Bitmap selectBitmap(String cardKey) {
+		return mGame.getAssetManager().getBitmap(cardKey);
 	}
 }

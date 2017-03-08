@@ -445,7 +445,8 @@ public class UnimonCard extends Card {
     public Paint formatText() {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
-        paint.setTextSize(20f);
+        float textSizeRatio = (float) templateRect.width()/(float)templateRect.height();
+        paint.setTextSize(38f*textSizeRatio);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         return paint;
     }

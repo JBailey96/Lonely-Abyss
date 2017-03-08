@@ -102,12 +102,5 @@ public class DeckManagement extends GameScreen {
         cardRef.add("UC1");
         cardRef.add("UC2");
         cardRef.add("UC3");
-
-    }
-    // Will be passed a token to select bitmap. This Bitmap will then be returned.
-    private Bitmap selectBitmap(String cardIndex) {
-
-        return getGame().getAssetManager().getBitmap(cardIndex);
-
     }
 }
