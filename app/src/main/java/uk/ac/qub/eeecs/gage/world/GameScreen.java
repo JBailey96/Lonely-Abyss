@@ -107,7 +107,6 @@ public abstract class GameScreen {
 	 */
 	public void dispose() {
 	}
-
 	//useful method for retrieving a specific bitmap from the asset manager using the string key
 	public Bitmap selectBitmap(String cardKey) {
 		return mGame.getAssetManager().getBitmap(cardKey);

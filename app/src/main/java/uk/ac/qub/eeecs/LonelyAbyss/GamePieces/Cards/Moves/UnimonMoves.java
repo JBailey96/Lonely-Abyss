@@ -32,7 +32,7 @@ public class UnimonMoves {
 
     private int baseDamage; //the base damage of the move before the damage is increased/reduced by the opponent's weakness/absorption/armour stats
 
-    private Map<StatusEffect, Integer> statusEffects; ///The status effect the move inflicts upon the opponent's unimon card and how many turns it is to be applied for.
+    //private Map<StatusEffect, Integer> statusEffects; ///The status effect the move inflicts upon the opponent's unimon card and how many turns it is to be applied for.
 
 
 
@@ -49,13 +49,13 @@ public class UnimonMoves {
      * @param description - What the attack does
      * @param movesReq - the energy needed to make the move and how much of that energy is needed
      */
-    public UnimonMoves(String name, Bitmap icon, String description,Map<MoveResource,Integer>movesReq, int baseDamage, MoveType moveType, Map<StatusEffect, Integer> statusEffects){
+    public UnimonMoves(String name, Bitmap icon, String description,Map<MoveResource,Integer>movesReq, int baseDamage, MoveType moveType){ // Map<StatusEffect, Integer> statusEffects){
         this.name = name;
         this.icon = icon;
         this.description = description;
         this.movesReq = new HashMap<MoveResource, Integer>(movesReq);
         this.baseDamage = baseDamage;
-        this.statusEffects = statusEffects;
+        //this.statusEffects = statusEffects;
         this.moveType = moveType;
     }
 
@@ -88,13 +88,13 @@ public class UnimonMoves {
     }
 
     //getters and setters for status effects
-    public Map<StatusEffect, Integer> getStatusEffects() {
+  /*  public Map<StatusEffect, Integer> getStatusEffects() {
         return statusEffects;
     }
 
     public void setStatusEffects(Map<StatusEffect, Integer> statusEffects) {
         this.statusEffects = statusEffects;
-    }
+    }*/
 
     /**
      * This method sets the description of the move
@@ -163,9 +163,9 @@ public class UnimonMoves {
             }
 
 
-    public void statusAttack(UnimonCard opponentCard){
+   /* public void statusAttack(UnimonCard opponentCard){
         opponentCard.setStatusEffects(getStatusEffects());
-    }
+    }*/
 
 
      //select which type of attack to use against the opponent's card
@@ -177,9 +177,9 @@ public class UnimonMoves {
             case ELEMENTAL:
                 elementalAttack(playerCard, opponentCard);
                 break;
-            case STATUS:
+           /* case STATUS:
                 statusAttack(opponentCard);
-                break;
+                break;*/
             default:
                 break;
         }
@@ -226,10 +226,12 @@ public class UnimonMoves {
      * @param playerCard - the players card
      * @param move - temp array of moves
      */
-    public boolean checkingStamina(UnimonCard playerCard,UnimonMoves move){
-            if(playerCard.getStamina() >= (move.getMovesReq().get(MoveResource.STAMINA))){
+    public boolean checkingStamina(UnimonCard playerCard,UnimonMoves move) {
+        if (move.getMovesReq().containsKey(MoveResource.STAMINA)) {
+            if (playerCard.getStamina() >= (move.getMovesReq().get(MoveResource.STAMINA))) {
                 return true;
             }
+        }
         return false;
     }
 
@@ -239,9 +241,11 @@ public class UnimonMoves {
      * @param move - temp array of moves
      */
     public boolean checkingMana(UnimonCard playerCard, UnimonMoves move){
-             if(playerCard.getMana() >= (move.getMovesReq().get(MoveResource.MANA))) {
-                 return true;
-             }
+        if(move.getMovesReq().containsKey(MoveResource.MANA)) {
+            if (playerCard.getMana() >= (move.getMovesReq().get(MoveResource.MANA))) {
+                return true;
+            }
+        }
         return false;
     }
 }

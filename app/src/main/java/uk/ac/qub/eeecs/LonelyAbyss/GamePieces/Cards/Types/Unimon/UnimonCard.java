@@ -396,7 +396,7 @@ public class UnimonCard extends Card {
 
     //process the overall damage to be inflicted when the armour reduces it
     public int processArmourDAM(int baseDamage) {
-        return (int) baseDamage * ((100 - getArmourValue()) / 100);
+        return (int) (baseDamage * ((100 - getArmourValue()) / 100f));
     }
 
     //processes the overall damage to be inflicted when the weakness multiplies it
@@ -416,9 +416,11 @@ public class UnimonCard extends Card {
     public boolean dead(){
         if(getHealth() <= 0){
             this.container = Container.GRAVEYARD;
+            return true;
         }
-        return true;
+        return false;
     }
+
 
     public void developCard() {
         templateRect = new Rect((int) (position.x-mBound.halfWidth), (int) (position.y-mBound.halfHeight), (int) (position.x+mBound.halfWidth), (int) (position.y+mBound.halfHeight));

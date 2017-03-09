@@ -1,5 +1,6 @@
 package uk.ac.qub.eeecs.gage.game;
 
+import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.DeckManagement;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.MenuScreen;
 import uk.ac.qub.eeecs.gage.Game;
 
@@ -50,13 +51,11 @@ public class DemoGame extends Game {
         MenuScreen MS = new MenuScreen(this);
         getScreenManager().addScreen(MS);
 
-      //  CardTest CT = new CardTest(this);
-       // getScreenManager().addScreen(CT);
-
+        //DeckManagement level = new DeckManagement(this);
+        //getScreenManager().addScreen(level);
 
         return view;
     }
-
     @Override
     public boolean onBackPressed() {
         // If we are already at the menu screen then exit
@@ -65,10 +64,12 @@ public class DemoGame extends Game {
 
         // Go back to the menu screen
         getScreenManager().removeScreen(mScreenManager.getCurrentScreen().getName());
-//        DeckManagement level = new DeckManagement(this);
-        //GridLevel level = new GridLevel(this);
-        MenuScreen level = new MenuScreen(this);
+
+        DeckManagement level = new DeckManagement(this);
         getScreenManager().addScreen(level);
+
+       // MenuScreen level = new MenuScreen(this);
+        // getScreenManager().addScreen(level);
         return true;
     }
 }
