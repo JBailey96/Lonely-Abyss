@@ -30,7 +30,7 @@ public class ActiveUnimonState extends State {
 
     protected final int numMoveButtons = 3; //the number of move buttons
 
-    //Battle Option Buttons
+    //BattleOption Buttons
     ReleaseButton applyEnergyButton;
     ReleaseButton evolveButton;
     ReleaseButton retreatButton;

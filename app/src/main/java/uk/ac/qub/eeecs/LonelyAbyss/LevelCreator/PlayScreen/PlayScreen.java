@@ -1,6 +1,7 @@
 package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
 import android.graphics.Color;
+import android.graphics.Path;
 
 import java.util.List;
 import java.util.Random;
@@ -33,6 +34,7 @@ public class PlayScreen extends GameScreen {
     //the states the play area can have
     PlayOverviewState playOverviewState;
     ActiveUnimonState activeUnimonState;
+    OpponentScreen opponentScreen;
 
 
 
@@ -49,6 +51,7 @@ public class PlayScreen extends GameScreen {
     public void createStates() {
         playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true); //state active initalised to true - first state
         activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false);
+        opponentScreen = new OpponentScreen(mScreenViewport, mLayerViewPort, mGame, this, false);
     }
 
 
@@ -65,6 +68,7 @@ public class PlayScreen extends GameScreen {
     public void updateStates(ElapsedTime elapsedTime) {
         activeUnimonState.update(elapsedTime);
         playOverviewState.update(elapsedTime);
+        opponentScreen.update(elapsedTime);
     }
 
 
@@ -80,6 +84,7 @@ public class PlayScreen extends GameScreen {
     public void drawStates(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         playOverviewState.draw(elapsedTime, graphics2D);
         activeUnimonState.draw(elapsedTime, graphics2D);
+        opponentScreen.draw(elapsedTime, graphics2D);
     }
 
 
@@ -98,6 +103,13 @@ public class PlayScreen extends GameScreen {
 
     public void setActiveUnimonState(ActiveUnimonState activeUnimonState) {
         this.activeUnimonState = activeUnimonState;
+    }
+
+    public OpponentScreen getOpponentScreen(){
+        return opponentScreen;
+    }
+    public void setOpponentScreen(OpponentScreen opponentScreen){
+        this.opponentScreen = opponentScreen;
     }
 
 

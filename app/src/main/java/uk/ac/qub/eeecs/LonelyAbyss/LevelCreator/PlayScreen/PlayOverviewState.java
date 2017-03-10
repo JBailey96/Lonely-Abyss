@@ -18,7 +18,7 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.State;
 
 /**
- * Created by appcamp on 08/03/2017.
+ * Created by kyle on 08/03/2017.
  */
 
 public class PlayOverviewState extends State {
@@ -27,6 +27,7 @@ public class PlayOverviewState extends State {
     GameObject deckCard; //card used to represent the top of the deck
 
     GameObject activeUnimonCard; //the unimon card that the player has currently active
+    GameObject opponentButton; // the button that will show the opponent's screen
 
     //this will be replaced by the player's battlesetup class being called - but just for clarity
     private int numHandCards = 5;
@@ -62,12 +63,16 @@ public class PlayOverviewState extends State {
 
         deckCard.update(elapsedTime);
         activeUnimonCard.update(elapsedTime);
+        opponentButton.update(elapsedTime);
+
     }
 
     public void touchButton(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
+                touchOpponentButton(t);
                 touchActiveUnimon(t);
+
             }
         }
     }
@@ -77,6 +82,14 @@ public class PlayOverviewState extends State {
         if ((activeUnimonCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             PlayScreen playScreen = (PlayScreen) mGameScreen;
             playScreen.getActiveUnimonState().active = true;
+        }
+    }
+
+    //checks whether the opponent button has been touched
+    public void touchOpponentButton(TouchEvent t) {
+        if ((opponentButton.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
+            PlayScreen playScreen = (PlayScreen) mGameScreen;
+            playScreen.getOpponentScreen().active = true;
         }
     }
 
@@ -100,16 +113,21 @@ public class PlayOverviewState extends State {
         deckCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
 
         activeUnimonCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+
+        opponentButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
 
     //generate all the voverview cards
     public void generateCards() {
+
+        generateShowOpponentsScreenButton();
         generateHandCards();
         generateDeckCard();
         generateBenchCard();
         generatePrizeCards();
         generateActiveUnimon();
         generateGraveyardCards();
+        //generateShowOpponentsScreenButton();
     }
 
 
@@ -190,6 +208,15 @@ public class PlayOverviewState extends State {
         activeUnimonCard = new GameObject(x, y, width, height, selectBitmap("UnimonCard"), mGameScreen);
     }
 
+    // generate the dimensions for the button that will show the opponent's screen
+    public void generateShowOpponentsScreenButton() {
+        float width = mScreenViewport.width / 7;
+        float x = width / 2 + mScreenViewport.width / 5.6f;
+        float height = mScreenViewport.height / 8;
+        float y = mScreenViewport.height - mScreenViewport.height / 30 - height / 2;
+        opponentButton = new GameObject(x, y, width, height, selectBitmap("Opponent"), mGameScreen);
+    }
+
     //generate the cards not currently active in the game - graveyard
     public void generateGraveyardCards() {
         float width = mScreenViewport.width / 10;
@@ -220,6 +247,7 @@ public class PlayOverviewState extends State {
         mGame.getAssetManager().loadAndAddBitmap("PrizeCard", "img/PlayArea/PrizeCard.png");
         mGame.getAssetManager().loadAndAddBitmap("DragonKing", "img/PlayArea/Dragon_King.png");
         mGame.getAssetManager().loadAndAddBitmap("Graveyard", "img/PlayArea/Graveyard.png");
+        mGame.getAssetManager().loadAndAddBitmap("Opponent", "img/PlayArea/opponent_screen.png");
     }
 
 
