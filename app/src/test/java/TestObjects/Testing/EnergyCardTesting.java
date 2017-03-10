@@ -18,7 +18,6 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonEvolveType;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
-
 import static junit.framework.Assert.assertEquals;
 /**
  * Created by Patrick on 02/03/2017.

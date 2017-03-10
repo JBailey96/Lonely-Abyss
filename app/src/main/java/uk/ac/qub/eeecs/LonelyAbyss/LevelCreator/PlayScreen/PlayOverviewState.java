@@ -247,7 +247,7 @@ public class PlayOverviewState extends State {
         mGame.getAssetManager().loadAndAddBitmap("PrizeCard", "img/PlayArea/PrizeCard.png");
         mGame.getAssetManager().loadAndAddBitmap("DragonKing", "img/PlayArea/Dragon_King.png");
         mGame.getAssetManager().loadAndAddBitmap("Graveyard", "img/PlayArea/Graveyard.png");
-        mGame.getAssetManager().loadAndAddBitmap("Opponent", "img/PlayArea/opponent_screen.png");
+        mGame.getAssetManager().loadAndAddBitmap("Opponent", "img/PlayScreenButtons/opponent_screen.png");
     }
 
 

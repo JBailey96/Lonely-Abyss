@@ -3,15 +3,10 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.icu.text.UnicodeSet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyType;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.Element;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -31,13 +26,11 @@ import uk.ac.qub.eeecs.gage.world.State;
  */
 
 public class ActiveUnimonState extends State {
-
-    boolean energy = false;
     UnimonCard testActiveCard; //testCard used to test the active unimon view
-    EnergyCard testEnergyCard;
+
     protected final int numMoveButtons = 3; //the number of move buttons
 
-    //BattleOption Buttons
+    //Battle Option Buttons
     ReleaseButton applyEnergyButton;
     ReleaseButton evolveButton;
     ReleaseButton retreatButton;
@@ -49,8 +42,6 @@ public class ActiveUnimonState extends State {
         loadButtonOptionBitmaps();
         generateBattleOptions();
         loadTestCard();
-        loadEnergyCard();
-
     }
 
     @Override
@@ -65,41 +56,25 @@ public class ActiveUnimonState extends State {
 
     public void touchButton(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
-
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
-
                 touchActiveUnimon(t);
-                //touchEnergyButton(t);
             }
         }
     }
 
     //checks whether the active unimon has been touched
     public void touchActiveUnimon(TouchEvent t) {
-        if (!(testActiveCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
-           // active = false;
-        }
-
-        if (!(applyEnergyButton.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
-            energy=true;
-        }
+            if (!(testActiveCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
+                active = false;
+            }
     }
-
-
-
 
     @Override
-    public void draw (ElapsedTime elapsedTime, IGraphics2D graphics2D){
+    public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         if (active) {
             drawActive(elapsedTime, graphics2D);
-            //drawEnergyCard(elapsedTime, graphics2D);
-
-        }
-        if (energy) {
-            drawEnergyCard(elapsedTime, graphics2D);
         }
     }
-
 
     //draw active unimon card and the battle options
     public void drawActive(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
@@ -117,14 +92,6 @@ public class ActiveUnimonState extends State {
         graphics2D.drawBitmap(selectBitmap("BLACK"), null, paintRect, myPaint);
         testActiveCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
-
-    public void drawEnergyCard(ElapsedTime elapsedTime, IGraphics2D graphics2D){
-
-        testEnergyCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
-
-
-    }
-
 
     //method for drawing the battle option buttons
     public void drawBattleOptionButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
@@ -209,21 +176,6 @@ public class ActiveUnimonState extends State {
                 "0", null, null, null, "Earth Dragon",
                 UnimonEvolveType.DEMON, Element.EARTH, null, 5, 6, 7, "test Description",
                 20 ,30, Element.FIRE, 50, Element.HOLY, true, Container.ACTIVE);
-
     }
-
-    //load energy card
-    public void loadEnergyCard(){
-        mGame.getAssetManager().loadAndAddBitmap("HEALTHCARD", "img/Cards/Health Potion.png");
-        Bitmap energyCardImage = selectBitmap("HEALTHCARD");
-        testEnergyCard = new EnergyCard((0), (0), (mScreenViewport.width/4.6f), mScreenViewport.height/2, energyCardImage, mGameScreen, null, null, null, EnergyType.HEALTH, null, true, Container.ACTIVE);
-        //testEnergyCard.moveCard(mGame.getScreenWidth(), mGame.getScreenHeight());
-        testEnergyCard.moveCard(mScreenViewport.width/2, mScreenViewport.height/2);
-
-    }
-
-
-
-
 
 }
