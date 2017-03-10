@@ -2,8 +2,10 @@ package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic;
 
 import android.graphics.Bitmap;
 
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -22,6 +24,10 @@ public abstract class Card extends GameObject {
     protected boolean revealed; // true - card is visible and 'in play', false - only the back of the card is visible.
     protected Bitmap icon; //icon on the top left of the card.
     protected Container container; //the container where the card is.
+    protected float x, y;
+    protected Vector2 velocity;
+
+
 
 
     /**
@@ -39,6 +45,8 @@ public abstract class Card extends GameObject {
         this.description = description;
         this.revealed = revealed;
         this.container = container;
+        this.x = x;
+        this.y = y;
 
     }
 
@@ -97,6 +105,22 @@ public abstract class Card extends GameObject {
     }
 
     public void update(ElapsedTime elapsedTime) {
+
+
+
+    }
+
+    public void moveCard(float targetX, float targetY){
+
+        setPosition(targetX, targetY);
+
+        /*velocity.x = 50;
+        velocity.y = 50;
+        float distanceX = this.x - targetX;
+        float distanceY = this.y - targetY;
+        this.x = this.x + targetX;
+        this.y = this.y + targetY;
+       // setPosition(this.x, this.y);*/
 
     }
 
