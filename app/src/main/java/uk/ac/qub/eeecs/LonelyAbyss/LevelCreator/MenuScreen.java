@@ -8,6 +8,7 @@ import java.util.List;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.Music;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -22,6 +23,8 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
  */
 
 public class MenuScreen extends GameScreen {
+    protected Music menuMusic;
+
     protected Bitmap background; // the background of the menu screen
 
     protected Bitmap logo; //the logo of the game
@@ -57,7 +60,7 @@ public class MenuScreen extends GameScreen {
         generateButtonsDimen();
         loadButtons();
         accessBitmaps();
-
+        loadMusic();
     }
 
     @Override
@@ -82,6 +85,7 @@ public class MenuScreen extends GameScreen {
                     mGame.getScreenManager().removeScreen(this.getName());
                     GridLevel gLevel = new GridLevel(mGame);
                     mGame.getScreenManager().addScreen(gLevel);
+                    menuMusic.stop();
                 } else if (exitButton.pushTriggered()) {
                     //the user has chosen to exit the game, the game exits.
                     System.exit(0);
@@ -123,6 +127,9 @@ public class MenuScreen extends GameScreen {
         graphics2D.drawBitmap(logo, null, logoRect, null); //the logo
         exitButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //exit button
         playButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //play button
+        menuMusic.setVolume(10);
+        menuMusic.play();
+
     }
 
     //load the bitmaps needed to construct the interactive and non-interactive buttons
@@ -133,8 +140,14 @@ public class MenuScreen extends GameScreen {
         getGame().getAssetManager().loadAndAddBitmap("EXIT", "img/MenuImages/ExitButton.png");
     }
 
+    public void loadMusic(){
+        getGame().getAssetManager().loadAndAddMusic("LIONKING", "Music/LionKing.mp3");
+        menuMusic = mGame.getAssetManager().getMusic("LIONKING");
+    }
+
     public void accessBitmaps() {
         background = mGame.getAssetManager().getBitmap("BACKGROUND");
         logo = mGame.getAssetManager().getBitmap("LOGO");
+
     }
 }
