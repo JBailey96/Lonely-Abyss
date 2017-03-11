@@ -216,7 +216,7 @@ public class InProgActiveUnimonState extends State {
     public void loadEnergyCard(){
         mGame.getAssetManager().loadAndAddBitmap("HEALTHCARD", "img/Cards/Health Potion.png");
         Bitmap energyCardImage = selectBitmap("HEALTHCARD");
-        testEnergyCard = new EnergyCard((0), (0), (mScreenViewport.width/4.6f), mScreenViewport.height/2, energyCardImage, mGameScreen, null, null, null, EnergyType.HEALTH, null,"null", true, Container.ACTIVE);
+       // testEnergyCard = new EnergyCard((0), (0), (mScreenViewport.width/4.6f), mScreenViewport.height/2, energyCardImage, mGameScreen, null, null, null, EnergyType.HEALTH, null,"null", true, Container.ACTIVE);
         //testEnergyCard.moveCard(mGame.getScreenWidth(), mGame.getScreenHeight());
         testEnergyCard.moveCard(mScreenViewport.width/2, mScreenViewport.height/2);
 

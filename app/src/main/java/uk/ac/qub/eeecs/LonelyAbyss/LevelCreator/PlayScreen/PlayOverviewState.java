@@ -81,7 +81,8 @@ public class PlayOverviewState extends State {
     public void touchActiveUnimon(TouchEvent t) {
         if ((activeUnimonCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             PlayScreen playScreen = (PlayScreen) mGameScreen;
-            playScreen.getActiveUnimonState().active = true;
+           playScreen.getActiveUnimonState().active = true;
+            //playScreen.getInProgActiveUnimonState().active = true;
         }
     }
 

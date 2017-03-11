@@ -64,9 +64,24 @@ public class ActiveUnimonState extends State {
 
     //checks whether the active unimon has been touched
     public void touchActiveUnimon(TouchEvent t) {
-            if (!(testActiveCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
+
+        //load the energy card when the active unimon card is pressed
+            if ((testActiveCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
+                PlayScreen playScreen = (PlayScreen) mGameScreen;
+                playScreen.getActiveEnergyState().active = true;
+
+            }
+
+        //hide the active unimon card when it outside the card is pressed
+            if(!(testActiveCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() -t.y))){
                 active = false;
             }
+
+        //displaying the energy card when the energy button is pressed
+            /*if (applyEnergyButton.isPushed()){
+                PlayScreen playScreen = (PlayScreen) mGameScreen;
+                playScreen.getActiveEnergyState().active = true;
+            }*/
     }
 
     @Override

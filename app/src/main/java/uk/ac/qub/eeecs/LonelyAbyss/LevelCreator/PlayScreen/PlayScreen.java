@@ -35,6 +35,7 @@ public class PlayScreen extends GameScreen {
     PlayOverviewState playOverviewState;
     ActiveUnimonState activeUnimonState;
     OpponentScreen opponentScreen;
+    ActiveEnergyState activeEnergyState;
 
 
 
@@ -51,7 +52,9 @@ public class PlayScreen extends GameScreen {
     public void createStates() {
         playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true); //state active initalised to true - first state
         activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false);
+       // inProgActiveUnimonState = new InProgActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false);
         opponentScreen = new OpponentScreen(mScreenViewport, mLayerViewPort, mGame, this, false);
+        activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
     }
 
 
@@ -67,8 +70,10 @@ public class PlayScreen extends GameScreen {
 
     public void updateStates(ElapsedTime elapsedTime) {
         activeUnimonState.update(elapsedTime);
+       // inProgActiveUnimonState.update(elapsedTime);
         playOverviewState.update(elapsedTime);
         opponentScreen.update(elapsedTime);
+        activeEnergyState.update(elapsedTime);
     }
 
 
@@ -84,7 +89,9 @@ public class PlayScreen extends GameScreen {
     public void drawStates(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         playOverviewState.draw(elapsedTime, graphics2D);
         activeUnimonState.draw(elapsedTime, graphics2D);
+       // inProgActiveUnimonState.draw(elapsedTime, graphics2D);
         opponentScreen.draw(elapsedTime, graphics2D);
+        activeEnergyState.draw(elapsedTime, graphics2D);
     }
 
 
@@ -99,6 +106,14 @@ public class PlayScreen extends GameScreen {
 
     public ActiveUnimonState getActiveUnimonState() {
         return activeUnimonState;
+    }
+
+    public ActiveEnergyState getActiveEnergyState() {
+        return activeEnergyState;
+    }
+
+    public void setActiveEnergyState(ActiveEnergyState activeEnergyState){
+        this.activeEnergyState = activeEnergyState;
     }
 
     public void setActiveUnimonState(ActiveUnimonState activeUnimonState) {
