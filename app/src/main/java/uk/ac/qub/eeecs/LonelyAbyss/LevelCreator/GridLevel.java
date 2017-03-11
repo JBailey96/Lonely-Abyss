@@ -11,6 +11,8 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.GridType;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.PlayScreen;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.Music;
+import uk.ac.qub.eeecs.gage.engine.audio.Sound;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -48,6 +50,11 @@ public class GridLevel extends GameScreen {
     //gridArray to hold all the grid squares
     protected Grid[][] gridArray;
 
+    //sounds for the grid level
+    protected Sound cardFlip;
+    protected Sound battlecardMusic;
+    protected Music gridMusic;
+
     public GridLevel(Game game) {
         super("GridLevel", game);
         mLayerViewport = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
@@ -67,6 +74,11 @@ public class GridLevel extends GameScreen {
         gridArray = new Grid[gridSize][gridSize]; //2-dimensional array to hold the grid squares in rows and columns
         loadGridBitmaps(); //load grid tile bitmaps into asset manager
         generateGrids(); //generate the grid tiles in preparation of being displayed
+        loadSounds();
+
+        //play the grid level music
+        gridMusic.play();
+        gridMusic.setVolume(10);
     }
 
     @Override
@@ -197,6 +209,7 @@ public class GridLevel extends GameScreen {
                     for (int j = 0; j < gridSize; j++) {
                         if ((gridArray[i][j].getHidden()) && (gridArray[i][j].getBound().contains((int) t.x, (int) mLayerViewport.getTop() - t.y))) { //checks whether a grid is hidden and the user is touching a grid
                             if (validGridMove(gridArray[i][j], i, j)) {
+                                cardFlip.play(); //play the card flip sound
                                 gridArray[i][j].reveal(); //reveal the grid square
                                 gridAction(gridArray[i][j]); //called to do action needs to happen when this grid is revealed.
                             }
@@ -271,11 +284,27 @@ public class GridLevel extends GameScreen {
 
         //selection of the grid type to perform the action.
         if (gridT == GridType.BATTLE) {
+            gridMusic.stop(); //stop the grid music once battle commences
+            //battlecardMusic.play();
             //load the play area to begin battle.
             mGame.getScreenManager().removeScreen(this.getName());
             PlayScreen playS = new PlayScreen(mGame);
             mGame.getScreenManager().addScreen(playS);
         }
+    }
+
+    public void loadSounds(){
+        getGame().getAssetManager().loadAndAddSound("CARDFLIP", "Sounds/CardFlip.mp3");
+        cardFlip = mGame.getAssetManager().getSound("CARDFLIP");
+
+        getGame().getAssetManager().loadAndAddMusic("GRIDSOUND", "Music/GridMusic2.mp3");
+        gridMusic = mGame.getAssetManager().getMusic("GRIDSOUND");
+
+        /*getGame().getAssetManager().loadAndAddSound("PARTYTIME", "Sounds/party_time.mp3");
+        battlecardMusic = mGame.getAssetManager().getSound("PARTYTIME");*/
+
+
+
     }
 }
 
