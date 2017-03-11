@@ -1,7 +1,6 @@
 package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Rect;
 
 import java.util.List;
@@ -9,11 +8,11 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.audio.Music;
+import uk.ac.qub.eeecs.gage.engine.audio.Sound;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.ReleaseButton;
-import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
@@ -24,6 +23,7 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 public class MenuScreen extends GameScreen {
     protected Music menuMusic;
+    protected Sound buttonClick;
 
     protected Bitmap background; // the background of the menu screen
 
@@ -61,6 +61,10 @@ public class MenuScreen extends GameScreen {
         loadButtons();
         accessBitmaps();
         loadMusic();
+
+        //play the menu music
+        menuMusic.setVolume(10);
+        menuMusic.play();
     }
 
     @Override
@@ -86,6 +90,7 @@ public class MenuScreen extends GameScreen {
                     GridLevel gLevel = new GridLevel(mGame);
                     mGame.getScreenManager().addScreen(gLevel);
                     menuMusic.stop();
+                    buttonClick.play();
                 } else if (exitButton.pushTriggered()) {
                     //the user has chosen to exit the game, the game exits.
                     System.exit(0);
@@ -127,8 +132,7 @@ public class MenuScreen extends GameScreen {
         graphics2D.drawBitmap(logo, null, logoRect, null); //the logo
         exitButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //exit button
         playButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //play button
-        menuMusic.setVolume(10);
-        menuMusic.play();
+
 
     }
 
@@ -143,6 +147,9 @@ public class MenuScreen extends GameScreen {
     public void loadMusic(){
         getGame().getAssetManager().loadAndAddMusic("LIONKING", "Music/LionKing.mp3");
         menuMusic = mGame.getAssetManager().getMusic("LIONKING");
+
+        getGame().getAssetManager().loadAndAddSound("BUTTON", "Sounds/MenuClick.mp3");
+        buttonClick = mGame.getAssetManager().getSound("BUTTON");
     }
 
     public void accessBitmaps() {
