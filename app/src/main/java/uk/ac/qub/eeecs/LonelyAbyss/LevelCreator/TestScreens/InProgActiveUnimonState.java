@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
+package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.TestScreens;
 
 import android.graphics.Bitmap;
 import android.graphics.Paint;
