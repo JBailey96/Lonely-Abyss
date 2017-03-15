@@ -6,5 +6,5 @@ package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic;
 
 //the current status of the card
 public enum Container {
-    GRAVEYARD, PRIZECARD, GAMEDECK, DECK, BENCH, HAND, ACTIVE
+    GRAVEYARD, PRIZECARD, GAMEDECK, DECK, BENCH, HAND, ACTIVE, LOADED
 }

@@ -133,6 +133,14 @@ public class EnergyCard extends Card {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
     }
+
+    public Map<UnimonEvolveType, Map<EnergyType, Integer>> getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(Map<UnimonEvolveType, Map<EnergyType, Integer>> energy) {
+        this.energy = energy;
+    }
 }
 
 

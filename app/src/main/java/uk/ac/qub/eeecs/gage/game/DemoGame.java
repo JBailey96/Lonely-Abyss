@@ -1,13 +1,21 @@
 package uk.ac.qub.eeecs.gage.game;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.DeckManagement;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.MenuScreen;
 import uk.ac.qub.eeecs.gage.Game;
+import uk.ac.qub.eeecs.gage.engine.io.JSONReader;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Sample demo game that is create within the MainActivity class
@@ -47,12 +55,19 @@ public class DemoGame extends Game {
         // want to do this within the onCreate method as the menu screen
         // will layout the buttons based on the size of the view.
 
+        ArrayList<UnimonCard> unimonCards = null;
+
+        try {
+            unimonCards = JSONReader.loadJSONUnimon(getActivity());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         MenuScreen MS = new MenuScreen(this);
         getScreenManager().addScreen(MS);
-
-        //DeckManagement level = new DeckManagement(this);
-        //getScreenManager().addScreen(level);
 
         return view;
     }

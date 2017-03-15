@@ -34,7 +34,7 @@ public class UnimonMoveTesting {
     public void physicalAttack_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.PHYSICAL);
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -57,7 +57,7 @@ public class UnimonMoveTesting {
 
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.PHYSICAL);
 
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -81,7 +81,7 @@ public class UnimonMoveTesting {
 
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.PHYSICAL);
 
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -105,7 +105,7 @@ public class UnimonMoveTesting {
 
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.PHYSICAL);
 
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -129,7 +129,7 @@ public class UnimonMoveTesting {
 
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.PHYSICAL);
 
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -152,7 +152,7 @@ public class UnimonMoveTesting {
     public void elementalAttack_checkWeakness_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,2,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,2,MoveType.PHYSICAL);
 
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -175,7 +175,7 @@ public class UnimonMoveTesting {
     public void elementalAttack_checkAbsorption_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.PHYSICAL);
 
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -199,7 +199,7 @@ public class UnimonMoveTesting {
     public void elementalAttack_False_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,70,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,70,MoveType.PHYSICAL);
 
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -221,7 +221,7 @@ public class UnimonMoveTesting {
     public void selectAttack_Physical_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,70,MoveType.PHYSICAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,70,MoveType.PHYSICAL);
 
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -245,7 +245,7 @@ public class UnimonMoveTesting {
     public void selectAttack_Elemental_Test(){
             Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
             moveVal.put(MoveResource.MANA,50);
-            UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.ELEMENTAL);
+            UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.ELEMENTAL);
 
 
             UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -270,7 +270,7 @@ public class UnimonMoveTesting {
     public void checkingStamina_True_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.STAMINA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.ELEMENTAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.ELEMENTAL);
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -287,7 +287,7 @@ public class UnimonMoveTesting {
     public void checkingStamina_False_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.ELEMENTAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.ELEMENTAL);
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -301,7 +301,7 @@ public class UnimonMoveTesting {
     public void checkingMana_True_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove",moveVal,180,MoveType.ELEMENTAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.ELEMENTAL);
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -316,7 +316,7 @@ public class UnimonMoveTesting {
     public void checkingMana_False_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.STAMINA,50);
-        UnimonMoves move = new UnimonMoves("1", "FirstMove", moveVal,180,MoveType.ELEMENTAL);
+        UnimonMoves move = new UnimonMoves("1", "FirstMove", null,"null",moveVal,180,MoveType.ELEMENTAL);
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",

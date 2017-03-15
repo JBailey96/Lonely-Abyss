@@ -18,6 +18,9 @@ public class UnimonMoves {
      */
     private String name;
 
+    //the unique ID of the move
+    private String ID;
+
     /**
      * Description of the move
      */
@@ -36,7 +39,6 @@ public class UnimonMoves {
 
 
 
-
     /**
      * Map of the energy type to make the move and the amount of that energy to do so
      */
@@ -45,11 +47,10 @@ public class UnimonMoves {
     /**
      * This is a constructor method for the unimon card object.
      * @param name - the name of the move
-     * @param icon - icon to represent the type of move
-     * @param description - What the attack does
      * @param movesReq - the energy needed to make the move and how much of that energy is needed
      */
-    public UnimonMoves(String name, Bitmap icon, String description,Map<MoveResource,Integer>movesReq, int baseDamage, MoveType moveType){ // Map<StatusEffect, Integer> statusEffects){
+    public UnimonMoves(String ID, String name, Map<MoveResource,Integer>movesReq, int baseDamage, MoveType moveType){ // Map<StatusEffect, Integer> statusEffects){
+        this.ID = ID;
         this.name = name;
         this.icon = icon;
         this.description = description;
@@ -85,6 +86,18 @@ public class UnimonMoves {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setMoveType(MoveType moveType) {
+        this.moveType = moveType;
     }
 
     //getters and setters for status effects

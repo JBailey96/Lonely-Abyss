@@ -17,8 +17,6 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
  */
 
 public abstract class Card extends GameObject {
-
-    protected String ID;
     protected String name;
     protected String description;
     protected boolean revealed; // true - card is visible and 'in play', false - only the back of the card is visible.
@@ -26,6 +24,7 @@ public abstract class Card extends GameObject {
     protected Container container; //the container where the card is.
     protected float x, y;
     protected Vector2 velocity;
+    protected String ID;
 
 
 
@@ -40,13 +39,13 @@ public abstract class Card extends GameObject {
                 GameScreen gameScreen, String ID, String name,String description, boolean revealed, Container container) {
         super(x, y, width, height, bitmap, gameScreen);
 
-        this.ID = ID;
         this.name = name;
         this.description = description;
         this.revealed = revealed;
         this.container = container;
         this.x = x;
         this.y = y;
+        this.ID = ID;
 
     }
 
@@ -129,4 +128,5 @@ public abstract class Card extends GameObject {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
     }
+
 }

@@ -6,5 +6,5 @@ package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves;
 
 public enum MoveType {
 
-    PHYSICAL, ELEMENTAL, STATUS
+    PHYSICAL, ELEMENTAL, STATUS, BLOCK
 }
