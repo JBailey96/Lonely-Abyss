@@ -1,0 +1,33 @@
+{
+  "Cards":
+      {
+          "Energy":[
+              {
+                "ID": "e001",
+                "Name": "Mixed Potion",
+                "EnergyType": "MIXED",
+                "Energies": [
+                  {
+                    "EvolveType": "SPIRIT",
+                    "Mana": "10",
+                    "Stamina": "15",
+                    "Health": "-1"
+                  },
+                  {
+                    "EvolveType": "PHANTOM",
+                    "Mana": "25",
+                    "Stamina": "30",
+                    "Health": "-1"
+                  },
+                  {
+                    "EvolveType": "DEMON",
+                    "Mana": "75",
+                    "Stamina": "85",
+                    "Health": "-1"
+                  }
+                  ]
+              }
+            
+            ]
+  }
+}

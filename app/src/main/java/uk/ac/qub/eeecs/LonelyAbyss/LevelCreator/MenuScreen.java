@@ -3,8 +3,10 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.audio.Music;
@@ -12,6 +14,7 @@ import uk.ac.qub.eeecs.gage.engine.audio.Sound;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.gage.game.DemoGame;
 import uk.ac.qub.eeecs.gage.ui.ReleaseButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -65,7 +68,9 @@ public class MenuScreen extends GameScreen {
         //play the menu music
         menuMusic.setVolume(10);
         menuMusic.play();
+
     }
+
 
     @Override
     public void update(ElapsedTime elapsedTime) {
