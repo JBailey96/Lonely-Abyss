@@ -1,47 +1,73 @@
 ﻿{
-    "Cards":
-        {
-            "Unimon": [
-                {
-                    "ID": "001",
-                    "Name": "Earth Dragon",
-                    "EvolveType": "UNIQUE",
-                    "Element": "EARTH",
-                    "Health": "900",
-                    "Mana": "600",
-                    "Stamina": "650",
-                    "Moves": [
-                        {
-                            "ID": "1",
-                            "Name": "Rock Breath",
-                            "MoveType": "ELEMENTAL",
-                            "ManaReq": "150",
-                            "StaminaReq": "-1",
-                            "BaseDam": "250"
-                        },
-                        {
-                            "ID": "2",
-                            "Name": "Echoes of the Forest",
-                            "MoveType": "PHYSICAL",
-                            "ManaReq": "-1",
-                            "StaminaReq": "180",
-                            "BaseDam": "280"
-                        },
-                        {
-                            "ID": "3",
-                            "Name": "Rocky Scales",
-                            "MoveType": "BLOCK",
-                            "ManaReq": "115",
-                            "StaminaReq": "200",
-                            "BaseDam": "-1"
-                        }
-                    ],
-                    "Armour": "60",
-                    "WeaknessElement": "FIRE",
-                    "WeaknessVal": "2",
-                    "AbsorbElement": "EARTH",
-                    "AbsorbVal": "100"
-                }
+    "Cards": {
+        "Unimon": [
+            {
+                "ID": "001",
+                "Name": "Earth Dragon",
+                "EvolveType": "UNIQUE",
+                "Element": "EARTH",
+                "Health": "900",
+                "Mana": "600",
+                "Stamina": "650",
+                "Moves": [
+                    {
+                        "ID": "1",
+                        "Name": "Rock Breath",
+                        "MoveType": "ELEMENTAL",
+                        "ManaReq": "150",
+                        "StaminaReq": "-1",
+                        "BaseDam": "250"
+                    },
+                    {
+                        "ID": "2",
+                        "Name": "Echoes of the Forest",
+                        "MoveType": "PHYSICAL",
+                        "ManaReq": "-1",
+                        "StaminaReq": "180",
+                        "BaseDam": "280"
+                    },
+                    {
+                        "ID": "3",
+                        "Name": "Rocky Scales",
+                        "MoveType": "BLOCK",
+                        "ManaReq": "115",
+                        "StaminaReq": "200",
+                        "BaseDam": "-1"
+                    }
+                ],
+                "Armour": "60",
+                "WeaknessElement": "FIRE",
+                "WeaknessVal": "2",
+                "AbsorbElement": "EARTH",
+                "AbsorbVal": "100"
+            }
+        ],
+        "Energy":[
+              {
+                "ID": "e001",
+                "Name": "Mixed Potion",
+                "EnergyType": "MIXED",
+                "Energies": [
+                  {
+                    "EvolveType": "SPIRIT",
+                    "Mana": "10",
+                    "Stamina": "15",
+                    "Health": "-1"
+                  },
+                  {
+                    "EvolveType": "PHANTOM",
+                    "Mana": "25",
+                    "Stamina": "30",
+                    "Health": "-1"
+                  },
+                  {
+                    "EvolveType": "DEMON",
+                    "Mana": "75",
+                    "Stamina": "85",
+                    "Health": "-1"
+                  }
+                  ]
+              }
             ]
-        }
+    }
 }

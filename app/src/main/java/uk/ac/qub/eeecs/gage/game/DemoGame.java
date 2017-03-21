@@ -5,7 +5,6 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.DeckManagement;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.MenuScreen;
 import uk.ac.qub.eeecs.gage.Game;
-import uk.ac.qub.eeecs.gage.engine.io.JSONEnergyReader;
 import uk.ac.qub.eeecs.gage.engine.io.JSONReader;
 
 import android.os.Bundle;
@@ -56,11 +55,13 @@ public class DemoGame extends Game {
         // Create and add a stub game screen to the screen manager. We don't
         // want to do this within the onCreate method as the menu screen
         // will layout the buttons based on the size of the view.
-
+        ArrayList<UnimonCard> UnimonCards = null;
         ArrayList<EnergyCard> energyCards = null;
 
         try {
-            energyCards = JSONEnergyReader.loadJSONEnergy(getActivity());
+            UnimonCards = JSONReader.loadJSONUnimon(getActivity());
+            energyCards = JSONReader.loadJSONEnergy(getActivity());
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
