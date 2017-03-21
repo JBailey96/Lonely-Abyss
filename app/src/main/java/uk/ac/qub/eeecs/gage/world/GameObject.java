@@ -211,4 +211,52 @@ public class GameObject {
 					.drawBitmap(mBitmap, drawSourceRect, drawScreenRect, paint);
 		}
 	}
+
+    public GameScreen getmGameScreen() {
+        return mGameScreen;
+    }
+
+    public void setmGameScreen(GameScreen mGameScreen) {
+        this.mGameScreen = mGameScreen;
+    }
+
+    public Bitmap getmBitmap() {
+        return mBitmap;
+    }
+
+    public void setmBitmap(Bitmap mBitmap) {
+        this.mBitmap = mBitmap;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public BoundingBox getmBound() {
+        return mBound;
+    }
+
+    public void setmBound(BoundingBox mBound) {
+        this.mBound = mBound;
+    }
+
+    public Rect getDrawSourceRect() {
+        return drawSourceRect;
+    }
+
+    public void setDrawSourceRect(Rect drawSourceRect) {
+        this.drawSourceRect = drawSourceRect;
+    }
+
+    public Rect getDrawScreenRect() {
+        return drawScreenRect;
+    }
+
+    public void setDrawScreenRect(Rect drawScreenRect) {
+        this.drawScreenRect = drawScreenRect;
+    }
 }

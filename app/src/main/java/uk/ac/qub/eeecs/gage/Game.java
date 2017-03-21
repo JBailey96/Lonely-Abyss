@@ -35,7 +35,7 @@ public abstract class Game extends Fragment {
 	 * one second interval. The game thread will sleep between iterations if
 	 * possible.
 	 */
-	private int mTargetFramesPerSecond = 5;
+	private int mTargetFramesPerSecond = 30;
 
 	/**
 	 * Get the target number of frames per second

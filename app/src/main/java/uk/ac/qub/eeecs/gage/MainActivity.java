@@ -1,8 +1,7 @@
 package uk.ac.qub.eeecs.gage;
 
-import uk.ac.qub.eeecs.gage.game.DemoGame;
+import uk.ac.qub.eeecs.LonelyAbyss.LonelyAbyssGame;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Window;
@@ -46,7 +45,7 @@ public class MainActivity extends Activity {
         mGame = (Game)fm.findFragmentById(R.id.activity_fragment_id);
 
         if (mGame == null) {
-            mGame = new DemoGame();
+            mGame = new LonelyAbyssGame();
             fm.beginTransaction().add(R.id.activity_fragment_id, mGame)
                     .commit();
         }

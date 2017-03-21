@@ -5,6 +5,7 @@ import android.graphics.Color;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.RunnableFuture;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.Grid;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.GridType;
@@ -41,6 +42,9 @@ public class GridLevel extends GameScreen {
     protected int maxRanCardSquare;
     protected int numEmptySquare;
 
+    final int minimumTiles = 4; //the minimum number of tiles
+    final int numStartEndTiles = 2;
+
     //define the number of grids
     protected int gridSize;
 
@@ -55,37 +59,31 @@ public class GridLevel extends GameScreen {
     protected Sound battlecardMusic;
     protected Music gridMusic;
 
+    protected Thread transitionBattle; //the thread that starts when the user encounters a battle tile
+
     public GridLevel(Game game) {
         super("GridLevel", game);
         mLayerViewport = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
 
-        //4x4, 5x5, 6x6 - randomly sets the size of the grid
-        gridSize = rand.nextInt(2)+4;
-        gridsNFilled = (gridSize * gridSize) - 2; //number of grids filled to be filled minus the start grid square and end grid square
-
-        //the number of grid squares generated
-        numBattleSquare = (int) Math.ceil(gridSize * 0.5);
-        numMoveSquare = (int) Math.ceil(gridSize * 0.25);
-        numTradeSquare = (int) Math.ceil(gridSize * 0.25);
-        maxRanCardSquare = (int) Math.ceil(gridSize * 0.5);
-        numEmptySquare = (gridSize * gridSize) - (numBattleSquare + numMoveSquare + numTradeSquare + maxRanCardSquare + 2); //number of empty grid squares
-
-        gridArray = new Grid[gridSize][gridSize]; //2-dimensional array to hold the grid squares in rows and columns
+        createGrid(); //calculate the size of grid and create the grid
+        calculateNumGridsGenerate(); //calculate each type of grid tile to create
         loadGridBitmaps(); //load grid tile bitmaps into asset manager
         generateGrids(); //generate the grid tiles in preparation of being displayed
-        loadSounds();
 
-        //play the grid level music
-        gridMusic.play();
-        gridMusic.setVolume(10);
+        loadSounds(); //load sounds used in the screen
+        playSounds(); //play the sounds
+
+        transitionBattle = new Thread(new TransitionBattle()); //thread that handles the transition to the battle screen
     }
 
     @Override
     public void update(ElapsedTime elapsedTime) {
-        mInput = mGame.getInput(); //get the users multiple inputs
-        touchEvents = mInput.getTouchEvents(); //get the touch events from the user's input
-        touchGrid(touchEvents); //checks if the user has touched a grid.
+        if (!transitionThreadsAlive()) {
+            mInput = mGame.getInput(); //get the users multiple inputs
+            touchEvents = mInput.getTouchEvents(); //get the touch events from the user's input
+            touchGrid(touchEvents); //checks if the user has touched a grid.
+        }
     }
 
     @Override
@@ -284,12 +282,7 @@ public class GridLevel extends GameScreen {
 
         //selection of the grid type to perform the action.
         if (gridT == GridType.BATTLE) {
-            gridMusic.stop(); //stop the grid music once battle commences
-            //battlecardMusic.play();
-            //load the play area to begin battle.
-            mGame.getScreenManager().removeScreen(this.getName());
-            PlayScreen playS = new PlayScreen(mGame);
-            mGame.getScreenManager().addScreen(playS);
+            transitionBattle.start();
         }
     }
 
@@ -299,12 +292,54 @@ public class GridLevel extends GameScreen {
 
         getGame().getAssetManager().loadAndAddMusic("GRIDSOUND", "Music/GridMusic2.mp3");
         gridMusic = mGame.getAssetManager().getMusic("GRIDSOUND");
+    }
 
-        /*getGame().getAssetManager().loadAndAddSound("PARTYTIME", "Sounds/party_time.mp3");
-        battlecardMusic = mGame.getAssetManager().getSound("PARTYTIME");*/
+    class TransitionBattle implements Runnable {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            gridMusic.stop(); //stop the grid music once battle commences
+            //load the play area to begin battle.
+            mGame.getScreenManager().removeScreen("GridLevel");
+            PlayScreen playS = new PlayScreen(mGame);
+            mGame.getScreenManager().addScreen(playS);
+        }
+    }
 
+    public boolean transitionThreadsAlive() {
+        if (transitionBattle.isAlive()) {
+            return true;
+        }
+        return false;
+    }
 
+    public void playSounds() {
+        //custom settings for grid music
+        gridMusic.setLopping(true);
+        gridMusic.setVolume(10);
 
+        //play the grid background music
+        gridMusic.play();
+    }
+
+    public void calculateNumGridsGenerate() {
+        gridsNFilled = (gridSize * gridSize) - numStartEndTiles; //number of grids filled to be filled minus the start grid square and end grid square
+        //the number of grid squares generated
+        numBattleSquare = (int) Math.ceil(gridSize * 0.5);
+        numMoveSquare = (int) Math.ceil(gridSize * 0.25);
+        numTradeSquare = (int) Math.ceil(gridSize * 0.25);
+        maxRanCardSquare = (int) Math.ceil(gridSize * 0.5);
+        numEmptySquare = (gridSize * gridSize) - (numBattleSquare + numMoveSquare + numTradeSquare + maxRanCardSquare + 2); //number of empty grid squares
+    }
+
+    public void createGrid() {
+        //4x4, 5x5, 6x6 - randomly sets the size of the grid
+        gridSize = rand.nextInt(2)+minimumTiles;
+        gridArray = new Grid[gridSize][gridSize]; //2-dimensional array to hold the grid squares in rows and columns
     }
 }
 

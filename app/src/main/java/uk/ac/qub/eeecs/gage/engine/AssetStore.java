@@ -6,8 +6,11 @@ import android.media.SoundPool;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.engine.audio.Music;
 import uk.ac.qub.eeecs.gage.engine.audio.Sound;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
@@ -44,6 +47,14 @@ public class AssetStore {
      */
     private FileIO mFileIO;
 
+    //stores all the loaded unimon cards
+    private ArrayList<UnimonCard> unimonCards;
+
+    //stores all the loaded energy cards
+    private ArrayList<EnergyCard> energyCards;
+
+
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -60,6 +71,9 @@ public class AssetStore {
         mSounds = new HashMap<String, Sound>();
         mSoundPool = new SoundPool(Sound.MAX_CONCURRENT_SOUNDS,
                 AudioManager.STREAM_MUSIC, 0);
+
+        unimonCards = new ArrayList<UnimonCard>();
+        energyCards = new ArrayList<EnergyCard>();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -208,5 +222,21 @@ public class AssetStore {
      */
     public Sound getSound(String assetName) {
         return mSounds.get(assetName);
+    }
+
+    public ArrayList<UnimonCard> getUnimonCards() {
+        return unimonCards;
+    }
+
+    public void setUnimonCards(ArrayList<UnimonCard> unimonCards) {
+        this.unimonCards = unimonCards;
+    }
+
+    public ArrayList<EnergyCard> getEnergyCards() {
+        return energyCards;
+    }
+
+    public void setEnergyCards(ArrayList<EnergyCard> energyCards) {
+        this.energyCards = energyCards;
     }
 }
