@@ -44,9 +44,11 @@ public class LoadingScreen extends GameScreen {
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
         mLayerViewport = new LayerViewport(mScreenViewport.width/2, mScreenViewport.height/2, mScreenViewport.width/2, mScreenViewport.height/2);
 
+        game.getAssetManager().loadAndAddBitmap("BLACK", "img/Particles/black.png");
         //the background loading of card objects and their bitmaps.
         loadingCardThread = new Thread(new LoadCardsRunnable());
         loadingCardThread.start();
+
     }
 
     @Override

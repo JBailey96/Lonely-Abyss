@@ -51,8 +51,6 @@ public class LonelyAbyssGame extends Game {
         MenuScreen MS = new MenuScreen(this);
         getScreenManager().addScreen(MS);
 
-
-
         return view;
     }
     @Override

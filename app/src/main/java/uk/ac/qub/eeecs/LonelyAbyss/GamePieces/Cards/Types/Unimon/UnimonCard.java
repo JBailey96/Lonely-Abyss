@@ -14,6 +14,7 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.StatusEffect;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.gage.Game;
+import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
@@ -76,6 +77,8 @@ public class UnimonCard extends Card {
         HEALTH, MANA, STAMINA
     }
 
+    private static Paint formatText; // the default format for the card's text
+
     /**
      * This is a constructor method for the unimon card object.
      * @param health - the Health points of the card
@@ -115,7 +118,7 @@ public class UnimonCard extends Card {
         this.weaknessElement = weaknessElement;
         this.absorptionElement = absorptionElement;
 
-
+        developCard();
     }
 
     public UnimonMoves[] getMoves() {
@@ -406,14 +409,14 @@ public class UnimonCard extends Card {
 
     //processes the overall damage absorbed by the attack
     public int processAbsorb(int baseDamage) {
-        return (int) (baseDamage * getAbsorptionValue()/ 100);
+        return (int) (baseDamage * getAbsorptionValue()/ 100f);
     }
 
     /**
      * Checks if the health is less than/equal to zero and if true sets it statue to Graveyard
      * @return - the true;
      */
-    public boolean dead(){
+    public boolean isDead(){
         if(getHealth() <= 0){
             this.container = Container.GRAVEYARD;
             return true;
@@ -422,67 +425,171 @@ public class UnimonCard extends Card {
     }
 
 
+    //James Bailey 40156063
+    //create the card's rectangle that will be used to proportionally draw the stats onto
     public void developCard() {
         templateRect = new Rect((int) (position.x-mBound.halfWidth), (int) (position.y-mBound.halfHeight), (int) (position.x+mBound.halfWidth), (int) (position.y+mBound.halfHeight));
     }
 
     public void update(ElapsedTime elapsedTime) {
-        dead();
+        isDead();
+        developCard();
     }
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
-        developCard();
 
-        Paint textFormat = formatText();
-        drawStats(graphics2D, textFormat);
+        drawStats(graphics2D);
     }
 
-    public void drawStats(IGraphics2D graphics2D, Paint formatText) {
+    //James Bailey 40156063
+    //draw all the stats' bars and foreground text
+    private void drawStats(IGraphics2D graphics2D) {
+        formatText = formatText(); //get the default formatting for stat text
         drawHealthStat(graphics2D, formatText);
         drawStaminaStat(graphics2D, formatText);
         drawManaStat(graphics2D, formatText);
     }
 
-    public Paint formatText() {
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        float textSizeRatio = (float) templateRect.width()/(float)templateRect.height();
-        paint.setTextSize(38f*textSizeRatio);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        return paint;
+    //James Bailey 40156063
+    //default text formatting methods can call and modify
+    private static Paint formatText() {
+        if (formatText == null) {
+            Paint paint = new Paint();
+            paint.setColor(Color.WHITE);
+            paint.setTypeface(Typeface.DEFAULT_BOLD);
+            paint.setTextAlign(Paint.Align.CENTER);
+            return paint;
+        } else {
+            return formatText;
+        }
     }
 
-    public void drawHealthStat(IGraphics2D graphics2D, Paint formatText) {
+    //James Bailey 40156063
+    private void drawHealthStat(IGraphics2D graphics2D, Paint formatText) {
         Rect healthPointTextRect = constructStatRect(StatType.HEALTH);
-        String healthString = ("Health | " +  Integer.toString(health) + "/" + Integer.toString(maxHealth));
-        graphics2D.drawText(healthString,healthPointTextRect.centerX(), healthPointTextRect.centerY(), formatText);
+        drawHealthBar(graphics2D, healthPointTextRect);
+        drawHealthText(graphics2D, healthPointTextRect, formatText);
     }
 
-    public void drawManaStat(IGraphics2D graphics2D, Paint formatText) {
+    //James Bailey 40156063
+    private void drawHealthText(IGraphics2D graphics2D, Rect healthPointTextRect, Paint formatText) {
+        String healthString = ("Health | " +  Integer.toString(health) + "/" + Integer.toString(maxHealth));
+        formatText = calculateTextSize(formatText, healthPointTextRect.width()/2, healthString);
+        graphics2D.drawText(healthString, healthPointTextRect.centerX(), healthPointTextRect.centerY(), formatText);
+    }
+
+    //James Bailey 40156063
+    private void drawHealthBar(IGraphics2D graphics2D, Rect healthPointTextRect) {
+        int widthHealthBar = (int) (healthPointTextRect.width()*(health/(float) maxHealth));
+
+        Rect healthBarRect = new Rect(healthPointTextRect.left, healthPointTextRect.top, healthPointTextRect.left+widthHealthBar, healthPointTextRect.bottom);
+
+        Bitmap redBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        redBitmap.eraseColor(Color.RED);
+
+        Paint paint = new Paint();
+
+        paint.setAlpha(128);
+        graphics2D.drawBitmap(redBitmap, null, healthPointTextRect, paint);
+        graphics2D.drawBitmap(redBitmap, null, healthBarRect, null);
+    }
+
+    //James Bailey 40156063
+    private void drawStaminaStat(IGraphics2D graphics2D, Paint formatText) {
+        Rect staminaPointTextRect = constructStatRect(StatType.STAMINA);
+        drawStaminaBar(graphics2D, staminaPointTextRect);
+        drawStaminaText(graphics2D, staminaPointTextRect, formatText);
+    }
+
+    //James Bailey 40156063
+    private void drawStaminaText(IGraphics2D graphics2D, Rect staminaPointTextRect, Paint formatText) {
+        String staminaString = ("Stamina | " +  Integer.toString(stamina) + "/" + Integer.toString(maxStamina));
+        formatText = calculateTextSize(formatText, staminaPointTextRect.width()/2, staminaString);
+        graphics2D.drawText(staminaString,staminaPointTextRect.centerX(), staminaPointTextRect.centerY(), formatText);
+    }
+
+    //James Bailey 40156063
+    private void drawStaminaBar(IGraphics2D graphics2D, Rect staminaPointTextRect) {
+        int widthStaminaBar = (int) (staminaPointTextRect.width()*(stamina/(float) maxStamina));
+
+        Rect staminaBarRect = new Rect(staminaPointTextRect.left, staminaPointTextRect.top, staminaPointTextRect.left+widthStaminaBar, staminaPointTextRect.bottom);
+
+        Bitmap greenBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        greenBitmap.eraseColor(Color.rgb(0, 164, 11));
+
+        Paint paint = new Paint();
+        paint.setAlpha(128);
+
+        graphics2D.drawBitmap(greenBitmap, null, staminaPointTextRect, paint);
+        graphics2D.drawBitmap(greenBitmap, null, staminaBarRect, null);
+    }
+
+    //James Bailey 40156063
+    //draw the mana bar bitmaps and the text showing the mana stats
+    private void drawManaStat(IGraphics2D graphics2D, Paint formatText) {
         Rect manaPointTextRect = constructStatRect(StatType.MANA);
-        String manaString = ("Mana | " +  Integer.toString(mana) + "/" + Integer.toString(maxMana));
+        drawManaBar(graphics2D, manaPointTextRect);
+        drawManaText(graphics2D, manaPointTextRect, formatText);
+    }
+
+    //James Bailey 40156063
+    //draw the text showing the current mana stats
+    private void drawManaText(IGraphics2D graphics2D, Rect manaPointTextRect, Paint formatText) {
+        String manaString = ("Mana | " +  Integer.toString(mana) + "/" + Integer.toString(maxMana)); //string showing the current mana and the maximum mana the card can have
+        formatText = calculateTextSize(formatText, manaPointTextRect.width()/2, manaString); //generate the text size that fits the width of the mana bar
         graphics2D.drawText(manaString,manaPointTextRect.centerX(), manaPointTextRect.centerY(), formatText);
     }
 
 
-    public void drawStaminaStat(IGraphics2D graphics2D, Paint formatText) {
-        Rect staminaPointTextRect = constructStatRect(StatType.STAMINA);
-        String staminaString = ("Stamina | " +  Integer.toString(stamina) + "/" + Integer.toString(maxStamina));
-        graphics2D.drawText(staminaString,staminaPointTextRect.centerX(), staminaPointTextRect.centerY(), formatText);
+    //James Bailey 40156063
+    //draw mana bar onto the unimon card
+    private void drawManaBar(IGraphics2D graphics2D, Rect manaPointTextRect) {
+        int widthManaBar = (int) (manaPointTextRect.width() * (mana / (float) maxMana)); //calculate the width of the mana bar by the percentage of mana the unimon card currently has
+
+        Rect manaBarRect = new Rect(manaPointTextRect.left, manaPointTextRect.top, manaPointTextRect.left + widthManaBar, manaPointTextRect.bottom); //the current mana bar dimensions
+
+        //create the bitmap for the mana bar
+        Bitmap blueBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        blueBitmap.eraseColor(Color.BLUE); //fill with blue
+
+        //used for drawing the full mana bar - opacity 50%
+        Paint paint = new Paint();
+        paint.setAlpha(128);
+
+        graphics2D.drawBitmap(blueBitmap, null, manaPointTextRect, paint); //draw the full mana bar in the background of the remaining mana bar
+
+        graphics2D.drawBitmap(blueBitmap, null, manaBarRect, null); //draw the current mana bar in the foreground - emphasises contrast through opacity
     }
 
-    public Rect constructStatRect(StatType statToBeDrawn) {
+    //James Bailey 40156063
+    //scale a string to a required width boundary, calculating an optimum text size
+    private Paint calculateTextSize(Paint paint, float width, String text) {
+        float optimumTextSize = 60; //optimum text size - used to test the text's boundaries
+        paint.setTextSize(optimumTextSize);
+
+        Rect bounds = new Rect(); //the boundary for the text - smallest rectangle to contain all the characters in the string
+        paint.getTextBounds(text, 0, text.length(), bounds); //calculate smallest rectangles
+
+        float textSize = optimumTextSize * width/bounds.width(); //calculates text size that will fit into the boundary of the required width
+
+        paint.setTextSize(textSize); //set the paint's text size to the calculated size
+        return paint;
+    }
+
+    //James Bailey 40156063
+    //construct the rectangle boundaries for each stat to be drawn onto the card proportional to the card's size
+    private Rect constructStatRect(StatType statToBeDrawn) {
         Rect statRect = new Rect();
         switch (statToBeDrawn) {
             case HEALTH:
-                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.265f)), (int) (templateRect.right-(mBound.getWidth())*0.77f),  templateRect.bottom);
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.4f)), (int) (templateRect.right-(mBound.getWidth())*0.55f),  (int) (templateRect.top + (mBound.getHeight()*0.46)));
                 break;
             case STAMINA:
-                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.42f)), (int) (templateRect.right-(mBound.getWidth())*0.77f),  templateRect.bottom);
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.6f)), (int) (templateRect.right-(mBound.getWidth())*0.55f),  (int) (templateRect.top + (mBound.getHeight()*0.66)));
                 break;
             case MANA:
-                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.34f)), (int) (templateRect.right-(mBound.getWidth())*0.77f),  templateRect.bottom);
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.5f)), (int) (templateRect.right-(mBound.getWidth())*0.55f),  (int) (templateRect.top + (mBound.getHeight()*0.56)));
                 break;
             default:
                 break;

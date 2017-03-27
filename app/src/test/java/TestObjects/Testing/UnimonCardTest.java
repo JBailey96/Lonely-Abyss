@@ -201,7 +201,7 @@ public class UnimonCardTest{
                 30,15, Element.WATER, 35, Element.FIRE, true, Container.ACTIVE);
 
         boolean expected = false;
-        boolean actual = player.dead();
+        boolean actual = player.isDead();
         assertEquals(expected,actual);
     }
 
@@ -213,7 +213,7 @@ public class UnimonCardTest{
                 30,15, Element.WATER, 35, Element.FIRE, true, Container.ACTIVE);
 
         boolean expected = true;
-        boolean actual = player.dead();
+        boolean actual = player.isDead();
         assertEquals(expected,actual);
     }
 
