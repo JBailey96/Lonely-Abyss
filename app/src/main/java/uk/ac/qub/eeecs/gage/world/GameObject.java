@@ -259,4 +259,6 @@ public class GameObject {
     public void setDrawScreenRect(Rect drawScreenRect) {
         this.drawScreenRect = drawScreenRect;
     }
+
+
 }

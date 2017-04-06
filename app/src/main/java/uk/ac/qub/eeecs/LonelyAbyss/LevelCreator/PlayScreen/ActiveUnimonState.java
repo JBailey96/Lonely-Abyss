@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
@@ -102,12 +103,16 @@ public class ActiveUnimonState extends State {
 
     //draw active unimon card
     public void drawActiveUnimon(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        Paint myPaint = new Paint();
-        Rect paintRect = new Rect(0, 0, mScreenViewport.width, mScreenViewport.height);
-        myPaint.setAlpha(200); //make the background behind the unimon card transparent
+        Rect paintRect = new Rect(0, 0, mScreenViewport.width, mScreenViewport.height); //set background black semi-opaque background to fill whole screenviewport
 
+        //create black background
+        Bitmap blackBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        blackBitmap.eraseColor(Color.BLACK);
 
-        graphics2D.drawBitmap(selectBitmap("BLACK"), null, paintRect, myPaint);
+        Paint paint = new Paint();
+        paint.setAlpha(200); //make the background behind the unimon card semi-opaque
+
+        graphics2D.drawBitmap(blackBitmap, null, paintRect, paint);
         testActiveCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
 
@@ -188,7 +193,6 @@ public class ActiveUnimonState extends State {
     //loads test card
     public void loadTestCard() {
         mGame.getAssetManager().loadAndAddBitmap("CARD", "img/Cards/Demon Slayer.png");
-        mGame.getAssetManager().loadAndAddBitmap("BLACK", "img/Particles/black.png");
         Bitmap cardImage = selectBitmap("CARD");
         testActiveCard = new UnimonCard((mScreenViewport.width / 2), (mScreenViewport.height / 2), (mScreenViewport.width / 2.3f), (int) (mScreenViewport.height), cardImage, mGameScreen,
                 "0", null, null, null, "Earth Dragon",

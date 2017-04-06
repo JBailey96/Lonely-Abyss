@@ -1,5 +1,6 @@
 package uk.ac.qub.eeecs.gage;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
 import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.ScreenManager;
@@ -25,6 +26,9 @@ import android.view.ViewGroup;
  * @version 1.0
  */
 public abstract class Game extends Fragment {
+
+    //the player of the game
+	private Player player;
 
 	// /////////////////////////////////////////////////////////////////////////
 	// Properties: Frames per Second
@@ -212,6 +216,8 @@ public abstract class Game extends Fragment {
 
 		// Create the screen manager
 		mScreenManager = new ScreenManager();
+
+        player = new Player();
 
 		// Request control of the volume
 		getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -636,4 +642,12 @@ public abstract class Game extends Fragment {
 			renderThread.start();
 		}
 	}
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }

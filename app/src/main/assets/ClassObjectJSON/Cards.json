@@ -1,73 +1,366 @@
 ﻿{
-    "Cards": {
-        "Unimon": [
-            {
-                "ID": "001",
-                "Name": "Earth Dragon",
-                "EvolveType": "UNIQUE",
-                "Element": "EARTH",
-                "Health": "900",
-                "Mana": "600",
-                "Stamina": "650",
-                "Moves": [
-                    {
-                        "ID": "1",
-                        "Name": "Rock Breath",
-                        "MoveType": "ELEMENTAL",
-                        "ManaReq": "150",
-                        "StaminaReq": "-1",
-                        "BaseDam": "250"
-                    },
-                    {
-                        "ID": "2",
-                        "Name": "Echoes of the Forest",
-                        "MoveType": "PHYSICAL",
-                        "ManaReq": "-1",
-                        "StaminaReq": "180",
-                        "BaseDam": "280"
-                    },
-                    {
-                        "ID": "3",
-                        "Name": "Rocky Scales",
-                        "MoveType": "BLOCK",
-                        "ManaReq": "115",
-                        "StaminaReq": "200",
-                        "BaseDam": "-1"
-                    }
-                ],
-                "Armour": "60",
-                "WeaknessElement": "FIRE",
-                "WeaknessVal": "2",
-                "AbsorbElement": "EARTH",
-                "AbsorbVal": "100"
-            }
+  "Cards": {
+    "Unimon": [
+      {
+        "ID": "001",
+        "Name": "Earth Dragon",
+        "EvolveType": "UNIQUE",
+        "Element": "EARTH",
+        "Health": "900",
+        "Mana": "600",
+        "Stamina": "650",
+        "Moves": [
+          {
+            "ID": "1",
+            "Name": "Rock Breath",
+            "MoveType": "ELEMENTAL",
+            "ManaReq": "150",
+            "StaminaReq": "-1",
+            "BaseDam": "250"
+          },
+          {
+            "ID": "2",
+            "Name": "Echoes of the Forest",
+            "MoveType": "PHYSICAL",
+            "ManaReq": "-1",
+            "StaminaReq": "180",
+            "BaseDam": "280"
+          },
+          {
+            "ID": "3",
+            "Name": "Rocky Scales",
+            "MoveType": "BLOCK",
+            "ManaReq": "115",
+            "StaminaReq": "200",
+            "BaseDam": "-1"
+          }
         ],
-        "Energy":[
-              {
-                "ID": "e001",
-                "Name": "Mixed Potion",
-                "EnergyType": "MIXED",
-                "Energies": [
-                  {
-                    "EvolveType": "SPIRIT",
-                    "Mana": "10",
-                    "Stamina": "15",
-                    "Health": "-1"
-                  },
-                  {
-                    "EvolveType": "PHANTOM",
-                    "Mana": "25",
-                    "Stamina": "30",
-                    "Health": "-1"
-                  },
-                  {
-                    "EvolveType": "DEMON",
-                    "Mana": "75",
-                    "Stamina": "85",
-                    "Health": "-1"
-                  }
-                  ]
-              }
-            ]
-    }
+        "Armour": "60",
+        "WeaknessElement": "FIRE",
+        "WeaknessVal": "2",
+        "AbsorbElement": "EARTH",
+        "AbsorbVal": "100"
+      },
+      {
+        "ID": "002",
+        "Name": "Fire Dragon",
+        "EvolveType": "UNIQUE",
+        "Element": "FIRE",
+        "Health": "850",
+        "Mana": "500",
+        "Stamina": "550",
+        "Moves": [
+          {
+            "ID": "1",
+            "Name": "Fire Breath",
+            "MoveType": "ELEMENTAL",
+            "ManaReq": "150",
+            "StaminaReq": "-1",
+            "BaseDam": "330"
+          },
+          {
+            "ID": "2",
+            "Name": "Eternal Roar",
+            "MoveType": "PHYSICAL",
+            "ManaReq": "-1",
+            "StaminaReq": "160",
+            "BaseDam": "280"
+          },
+          {
+            "ID": "3",
+            "Name": "Born of Fire",
+            "MoveType": "BLOCK",
+            "ManaReq": "85",
+            "StaminaReq": "90",
+            "BaseDam": "-1"
+          }
+        ],
+        "Armour": "50",
+        "WeaknessElement": "WATER",
+        "WeaknessVal": "2",
+        "AbsorbElement": "FIRE",
+        "AbsorbVal": "100"
+      },
+      {
+        "ID": "003",
+        "Name": "Knight of Fire",
+        "EvolveType": "DEMON",
+        "Element": "FIRE",
+        "Health": "525",
+        "Mana": "380",
+        "Stamina": "430",
+        "Moves": [
+          {
+            "ID": "1",
+            "Name": "Chorus of Embers",
+            "MoveType": "ELEMENTAL",
+            "ManaReq": "100",
+            "StaminaReq": "-1",
+            "BaseDam": "170"
+          },
+          {
+            "ID": "2",
+            "Name": "Execution",
+            "MoveType": "PHYSICAL",
+            "ManaReq": "-1",
+            "StaminaReq": "115",
+            "BaseDam": "190"
+          },
+          {
+            "ID": "3",
+            "Name": "Will of the Flame",
+            "MoveType": "BLOCK",
+            "ManaReq": "95",
+            "StaminaReq": "100",
+            "BaseDam": "-1"
+          }
+        ],
+        "Armour": "40",
+        "WeaknessElement": "WATER",
+        "WeaknessVal": "2",
+        "AbsorbElement": "FIRE",
+        "AbsorbVal": "50"
+      },
+      {
+        "ID": "004",
+        "Name": "Knight of Fire",
+        "EvolveType": "PHANTOM",
+        "Element": "FIRE",
+        "Health": "310",
+        "Mana": "200",
+        "Stamina": "270",
+        "Moves": [
+          {
+            "ID": "1",
+            "Name": "Symphony of Fire",
+            "MoveType": "ELEMENTAL",
+            "ManaReq": "40",
+            "StaminaReq": "-1",
+            "BaseDam": "90"
+          },
+          {
+            "ID": "2",
+            "Name": "Impale",
+            "MoveType": "PHYSICAL",
+            "ManaReq": "-1",
+            "StaminaReq": "60",
+            "BaseDam": "100"
+          },
+          {
+            "ID": "3",
+            "Name": "Flaming Blockade",
+            "MoveType": "BLOCK",
+            "ManaReq": "70",
+            "StaminaReq": "80",
+            "BaseDam": "-1"
+          }
+        ],
+        "Armour": "30",
+        "WeaknessElement": "WATER",
+        "WeaknessVal": "2",
+        "AbsorbElement": "FIRE",
+        "AbsorbVal": "35"
+      },
+      {
+        "ID": "005",
+        "Name": "Knight of Fire",
+        "EvolveType": "SPIRIT",
+        "Element": "FIRE",
+        "Health": "150",
+        "Mana": "110",
+        "Stamina": "140",
+        "Moves": [
+          {
+            "ID": "1",
+            "Name": "Song of Flame",
+            "MoveType": "ELEMENTAL",
+            "ManaReq": "25",
+            "StaminaReq": "-1",
+            "BaseDam": "40"
+          },
+          {
+            "ID": "2",
+            "Name": "Riposte",
+            "MoveType": "PHYSICAL",
+            "ManaReq": "-1",
+            "StaminaReq": "35",
+            "BaseDam": "60"
+          },
+          {
+            "ID": "3",
+            "Name": "Shield of Fire",
+            "MoveType": "BLOCK",
+            "ManaReq": "30",
+            "StaminaReq": "40",
+            "BaseDam": "-1"
+          }
+        ],
+        "Armour": "15",
+        "WeaknessElement": "WATER",
+        "WeaknessVal": "2",
+        "AbsorbElement": "FIRE",
+        "AbsorbVal": "25"
+      }
+    ],
+    "Energy": [
+      {
+        "ID": "001",
+        "Name": "Mixed Potion",
+        "EnergyType": "MIXED",
+        "Energies": [
+          {
+            "EvolveType": "SPIRIT",
+            "Mana": "10",
+            "Stamina": "15",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "PHANTOM",
+            "Mana": "25",
+            "Stamina": "30",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "DEMON",
+            "Mana": "75",
+            "Stamina": "85",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "UNIQUE",
+            "Mana": "125",
+            "Stamina": "150",
+            "Health": "-1"
+          }
+        ]
+      },
+      {
+        "ID": "002",
+        "Name": "Mana Potion",
+        "EnergyType": "MANA",
+        "Energies": [
+          {
+            "EvolveType": "SPIRIT",
+            "Mana": "20",
+            "Stamina": "-1",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "PHANTOM",
+            "Mana": "50",
+            "Stamina": "-1",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "DEMON",
+            "Mana": "150",
+            "Stamina": "-1",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "UNIQUE",
+            "Mana": "250",
+            "Stamina": "-1",
+            "Health": "-1"
+          }
+        ]
+      },
+      {
+        "ID": "003",
+        "Name": "Health Potion",
+        "EnergyType": "HEALTH",
+        "Energies": [
+          {
+            "EvolveType": "SPIRIT",
+            "Mana": "-1",
+            "Stamina": "-1",
+            "Health": "15"
+          },
+          {
+            "EvolveType": "PHANTOM",
+            "Mana": "-1",
+            "Stamina": "-1",
+            "Health": "40"
+          },
+          {
+            "EvolveType": "DEMON",
+            "Mana": "-1",
+            "Stamina": "-1",
+            "Health": "135"
+          },
+          {
+            "EvolveType": "UNIQUE",
+            "Mana": "-1",
+            "Stamina": "-1",
+            "Health": "295"
+          }
+        ]
+      },
+      {
+        "ID": "004",
+        "Name": "Stamina Potion",
+        "EnergyType": "STAMINA",
+        "Energies": [
+          {
+            "EvolveType": "SPIRIT",
+            "Mana": "-1",
+            "Stamina": "30",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "PHANTOM",
+            "Mana": "-1",
+            "Stamina": "60",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "DEMON",
+            "Mana": "-1",
+            "Stamina": "170",
+            "Health": "-1"
+          },
+          {
+            "EvolveType": "UNIQUE",
+            "Mana": "-1",
+            "Stamina": "300",
+            "Health": "-1"
+          }
+        ]
+      }
+    ]
+  },
+  "PlayerCards": {
+    "Unimon": [
+      {
+        "ID": "001",
+        "Num": "2"
+      },
+      {
+        "ID": "002",
+        "Num": "3"
+      },
+      {
+        "ID": "004",
+        "Num": "2"
+      },
+      {
+        "ID": "005",
+        "Num": "2"
+      }
+    ],
+    "Energy": [
+      {
+        "ID": "001",
+        "Num": "4"
+      },
+      {
+        "ID": "002",
+        "Num": "1"
+      },
+      {
+        "ID": "003",
+        "Num": "6"
+      }
+    ]
+  }
 }
