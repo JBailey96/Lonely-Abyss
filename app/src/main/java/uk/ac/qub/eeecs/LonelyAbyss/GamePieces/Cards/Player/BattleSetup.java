@@ -14,15 +14,15 @@ public class BattleSetup {
     private Stack<Card> playAreaDeck;
 
     private Card[] handCard = new Card[5];
-    private Card[] prizeCards = new Card[10];
+    private UnimonCard[] prizeCards = new UnimonCard[10];
     private Card[] graveyardCards = new Card[3];
-    private Card[] benchCards = new Card[3];
+    private UnimonCard[] benchCards = new UnimonCard[3];
     private Card[] cardsWon = new Card[3];
     private Card[] cardsLost = new Card[3];
 
     private UnimonCard activeCard;
 
-    public BattleSetup(Stack<Card> playAreaDeck, UnimonCard activeCard, Card[] benchCards, Card[] prizeCards) {
+    public BattleSetup(Stack<Card> playAreaDeck, UnimonCard activeCard, UnimonCard[] benchCards, UnimonCard[] prizeCards) {
         this.playAreaDeck = playAreaDeck;
         this.activeCard = activeCard;
         this.benchCards = benchCards;
@@ -45,11 +45,11 @@ public class BattleSetup {
         this.handCard = handCard;
     }
 
-    public Card[] getPrizeCards() {
+    public UnimonCard[] getPrizeCards() {
         return prizeCards;
     }
 
-    public void setPrizeCards(Card[] prizeCards) {
+    public void setPrizeCards(UnimonCard[] prizeCards) {
         this.prizeCards = prizeCards;
     }
 
@@ -69,11 +69,11 @@ public class BattleSetup {
         this.cardsWon = cardsWon;
     }
 
-    public Card[] getBenchCards() {
+    public UnimonCard[] getBenchCards() {
         return benchCards;
     }
 
-    public void setBenchCards(Card[] benchCards) {
+    public void setBenchCards(UnimonCard[] benchCards) {
         this.benchCards = benchCards;
     }
 

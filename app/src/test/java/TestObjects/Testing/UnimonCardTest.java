@@ -25,7 +25,6 @@ public class UnimonCardTest{
     @Mock
     GameScreen aScreen = Mockito.mock(GameScreen.class);
 
-
     @Test
     public void increaingHealth_BeyondMaxHealth_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,

@@ -129,7 +129,7 @@ public class JSONReader {
                 if (ID.equals(uCardID)) { //if the id of the player's card matches the id of the game's unimon card
                     int numberCard = playerCard.getValue(); //the quantity of the card the player owns
                     for (int i = 0; i < numberCard; i++) {
-                        playerUnimonCards.add(uCard); //add the card to the player's list of cards owned
+                        playerUnimonCards.add(uCard.copyUnimonCard()); //add the card to the player's list of cards owned
                     }
                     break; //break the while loop - get the next card the player owns
                 }
@@ -175,7 +175,7 @@ public class JSONReader {
                 if (ID.equals(eCardID)) {
                     int numberCard = playerCard.getValue();
                     for (int i = 0; i < numberCard; i++) {
-                        playerEnergyCards.add(eCard);
+                        playerEnergyCards.add(eCard.copyEnergyCard());
                     }
                     break;
                 }

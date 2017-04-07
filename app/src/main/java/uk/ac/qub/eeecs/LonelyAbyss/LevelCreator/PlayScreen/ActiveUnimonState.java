@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.Element;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -20,6 +21,7 @@ import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.ReleaseButton;
+import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
@@ -30,7 +32,8 @@ import uk.ac.qub.eeecs.gage.world.State;
  */
 
 public class ActiveUnimonState extends State {
-    UnimonCard testActiveCard; //testCard used to test the active unimon view
+   // UnimonCard testActiveCard; //testCard used to test the active unimon view
+    UnimonCard activeCard;
 
     protected final int numMoveButtons = 3; //the number of move buttons
 
@@ -41,19 +44,21 @@ public class ActiveUnimonState extends State {
     //Move battle options
     List<ReleaseButton> moveButtons = new ArrayList<>();
 
-    public ActiveUnimonState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, Boolean active) {
+    public ActiveUnimonState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, Boolean active, BattleSetup battleSetup) {
         super(mScreenViewport, mLayerViewPort, mGame, mGameScreen, active);
         loadButtonOptionBitmaps();
         generateBattleOptions();
-        loadTestCard();
+        //loadTestCard();
+        this.activeCard = battleSetup.getActiveCard().copyUnimonCard();
+        loadActiveCard();
     }
 
     @Override
     public void update(ElapsedTime elapsedTime) {
         if (active) {
+            activeCard.update(elapsedTime);
             mInput = mGame.getInput();
             touchEvents = mInput.getTouchEvents();
-
             touchButton(touchEvents);
         }
     }
@@ -70,14 +75,14 @@ public class ActiveUnimonState extends State {
     public void touchActiveUnimon(TouchEvent t) {
 
         //load the energy card when the active unimon card is pressed
-        if ((testActiveCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
+        if ((activeCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             PlayScreen playScreen = (PlayScreen) mGameScreen;
             playScreen.getActiveEnergyState().active = true;
 
         }
 
         //hide the active unimon card when it outside the card is pressed
-        if (!(testActiveCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
+        if (!(activeCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             active = false;
         }
 
@@ -113,7 +118,7 @@ public class ActiveUnimonState extends State {
         paint.setAlpha(200); //make the background behind the unimon card semi-opaque
 
         graphics2D.drawBitmap(blackBitmap, null, paintRect, paint);
-        testActiveCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+        activeCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
 
     //method for drawing the battle option buttons
@@ -135,7 +140,7 @@ public class ActiveUnimonState extends State {
         generateRetreatButton();
         generateMoveButtons();
     }
-
+    
     //generate the button to apply energy
     public void generateEnergyButton() {
         float x = mScreenViewport.width * 0.15f;
@@ -190,7 +195,7 @@ public class ActiveUnimonState extends State {
         mGame.getAssetManager().loadAndAddBitmap("MOVE3BUTTON", "img/PlayScreenButtons/button_move-3.png");
     }
 
-    //loads test card
+    /*//loads test card
     public void loadTestCard() {
         mGame.getAssetManager().loadAndAddBitmap("CARD", "img/Cards/Demon Slayer.png");
         Bitmap cardImage = selectBitmap("CARD");
@@ -198,5 +203,19 @@ public class ActiveUnimonState extends State {
                 "0", null, null, null, "Earth Dragon",
                 UnimonEvolveType.DEMON, Element.EARTH, null, 5, 6, 7, "test Description",
                 20, 30, Element.FIRE, 50, Element.HOLY, true, Container.ACTIVE);
+    }*/
+
+    public void loadActiveCard() {
+        activeCard.setmGameScreen(mGameScreen);
+
+        BoundingBox mBound = new BoundingBox();
+        mBound.x = mScreenViewport.width/2;
+        mBound.y = mScreenViewport.height/2;
+        mBound.halfWidth = (mScreenViewport.width / 2.3f)/2;
+        mBound.halfHeight = mScreenViewport.height/2;
+
+        activeCard.setPosition(mScreenViewport.width/2, mScreenViewport.height/2);
+
+        activeCard.setmBound(mBound);
     }
 }

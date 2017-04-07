@@ -45,6 +45,32 @@ public class EnergyCard extends Card {
         this.energy = new HashMap<UnimonEvolveType, Map<EnergyType, Integer>>(energy);
     }
 
+    //James Bailey 40156063
+    //Create a deep copy of the energy card.
+    public EnergyCard copyEnergyCard() {
+        EnergyCard copyEnergy = new EnergyCard(getX(), getY(), getmBound().getWidth(), getmBound().getHeight(), Bitmap.createBitmap(getBitmap()), getmGameScreen(), getID(), null, getName(), getType(), copyEnergyEffects(), getDescription(), isRevealed(), getContainer());
+        return copyEnergy;
+    }
+
+    //James Bailey 40156063
+    //Create a deep copy of the energy card's energy effects.
+    public Map<UnimonEvolveType, Map<EnergyType, Integer>> copyEnergyEffects() {
+        Map<UnimonEvolveType, Map<EnergyType, Integer>> energy = getEnergy();
+        Map<UnimonEvolveType, Map<EnergyType, Integer>> copyEnergy = new HashMap<>(); //used to store the energy card's effects
+
+        for (UnimonEvolveType evolveType : energy.keySet()) {
+            Map<EnergyType, Integer> energyEff = energy.get(evolveType);
+            Map<EnergyType, Integer> copyEnergyEff = new HashMap<>();
+
+            for(EnergyType energyType : energyEff.keySet()) {
+                int value = energyEff.get(energyType);
+                copyEnergyEff.put(energyType, value);
+            }
+            copyEnergy.put(evolveType, copyEnergyEff);
+        }
+        return copyEnergy;
+    }
+
     //test constructor
     public EnergyCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen, String ID,
                       Bitmap backGround, String name, EnergyType type, String description, boolean revealed, Container container) {

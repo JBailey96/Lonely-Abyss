@@ -115,8 +115,6 @@ public class OpponentScreen extends State {
 
 
 
-
-
     //loads test card
     public void loadTestCard() {
         mGame.getAssetManager().loadAndAddBitmap("CARD", "img/Cards/Demon Slayer.png");

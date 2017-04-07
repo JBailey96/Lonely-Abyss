@@ -79,6 +79,8 @@ public class UnimonCard extends Card {
 
     private static Paint formatText; // the default format for the card's text
 
+    final int numberOfMoves = 3;
+
     /**
      * This is a constructor method for the unimon card object.
      * @param health - the Health points of the card
@@ -119,6 +121,31 @@ public class UnimonCard extends Card {
         this.absorptionElement = absorptionElement;
 
         developCard();
+    }
+
+    //James Bailey 40156063
+    //create a deep copy of the unimon card
+    public UnimonCard copyUnimonCard() {
+        UnimonCard newCard = new UnimonCard(getX(), getY(), getBound().getWidth(), getBound().getHeight(),
+                Bitmap.createBitmap(getBitmap()), getmGameScreen(), getID(), null, null, null, getName(),
+                getEvolveType(), getCardElement(), copyUnimonMovesList(), getHealth(), getMana(), getStamina(),
+                getDescription(), getArmourValue(), (int) getWeaknessValue(), getWeaknessElement(), getAbsorptionValue(), getAbsorptionElement(), isRevealed(), getContainer());
+
+        return newCard;
+    }
+
+    //James Bailey 40156063
+    //creat a deep copy of the list of unimon moves
+    public UnimonMoves[] copyUnimonMovesList() {
+        UnimonMoves[] moves = getMoves();
+        UnimonMoves[] movesCopy = new UnimonMoves[numberOfMoves];
+
+        for (int i = 0; i < numberOfMoves; i++) {
+            UnimonMoves unimonMove = moves[i];
+            movesCopy[i] = unimonMove.copyUnimonMove(); //deep copy of the single unimon move
+        }
+
+        return movesCopy;
     }
 
     public UnimonMoves[] getMoves() {
@@ -428,7 +455,8 @@ public class UnimonCard extends Card {
     //James Bailey 40156063
     //create the card's rectangle that will be used to proportionally draw the stats onto
     public void developCard() {
-        templateRect = new Rect((int) (position.x-mBound.halfWidth), (int) (position.y-mBound.halfHeight), (int) (position.x+mBound.halfWidth), (int) (position.y+mBound.halfHeight));
+        templateRect = new Rect((int) (mBound.x-mBound.halfWidth), (int) (mBound.y-mBound.halfHeight), (int) (mBound.x+mBound.halfWidth), (int) (mBound.y+mBound.halfHeight));
+        setDrawScreenRect(templateRect);
     }
 
     public void update(ElapsedTime elapsedTime) {
@@ -438,7 +466,6 @@ public class UnimonCard extends Card {
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
-
         drawStats(graphics2D);
     }
 
@@ -583,13 +610,13 @@ public class UnimonCard extends Card {
         Rect statRect = new Rect();
         switch (statToBeDrawn) {
             case HEALTH:
-                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.4f)), (int) (templateRect.right-(mBound.getWidth())*0.55f),  (int) (templateRect.top + (mBound.getHeight()*0.46)));
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (templateRect.height()*0.4f)), (int) (templateRect.right-(templateRect.width())*0.55f),  (int) (templateRect.top + (templateRect.height()*0.46)));
                 break;
             case STAMINA:
-                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.6f)), (int) (templateRect.right-(mBound.getWidth())*0.55f),  (int) (templateRect.top + (mBound.getHeight()*0.66)));
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (templateRect.height()*0.6f)), (int) (templateRect.right-(templateRect.width())*0.55f),  (int) (templateRect.top + (templateRect.height()*0.66)));
                 break;
             case MANA:
-                statRect = new Rect((templateRect.left), (int) (templateRect.top + (mBound.getHeight()*0.5f)), (int) (templateRect.right-(mBound.getWidth())*0.55f),  (int) (templateRect.top + (mBound.getHeight()*0.56)));
+                statRect = new Rect((templateRect.left), (int) (templateRect.top + (templateRect.height()*0.5f)), (int) (templateRect.right-(templateRect.width())*0.55f),  (int) (templateRect.top + (templateRect.height()*0.56)));
                 break;
             default:
                 break;

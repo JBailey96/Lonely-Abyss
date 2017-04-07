@@ -52,12 +52,31 @@ public class UnimonMoves {
     public UnimonMoves(String ID, String name, Map<MoveResource,Integer>movesReq, int baseDamage, MoveType moveType){ // Map<StatusEffect, Integer> statusEffects){
         this.ID = ID;
         this.name = name;
-        this.icon = icon;
-        this.description = description;
         this.movesReq = new HashMap<MoveResource, Integer>(movesReq);
         this.baseDamage = baseDamage;
         //this.statusEffects = statusEffects;
         this.moveType = moveType;
+    }
+
+    //James Bailey 40156063
+    //Create a deep copy of the unimon move
+    public UnimonMoves copyUnimonMove() {
+        UnimonMoves move = new UnimonMoves(getID(), getName(), copyMoveReq(), getBaseDamage(), getMoveType());
+        return move;
+    }
+
+    //James Bailey 40156063
+    //Create a deep copy of the stat requirements for the move
+    public Map<MoveResource, Integer> copyMoveReq() {
+        Map<MoveResource, Integer> moveRequirements = getMovesReq();
+        Map<MoveResource, Integer> copyMoveRequirements = new HashMap<>(); //used to store the new card's move requirements
+
+        for (MoveResource moveResource : moveRequirements.keySet()) {
+            int value = moveRequirements.get(moveResource);
+            copyMoveRequirements.put(moveResource, value);
+        }
+
+        return copyMoveRequirements;
     }
 
     /**

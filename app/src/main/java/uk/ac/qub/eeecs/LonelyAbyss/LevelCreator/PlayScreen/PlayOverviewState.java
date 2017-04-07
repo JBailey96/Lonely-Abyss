@@ -2,15 +2,21 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.gage.util.BoundingBox;
+import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -23,10 +29,13 @@ import uk.ac.qub.eeecs.gage.world.State;
 
 public class PlayOverviewState extends State {
     List<GameObject> playAreaOverviewCards = new ArrayList<GameObject>(); //the play area cards displayed.
-    List<GameObject> handCards = new ArrayList<>(); //the bench area cards displayed.
+    Card[] handCards; //the bench area cards displayed.
+    Stack<Card> deck;
+    UnimonCard[] benchCards;
+    UnimonCard[] prizeCards;
     GameObject deckCard; //card used to represent the top of the deck
 
-    GameObject activeUnimonCard; //the unimon card that the player has currently active
+    UnimonCard activeUnimonCard; //the unimon card that the player has currently active
     GameObject opponentButton; // the button that will show the opponent's screen
 
     //this will be replaced by the player's battlesetup class being called - but just for clarity
@@ -34,9 +43,16 @@ public class PlayOverviewState extends State {
     private int numBenchCards = 3;
     private int numPrizeCards = 3;
 
-    public PlayOverviewState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, Boolean active) {
+    public PlayOverviewState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, Boolean active, BattleSetup battleSetup) {
         super(mScreenViewport, mLayerViewPort, mGame, mGameScreen, active);
         loadPlayAreaBitmaps();
+
+        activeUnimonCard = battleSetup.getActiveCard().copyUnimonCard();
+        deck = battleSetup.getPlayAreaDeck();
+        handCards = new Card[numHandCards];
+        benchCards = battleSetup.getBenchCards();
+        prizeCards = battleSetup.getPrizeCards();
+
         generateCards();
     }
 
@@ -46,7 +62,6 @@ public class PlayOverviewState extends State {
             updateOverviewCards(elapsedTime);
             mInput = mGame.getInput();
             touchEvents = mInput.getTouchEvents();
-
             touchButton(touchEvents);
         }
     }
@@ -57,7 +72,7 @@ public class PlayOverviewState extends State {
             overviewCard.update(elapsedTime);
         }
 
-        for (GameObject handCard : handCards) {
+        for (Card handCard : handCards) {
             handCard.update(elapsedTime);
         }
 
@@ -107,8 +122,16 @@ public class PlayOverviewState extends State {
             card.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
         }
 
-        for (GameObject handCard : handCards) {
+        for (Card handCard : handCards) {
             handCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+        }
+
+        for (UnimonCard benchCard : benchCards) {
+            benchCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+        }
+
+        for (UnimonCard prizeCard : prizeCards) {
+            prizeCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
         }
 
         deckCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
@@ -118,9 +141,8 @@ public class PlayOverviewState extends State {
         opponentButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
 
-    //generate all the voverview cards
+    //generate all the overview cards
     public void generateCards() {
-
         generateShowOpponentsScreenButton();
         generateHandCards();
         generateDeckCard();
@@ -134,21 +156,32 @@ public class PlayOverviewState extends State {
 
     //generate the cards that go into the user's hand
     public void generateHandCards() {
-        GameObject handCard;
         float width;
         float x;
         float height;
         float y;
 
         for (int i = 0; i < numHandCards; i++) {
+
             //set up the dimensions for the card to be drawn to
             width = mScreenViewport.width / 10;
             x = (width / 2 * (i + 1)) + ((width * i) * 0.75f) + mScreenViewport.width / 6;
             height = mScreenViewport.height / 4;
             y = height / 2;
 
-            handCard = new GameObject(x, y, width, height, selectBitmap("StaminaCard"), mGameScreen); //create the card
-            handCards.add(handCard);
+            Card handCard = deck.pop();
+            handCard.setmGameScreen(mGameScreen);
+
+            BoundingBox mBound = new BoundingBox();
+            mBound.x = x;
+            mBound.y = y;
+            mBound.halfWidth = width/2;
+            mBound.halfHeight = height/2;
+
+            handCard.setPosition(new Vector2(x, y));
+            handCard.setmBound(mBound);
+
+            handCards[i] = handCard;
         }
     }
 
@@ -178,7 +211,19 @@ public class PlayOverviewState extends State {
             x = (width / 2 * (i + 1)) + ((width * i) * 0.6f) + mScreenViewport.width / 40;
             y = mScreenViewport.height / 2;
 
-            playAreaOverviewCards.add(new GameObject(x, y, width, height, selectBitmap("BenchUnimon"), mGameScreen));
+            UnimonCard benchCard = benchCards[i];
+            benchCard.setmGameScreen(mGameScreen);
+
+            BoundingBox mBound = new BoundingBox();
+            mBound.x = x;
+            mBound.y = y;
+            mBound.halfWidth = width/2;
+            mBound.halfHeight = height/2;
+
+            benchCard.setPosition(new Vector2(x, y));
+            benchCard.setmBound(mBound);
+
+            benchCards[i] = benchCard;
         }
     }
 
@@ -195,8 +240,19 @@ public class PlayOverviewState extends State {
             x = mScreenViewport.width - width;
             y = mScreenViewport.height - ((height / 2 * (i + 1)) + ((height * i) * 0.2f));
 
-            Bitmap rotatedImage = rotateBitmap("PrizeCard"); //rotate the prize card's bitmap 90 degrees clockwise
-            playAreaOverviewCards.add(new GameObject(x, y, height, width, rotatedImage, mGameScreen));
+            UnimonCard prizeCard = prizeCards[i];
+            prizeCard.setmGameScreen(mGameScreen);
+
+            BoundingBox mBound = new BoundingBox();
+            mBound.x = x;
+            mBound.y = y;
+            mBound.halfWidth = width/2;
+            mBound.halfHeight = height/2;
+
+            prizeCard.setPosition(new Vector2(x, y));
+            prizeCard.setmBound(mBound);
+
+            prizeCards[i] = prizeCard;
         }
     }
 
@@ -204,9 +260,18 @@ public class PlayOverviewState extends State {
     public void generateActiveUnimon() {
         float width = mScreenViewport.width / 4;
         float x = mScreenViewport.width / 2;
-        float height = mScreenViewport.height / 1.5f;
-        float y = mScreenViewport.height / 2 + mScreenViewport.height / 8;
-        activeUnimonCard = new GameObject(x, y, width, height, selectBitmap("UnimonCard"), mGameScreen);
+        float height = mScreenViewport.height / 1.7f;
+        float y = ((mScreenViewport.height / 2) + (mScreenViewport.height/8));
+        activeUnimonCard.setmGameScreen(mGameScreen);
+
+        BoundingBox mBound = new BoundingBox();
+        mBound.x = x;
+        mBound.y = y;
+        mBound.halfWidth = width/2;
+        mBound.halfHeight = height/2;
+
+        activeUnimonCard.setPosition(new Vector2(x, y));
+        activeUnimonCard.setmBound(mBound);
     }
 
     // generate the dimensions for the button that will show the opponent's screen
