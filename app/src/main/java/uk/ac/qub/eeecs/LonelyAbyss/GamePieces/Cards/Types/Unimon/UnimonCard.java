@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.graphics.DrawAssist;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -33,9 +35,22 @@ public class UnimonCard extends Card {
      */
 
     protected Rect templateRect;
+
     private Bitmap healthBar; //health bar bitmap representing how much health the player has
+    private Rect healthBarRect;
+    private Paint healthTextFormat;
+
     private Bitmap manaBar;
+    private Rect manaBarRect;
+    private Paint manaTextFormat;
+
     private Bitmap staminaBar;
+    private Rect staminaBarRect;
+    private Paint staminaTextFormat;
+
+    private Rect healthPointTextRect;
+    private Rect staminaPointTextRect;
+    private Rect manaPointTextRect;
 
     /**
      * The cards current evolution type
@@ -125,12 +140,12 @@ public class UnimonCard extends Card {
 
     //James Bailey 40156063
     //create a deep copy of the unimon card
-    public UnimonCard copyUnimonCard() {
+    public UnimonCard copy() {
         UnimonCard newCard = new UnimonCard(getX(), getY(), getBound().getWidth(), getBound().getHeight(),
                 Bitmap.createBitmap(getBitmap()), getmGameScreen(), getID(), null, null, null, getName(),
                 getEvolveType(), getCardElement(), copyUnimonMovesList(), getHealth(), getMana(), getStamina(),
                 getDescription(), getArmourValue(), (int) getWeaknessValue(), getWeaknessElement(), getAbsorptionValue(), getAbsorptionElement(), isRevealed(), getContainer());
-
+        newCard.setPositionChanged(true);
         return newCard;
     }
 
@@ -461,13 +476,18 @@ public class UnimonCard extends Card {
 
     public void update(ElapsedTime elapsedTime) {
         isDead();
-        developCard();
+
+        if (positionChanged) {
+            developCard();
+        }
     }
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
         drawStats(graphics2D);
+        positionChanged = false;
     }
+
 
     //James Bailey 40156063
     //draw all the stats' bars and foreground text
@@ -494,7 +514,9 @@ public class UnimonCard extends Card {
 
     //James Bailey 40156063
     private void drawHealthStat(IGraphics2D graphics2D, Paint formatText) {
-        Rect healthPointTextRect = constructStatRect(StatType.HEALTH);
+        if (positionChanged) {
+            healthPointTextRect = constructStatRect(StatType.HEALTH);
+        }
         drawHealthBar(graphics2D, healthPointTextRect);
         drawHealthText(graphics2D, healthPointTextRect, formatText);
     }
@@ -502,29 +524,34 @@ public class UnimonCard extends Card {
     //James Bailey 40156063
     private void drawHealthText(IGraphics2D graphics2D, Rect healthPointTextRect, Paint formatText) {
         String healthString = ("Health | " +  Integer.toString(health) + "/" + Integer.toString(maxHealth));
-        formatText = calculateTextSize(formatText, healthPointTextRect.width()/2, healthString);
-        graphics2D.drawText(healthString, healthPointTextRect.centerX(), healthPointTextRect.centerY(), formatText);
+
+        //if (positionChanged) {
+            healthTextFormat = DrawAssist.calculateTextSize(formatText, healthPointTextRect.width()/2, healthString);
+        //}
+
+        graphics2D.drawText(healthString, healthPointTextRect.centerX(), healthPointTextRect.centerY(), healthTextFormat);
     }
 
     //James Bailey 40156063
     private void drawHealthBar(IGraphics2D graphics2D, Rect healthPointTextRect) {
-        int widthHealthBar = (int) (healthPointTextRect.width()*(health/(float) maxHealth));
-
-        Rect healthBarRect = new Rect(healthPointTextRect.left, healthPointTextRect.top, healthPointTextRect.left+widthHealthBar, healthPointTextRect.bottom);
-
-        Bitmap redBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-        redBitmap.eraseColor(Color.RED);
-
+        if (positionChanged) {
+            int widthHealthBar = (int) (healthPointTextRect.width()*(health/(float) maxHealth));
+            healthBarRect = new Rect(healthPointTextRect.left, healthPointTextRect.top, healthPointTextRect.left+widthHealthBar, healthPointTextRect.bottom);
+            healthBar = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            healthBar.eraseColor(Color.RED);
+        }
         Paint paint = new Paint();
 
         paint.setAlpha(128);
-        graphics2D.drawBitmap(redBitmap, null, healthPointTextRect, paint);
-        graphics2D.drawBitmap(redBitmap, null, healthBarRect, null);
+        graphics2D.drawBitmap(healthBar, null, healthPointTextRect, paint);
+        graphics2D.drawBitmap(healthBar, null, healthBarRect, null);
     }
 
     //James Bailey 40156063
     private void drawStaminaStat(IGraphics2D graphics2D, Paint formatText) {
-        Rect staminaPointTextRect = constructStatRect(StatType.STAMINA);
+        if (positionChanged) {
+            staminaPointTextRect = constructStatRect(StatType.STAMINA);
+        }
         drawStaminaBar(graphics2D, staminaPointTextRect);
         drawStaminaText(graphics2D, staminaPointTextRect, formatText);
     }
@@ -532,30 +559,36 @@ public class UnimonCard extends Card {
     //James Bailey 40156063
     private void drawStaminaText(IGraphics2D graphics2D, Rect staminaPointTextRect, Paint formatText) {
         String staminaString = ("Stamina | " +  Integer.toString(stamina) + "/" + Integer.toString(maxStamina));
-        formatText = calculateTextSize(formatText, staminaPointTextRect.width()/2, staminaString);
-        graphics2D.drawText(staminaString,staminaPointTextRect.centerX(), staminaPointTextRect.centerY(), formatText);
+
+        //if (positionChanged) {
+            staminaTextFormat = DrawAssist.calculateTextSize(formatText, staminaPointTextRect.width()/2, staminaString);
+        //}
+
+        graphics2D.drawText(staminaString,staminaPointTextRect.centerX(), staminaPointTextRect.centerY(), staminaTextFormat);
     }
 
     //James Bailey 40156063
     private void drawStaminaBar(IGraphics2D graphics2D, Rect staminaPointTextRect) {
-        int widthStaminaBar = (int) (staminaPointTextRect.width()*(stamina/(float) maxStamina));
-
-        Rect staminaBarRect = new Rect(staminaPointTextRect.left, staminaPointTextRect.top, staminaPointTextRect.left+widthStaminaBar, staminaPointTextRect.bottom);
-
-        Bitmap greenBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-        greenBitmap.eraseColor(Color.rgb(0, 164, 11));
+        if (positionChanged) {
+            int widthStaminaBar = (int) (staminaPointTextRect.width()*(stamina/(float) maxStamina));
+            staminaBarRect = new Rect(staminaPointTextRect.left, staminaPointTextRect.top, staminaPointTextRect.left+widthStaminaBar, staminaPointTextRect.bottom);
+            staminaBar = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            staminaBar.eraseColor(Color.rgb(0, 164, 11));
+        }
 
         Paint paint = new Paint();
         paint.setAlpha(128);
 
-        graphics2D.drawBitmap(greenBitmap, null, staminaPointTextRect, paint);
-        graphics2D.drawBitmap(greenBitmap, null, staminaBarRect, null);
+        graphics2D.drawBitmap(staminaBar, null, staminaPointTextRect, paint);
+        graphics2D.drawBitmap(staminaBar, null, staminaBarRect, null);
     }
 
     //James Bailey 40156063
     //draw the mana bar bitmaps and the text showing the mana stats
     private void drawManaStat(IGraphics2D graphics2D, Paint formatText) {
-        Rect manaPointTextRect = constructStatRect(StatType.MANA);
+        if (positionChanged) {
+            manaPointTextRect = constructStatRect(StatType.MANA);
+        }
         drawManaBar(graphics2D, manaPointTextRect);
         drawManaText(graphics2D, manaPointTextRect, formatText);
     }
@@ -564,44 +597,33 @@ public class UnimonCard extends Card {
     //draw the text showing the current mana stats
     private void drawManaText(IGraphics2D graphics2D, Rect manaPointTextRect, Paint formatText) {
         String manaString = ("Mana | " +  Integer.toString(mana) + "/" + Integer.toString(maxMana)); //string showing the current mana and the maximum mana the card can have
-        formatText = calculateTextSize(formatText, manaPointTextRect.width()/2, manaString); //generate the text size that fits the width of the mana bar
-        graphics2D.drawText(manaString,manaPointTextRect.centerX(), manaPointTextRect.centerY(), formatText);
+
+        //if (positionChanged) {
+            manaTextFormat = DrawAssist.calculateTextSize(formatText, manaPointTextRect.width()/2, manaString); //generate the text size that fits the width of the mana bar
+       // }
+
+        graphics2D.drawText(manaString,manaPointTextRect.centerX(), manaPointTextRect.centerY(), manaTextFormat);
     }
 
 
     //James Bailey 40156063
     //draw mana bar onto the unimon card
     private void drawManaBar(IGraphics2D graphics2D, Rect manaPointTextRect) {
-        int widthManaBar = (int) (manaPointTextRect.width() * (mana / (float) maxMana)); //calculate the width of the mana bar by the percentage of mana the unimon card currently has
-
-        Rect manaBarRect = new Rect(manaPointTextRect.left, manaPointTextRect.top, manaPointTextRect.left + widthManaBar, manaPointTextRect.bottom); //the current mana bar dimensions
-
-        //create the bitmap for the mana bar
-        Bitmap blueBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-        blueBitmap.eraseColor(Color.BLUE); //fill with blue
+        if (positionChanged) {
+            int widthManaBar = (int) (manaPointTextRect.width() * (mana / (float) maxMana)); //calculate the width of the mana bar by the percentage of mana the unimon card currently has
+            manaBarRect = new Rect(manaPointTextRect.left, manaPointTextRect.top, manaPointTextRect.left + widthManaBar, manaPointTextRect.bottom); //the current mana bar dimensions
+            //create the bitmap for the mana bar
+            manaBar = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            manaBar.eraseColor(Color.BLUE); //fill with blue
+        }
 
         //used for drawing the full mana bar - opacity 50%
         Paint paint = new Paint();
         paint.setAlpha(128);
 
-        graphics2D.drawBitmap(blueBitmap, null, manaPointTextRect, paint); //draw the full mana bar in the background of the remaining mana bar
+        graphics2D.drawBitmap(manaBar, null, manaPointTextRect, paint); //draw the full mana bar in the background of the remaining mana bar
 
-        graphics2D.drawBitmap(blueBitmap, null, manaBarRect, null); //draw the current mana bar in the foreground - emphasises contrast through opacity
-    }
-
-    //James Bailey 40156063
-    //scale a string to a required width boundary, calculating an optimum text size
-    private Paint calculateTextSize(Paint paint, float width, String text) {
-        float optimumTextSize = 60; //optimum text size - used to test the text's boundaries
-        paint.setTextSize(optimumTextSize);
-
-        Rect bounds = new Rect(); //the boundary for the text - smallest rectangle to contain all the characters in the string
-        paint.getTextBounds(text, 0, text.length(), bounds); //calculate smallest rectangles
-
-        float textSize = optimumTextSize * width/bounds.width(); //calculates text size that will fit into the boundary of the required width
-
-        paint.setTextSize(textSize); //set the paint's text size to the calculated size
-        return paint;
+        graphics2D.drawBitmap(manaBar, null, manaBarRect, null); //draw the current mana bar in the foreground - emphasises contrast through opacity
     }
 
     //James Bailey 40156063
@@ -622,6 +644,126 @@ public class UnimonCard extends Card {
                 break;
         }
         return statRect;
+    }
+
+    public Rect getTemplateRect() {
+        return templateRect;
+    }
+
+    public void setTemplateRect(Rect templateRect) {
+        this.templateRect = templateRect;
+    }
+
+    public Rect getHealthBarRect() {
+        return healthBarRect;
+    }
+
+    public void setHealthBarRect(Rect healthBarRect) {
+        this.healthBarRect = healthBarRect;
+    }
+
+    public Paint getHealthTextFormat() {
+        return healthTextFormat;
+    }
+
+    public void setHealthTextFormat(Paint healthTextFormat) {
+        this.healthTextFormat = healthTextFormat;
+    }
+
+    public Rect getManaBarRect() {
+        return manaBarRect;
+    }
+
+    public void setManaBarRect(Rect manaBarRect) {
+        this.manaBarRect = manaBarRect;
+    }
+
+    public Paint getManaTextFormat() {
+        return manaTextFormat;
+    }
+
+    public void setManaTextFormat(Paint manaTextFormat) {
+        this.manaTextFormat = manaTextFormat;
+    }
+
+    public Rect getStaminaBarRect() {
+        return staminaBarRect;
+    }
+
+    public void setStaminaBarRect(Rect staminaBarRect) {
+        this.staminaBarRect = staminaBarRect;
+    }
+
+    public Paint getStaminaTextFormat() {
+        return staminaTextFormat;
+    }
+
+    public void setStaminaTextFormat(Paint staminaTextFormat) {
+        this.staminaTextFormat = staminaTextFormat;
+    }
+
+    public Rect getHealthPointTextRect() {
+        return healthPointTextRect;
+    }
+
+    public void setHealthPointTextRect(Rect healthPointTextRect) {
+        this.healthPointTextRect = healthPointTextRect;
+    }
+
+    public Rect getStaminaPointTextRect() {
+        return staminaPointTextRect;
+    }
+
+    public void setStaminaPointTextRect(Rect staminaPointTextRect) {
+        this.staminaPointTextRect = staminaPointTextRect;
+    }
+
+    public Rect getManaPointTextRect() {
+        return manaPointTextRect;
+    }
+
+    public void setManaPointTextRect(Rect manaPointTextRect) {
+        this.manaPointTextRect = manaPointTextRect;
+    }
+
+    public void setCardElement(Element cardElement) {
+        this.cardElement = cardElement;
+    }
+
+    public void setAbsorptionValue(int absorptionValue) {
+        this.absorptionValue = absorptionValue;
+    }
+
+    public void setAbsorptionElement(Element absorptionElement) {
+        this.absorptionElement = absorptionElement;
+    }
+
+    public void setWeaknessValue(int weaknessValue) {
+        this.weaknessValue = weaknessValue;
+    }
+
+    public void setWeaknessElement(Element weaknessElement) {
+        this.weaknessElement = weaknessElement;
+    }
+
+    public void setArmourValue(int armourValue) {
+        this.armourValue = armourValue;
+    }
+
+    public void setMoves(UnimonMoves[] moves) {
+        this.moves = moves;
+    }
+
+    public static Paint getFormatText() {
+        return formatText;
+    }
+
+    public static void setFormatText(Paint formatText) {
+        UnimonCard.formatText = formatText;
+    }
+
+    public int getNumberOfMoves() {
+        return numberOfMoves;
     }
 }
 

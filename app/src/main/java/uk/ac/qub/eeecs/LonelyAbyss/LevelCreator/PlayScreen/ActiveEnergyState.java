@@ -2,11 +2,14 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
 import android.graphics.Bitmap;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyType;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonEvolveType;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
@@ -49,7 +52,8 @@ public class ActiveEnergyState extends State {
     public void loadEnergyCard(){
         mGame.getAssetManager().loadAndAddBitmap("HEALTHCARD", "img/Cards/Health Potion.png");
         Bitmap energyCardImage = selectBitmap("HEALTHCARD");
-        testEnergyCard = new EnergyCard((0), (0), (mScreenViewport.width/4.6f), mScreenViewport.height/2, energyCardImage, mGameScreen, null, null, null, EnergyType.HEALTH,"null", true, Container.ACTIVE);
+        Map<UnimonEvolveType, Map<EnergyType, Integer>> energy = new HashMap<>();
+        testEnergyCard = new EnergyCard((0), (0), (mScreenViewport.width/4.6f), mScreenViewport.height/2, energyCardImage, mGameScreen, null, null, null, EnergyType.HEALTH, energy, "null", true, Container.ACTIVE);
         testEnergyCard.moveCard(mScreenViewport.width/2, mScreenViewport.height/2);
     }
 

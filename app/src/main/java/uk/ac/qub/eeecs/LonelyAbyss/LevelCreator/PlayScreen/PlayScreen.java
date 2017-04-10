@@ -1,9 +1,9 @@
 package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Path;
+import android.graphics.Rect;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +11,6 @@ import java.util.Stack;
 
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -29,9 +28,6 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
  */
 
 public class PlayScreen extends GameScreen {
-
-    public static Random randomCard = new Random(); //used to generate random cards for the player's hand
-
     protected ScreenViewport mScreenViewport;
     protected LayerViewport mLayerViewPort;
     protected Input mInput;
@@ -39,20 +35,24 @@ public class PlayScreen extends GameScreen {
 
 
     //the states the play area can have
-    PlayOverviewState playOverviewState;
-    ActiveUnimonState activeUnimonState;
-    OpponentScreen opponentScreen;
-    ActiveEnergyState activeEnergyState;
+    protected PlayOverviewState playOverviewState;
+    protected ActiveUnimonState activeUnimonState;
+    protected OpponentState opponentState;
+    protected ActiveEnergyState activeEnergyState;
 
-    private BattleSetup battleSetup;
+    private BattleSetup playerBattleSetup; //the battle setup the player has
 
+    //the background bitmap and the dimensions on the screen to be drawn in
+    protected Bitmap background;
+    protected Rect backgroundRect;
 
 
     public PlayScreen(Game game) {
         super("PlayScreen", game);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
         mLayerViewPort = new LayerViewport(mScreenViewport.width/2, mScreenViewport.height/2, mScreenViewport.width/2, mScreenViewport.height/2);
-
+        loadPlayScreenBitmaps();
+        generateBackground();
         createTestBattleSetup();
         createStates();
     }
@@ -60,10 +60,9 @@ public class PlayScreen extends GameScreen {
 
     //create the states
     public void createStates() {
-        playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true, battleSetup); //state active initalised to true - first state
-        activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false, battleSetup);
-       // inProgActiveUnimonState = new InProgActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false);
-        opponentScreen = new OpponentScreen(mScreenViewport, mLayerViewPort, mGame, this, false);
+        playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup); //state active initalised to true - first state
+        activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
+        opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, false);
         activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
     }
 
@@ -74,12 +73,26 @@ public class PlayScreen extends GameScreen {
         ArrayList<UnimonCard> unimonCards = mGame.getPlayer().getUnimonCards();
         ArrayList<EnergyCard> energyCards = mGame.getPlayer().getEnergyCards();
 
-        UnimonCard[] prizeCard = selectPrizeCards(unimonCards);
-        UnimonCard[] benchCard = createBenchCards(unimonCards);
-        UnimonCard activeCard = selectActiveCard(unimonCards);
-        Stack<Card> deck = createDeck(unimonCards, energyCards);
 
-        battleSetup = new BattleSetup(deck, activeCard, benchCard, prizeCard);
+        //copy the player's battle setup
+        ArrayList<UnimonCard> copyUnimonCards = new ArrayList<>();
+        ArrayList<EnergyCard> copyEnergyCards = new ArrayList<>();
+
+        for (UnimonCard unimonCard : unimonCards) {
+            copyUnimonCards.add(unimonCard.copy());
+        }
+
+        for (EnergyCard energyCard : energyCards) {
+            copyEnergyCards.add(energyCard.copy());
+        }
+
+        UnimonCard[] prizeCard = selectPrizeCards(copyUnimonCards);
+        UnimonCard[] benchCard = createBenchCards(copyUnimonCards);
+        UnimonCard activeCard = selectActiveCard(copyUnimonCards);
+        Stack<Card> deck = createDeck(copyUnimonCards, copyEnergyCards);
+
+        playerBattleSetup = new BattleSetup(deck, benchCard, prizeCard);
+        playerBattleSetup.setActiveCard(activeCard);
     }
 
     //James Bailey 40156063
@@ -93,7 +106,7 @@ public class PlayScreen extends GameScreen {
         for (int i = 0; i < numberOfPrizeCards; i++) {
             int randomIndex = random.nextInt(playerUnimonCards.size());
             UnimonCard randomUnimonCard = playerUnimonCards.get(randomIndex);
-            prizeCards[i] = randomUnimonCard.copyUnimonCard();
+            prizeCards[i] = randomUnimonCard.copy();
             playerUnimonCards.remove(randomIndex);
         }
 
@@ -111,7 +124,7 @@ public class PlayScreen extends GameScreen {
         for (int i = 0; i < numberOfBenchCards; i++) {
             int randomIndex = random.nextInt(playerUnimonCards.size());
             UnimonCard randomUnimonCard = playerUnimonCards.get(randomIndex);
-            benchCards[i] = randomUnimonCard.copyUnimonCard();
+            benchCards[i] = randomUnimonCard.copy();
             playerUnimonCards.remove(randomIndex);
         }
 
@@ -124,31 +137,38 @@ public class PlayScreen extends GameScreen {
     public UnimonCard selectActiveCard(ArrayList<UnimonCard> playerUnimonCards) {
             int maxIndexPlayerUnimonCards = playerUnimonCards.size()-1;
             int randomIndex = (int) (Math.random() * maxIndexPlayerUnimonCards);
-            UnimonCard activeCard = playerUnimonCards.get(randomIndex).copyUnimonCard();
+            UnimonCard activeCard = playerUnimonCards.get(randomIndex).copy();
             playerUnimonCards.remove(randomIndex);
 
             return activeCard;
     }
 
+    //James Bailey 40156063
     //Creates a deck that will be used to take cards off
     public Stack<Card> createDeck(ArrayList<UnimonCard> playerUnimonCards, ArrayList<EnergyCard> energyCards) {
         Random random = new Random();
-        Stack<Card> deck = new Stack<>();
+        Stack<Card> deck = new Stack<>(); //the deck that the cards are pushed to
 
         final int deck_size = 25;
+
+        int randomUnimonIndex;
+        UnimonCard randomUnimonCard;
+
+        int randomEnergyIndex;
+        EnergyCard randomEnergyCard;
 
         boolean arraysEmpty = false;
         while ((!arraysEmpty) && (deck_size > deck.size())) {
             int randomIndex = random.nextInt(2);
             if ((randomIndex == 0) && (playerUnimonCards.size() > 0)) {
-                int randomUnimonIndex = random.nextInt(playerUnimonCards.size());
-                UnimonCard randomUnimonCard = playerUnimonCards.get(randomUnimonIndex);
-                deck.push(randomUnimonCard.copyUnimonCard());
+                randomUnimonIndex = random.nextInt(playerUnimonCards.size());
+                randomUnimonCard = playerUnimonCards.get(randomUnimonIndex);
+                deck.push(randomUnimonCard.copy());
                 playerUnimonCards.remove(randomUnimonIndex);
             } else if (energyCards.size() > 0) {
-                int randomEnergyIndex = random.nextInt(energyCards.size());
-                EnergyCard randomEnergyCard = energyCards.get(randomEnergyIndex);
-                deck.push(randomEnergyCard.copyEnergyCard());
+                randomEnergyIndex = random.nextInt(energyCards.size());
+                randomEnergyCard = energyCards.get(randomEnergyIndex);
+                deck.push(randomEnergyCard.copy());
                 energyCards.remove(randomEnergyIndex);
             } else {
                 arraysEmpty = true;
@@ -162,17 +182,17 @@ public class PlayScreen extends GameScreen {
     public void update(ElapsedTime elapsedTime) {
         mInput = mGame.getInput();
         touchEvents = mInput.getTouchEvents();
-
         updateStates(elapsedTime);
     }
 
 
+    //James Bailey 40156063
+    //Updates all the states
     public void updateStates(ElapsedTime elapsedTime) {
         activeUnimonState.update(elapsedTime);
-       // inProgActiveUnimonState.update(elapsedTime);
         playOverviewState.update(elapsedTime);
-        opponentScreen.update(elapsedTime);
-        activeEnergyState.update(elapsedTime);
+        opponentState.update(elapsedTime);
+        //activeEnergyState.update(elapsedTime);
     }
 
 
@@ -180,17 +200,37 @@ public class PlayScreen extends GameScreen {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         graphics2D.clear(Color.WHITE);
         graphics2D.clipRect(mScreenViewport.toRect());
-
+        drawBackground(graphics2D);
         drawStates(elapsedTime, graphics2D);
     }
 
 
+    //James Bailey 40156063
+    //Draws all the states
     public void drawStates(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         playOverviewState.draw(elapsedTime, graphics2D);
         activeUnimonState.draw(elapsedTime, graphics2D);
-       // inProgActiveUnimonState.draw(elapsedTime, graphics2D);
-        opponentScreen.draw(elapsedTime, graphics2D);
-        activeEnergyState.draw(elapsedTime, graphics2D);
+        opponentState.draw(elapsedTime, graphics2D);
+       //activeEnergyState.draw(elapsedTime, graphics2D);
+    }
+
+    //James Bailey 40156063
+    //Generates the background dimensions and loads the bitmap
+    public void generateBackground() {
+        backgroundRect = new Rect(0, 0, mScreenViewport.width, mScreenViewport.height);
+        background = mGame.getAssetManager().getBitmap("PlayAreaBackground");
+    }
+
+    //James Bailey 40156063
+    //draw the play area's background
+    public void drawBackground(IGraphics2D graphics2D) {
+        graphics2D.drawBitmap(background, null, backgroundRect, null); //draw the background bitmap
+    }
+
+    //James Bailey 40156063
+    //Loads the bitmaps that are used in all screens - the background
+    public void loadPlayScreenBitmaps() {
+        mGame.getAssetManager().loadAndAddBitmap("PlayAreaBackground", "img/PlayArea/Background.jpeg");
     }
 
 
@@ -219,18 +259,18 @@ public class PlayScreen extends GameScreen {
         this.activeUnimonState = activeUnimonState;
     }
 
-    public OpponentScreen getOpponentScreen(){
-        return opponentScreen;
+    public OpponentState getOpponentState(){
+        return opponentState;
     }
-    public void setOpponentScreen(OpponentScreen opponentScreen){
-        this.opponentScreen = opponentScreen;
+    public void setOpponentState(OpponentState opponentState){
+        this.opponentState = opponentState;
     }
 
     public BattleSetup getBattleSetup() {
-        return battleSetup;
+        return playerBattleSetup;
     }
 
     public void setBattleSetup(BattleSetup battleSetup) {
-        this.battleSetup = battleSetup;
+        this.playerBattleSetup = battleSetup;
     }
 }

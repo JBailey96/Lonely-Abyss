@@ -51,7 +51,4 @@ public class Grid extends GameObject {
         return this.type;
     }
 
-
-
-
 }

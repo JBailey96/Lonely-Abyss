@@ -47,7 +47,7 @@ public class EnergyCard extends Card {
 
     //James Bailey 40156063
     //Create a deep copy of the energy card.
-    public EnergyCard copyEnergyCard() {
+    public EnergyCard copy() {
         EnergyCard copyEnergy = new EnergyCard(getX(), getY(), getmBound().getWidth(), getmBound().getHeight(), Bitmap.createBitmap(getBitmap()), getmGameScreen(), getID(), null, getName(), getType(), copyEnergyEffects(), getDescription(), isRevealed(), getContainer());
         return copyEnergy;
     }
@@ -70,17 +70,6 @@ public class EnergyCard extends Card {
         }
         return copyEnergy;
     }
-
-    //test constructor
-    public EnergyCard(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen, String ID,
-                      Bitmap backGround, String name, EnergyType type, String description, boolean revealed, Container container) {
-        super(x, y, width, height, bitmap, gameScreen, ID, name, description, revealed, container);
-        this.backGround = backGround;
-        this.type = type;
-
-    }
-
-
 
     /**
      * This method returns the background image in the card
@@ -167,6 +156,8 @@ public class EnergyCard extends Card {
     public void setEnergy(Map<UnimonEvolveType, Map<EnergyType, Integer>> energy) {
         this.energy = energy;
     }
+    
+    
 }
 
 

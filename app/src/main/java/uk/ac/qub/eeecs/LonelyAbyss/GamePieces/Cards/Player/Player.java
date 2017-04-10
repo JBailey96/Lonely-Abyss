@@ -6,15 +6,16 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 
 /**
- * Created by appcamp on 05/02/2017.
+ * Created by James on 05/02/2017.
  */
 
 public class Player {
-    private BattleSetup playerBattleSetup;
+    private BattleSetup playerBattleSetup; //the player's battle setup they bring into battle
     private ArrayList<EnergyCard> energyCards;
-    private ArrayList<UnimonCard> unimonCards;
+    private ArrayList<UnimonCard> unimonCards; // cards the player possesses
 
     public Player() {
+
     }
 
 

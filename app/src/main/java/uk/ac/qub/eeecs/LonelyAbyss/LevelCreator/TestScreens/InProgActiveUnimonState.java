@@ -3,15 +3,11 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.TestScreens;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.icu.text.UnicodeSet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyType;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.Element;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -192,12 +188,9 @@ public class InProgActiveUnimonState extends State {
 
     //load the bitmaps for the battle option buttons.
     public void loadButtonOptionBitmaps() {
-        mGame.getAssetManager().loadAndAddBitmap("ENERGYBUTTON", "img/PlayScreenButtons/button_energy (1).png");
-        mGame.getAssetManager().loadAndAddBitmap("EVOLVEBUTTON", "img/PlayScreenButtons/button_evolve (1).png");
-        mGame.getAssetManager().loadAndAddBitmap("RETREATBUTTON", "img/PlayScreenButtons/button_retreat (1).png");
-        mGame.getAssetManager().loadAndAddBitmap("MOVE1BUTTON", "img/PlayScreenButtons/button_move-1.png");
-        mGame.getAssetManager().loadAndAddBitmap("MOVE2BUTTON", "img/PlayScreenButtons/button_move-2.png");
-        mGame.getAssetManager().loadAndAddBitmap("MOVE3BUTTON", "img/PlayScreenButtons/button_move-3.png");
+        mGame.getAssetManager().loadAndAddBitmap("ENERGYBUTTON", "img/PlayScreenButtons/applyEnergyButton.png");
+        mGame.getAssetManager().loadAndAddBitmap("EVOLVEBUTTON", "img/PlayScreenButtons/evolveUnimonButton.png");
+        mGame.getAssetManager().loadAndAddBitmap("RETREATBUTTON", "img/PlayScreenButtons/retreatUnimonButton.png");
     }
 
     //loads test card

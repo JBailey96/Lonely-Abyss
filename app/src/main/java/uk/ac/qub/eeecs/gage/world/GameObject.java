@@ -47,6 +47,8 @@ public class GameObject {
 	protected Rect drawSourceRect = new Rect();
 	protected Rect drawScreenRect = new Rect();
 
+	protected volatile boolean positionChanged = true; //denotes whether the object has changed position - by default true, recalculate extra elements (e.g stat bars) drawn onto gameobject
+
 	// /////////////////////////////////////////////////////////////////////////
 	// Constructors
 	// /////////////////////////////////////////////////////////////////////////
@@ -260,5 +262,28 @@ public class GameObject {
         this.drawScreenRect = drawScreenRect;
     }
 
+	//James Bailey 40156063
+	//set a new position for the GameObject
+	public void setPosition(GameScreen mGameScreen, float x, float y, float width, float height) {
+		setmGameScreen(mGameScreen);
 
+		BoundingBox mBound = new BoundingBox();
+		mBound.x = x;
+		mBound.y = y;
+		mBound.halfWidth = width/2;
+		mBound.halfHeight = height/2;
+
+		setPosition(x, y);
+		setmBound(mBound);
+
+		setPositionChanged(true);
+	}
+
+	public boolean isPositionChanged() {
+		return positionChanged;
+	}
+
+	public void setPositionChanged(boolean positionChanged) {
+		this.positionChanged = positionChanged;
+	}
 }

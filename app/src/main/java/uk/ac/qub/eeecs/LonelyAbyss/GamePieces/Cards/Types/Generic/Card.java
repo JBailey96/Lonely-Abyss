@@ -38,7 +38,6 @@ public abstract class Card extends GameObject {
     public Card(float x, float y, float width, float height, Bitmap bitmap,
                 GameScreen gameScreen, String ID, String name,String description, boolean revealed, Container container) {
         super(x, y, width, height, bitmap, gameScreen);
-
         this.name = name;
         this.description = description;
         this.revealed = revealed;
@@ -46,8 +45,10 @@ public abstract class Card extends GameObject {
         this.x = x;
         this.y = y;
         this.ID = ID;
-
     }
+
+    //requires all subclasses to have a deep copy method
+    public abstract Card copy();
 
     /**
      * This method returns the unique ID assigned to a specific card
@@ -104,8 +105,6 @@ public abstract class Card extends GameObject {
     }
 
     public void update(ElapsedTime elapsedTime) {
-
-
 
     }
 
@@ -169,4 +168,5 @@ public abstract class Card extends GameObject {
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
     }
+
 }
