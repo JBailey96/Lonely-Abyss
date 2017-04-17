@@ -54,7 +54,7 @@ public class MenuScreen extends GameScreen {
         mLayerViewport = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
 
-        //Declaring the dimensions for the backgorunds
+        //Declaring the dimensions for the backgrounds
         backgroundRect = new Rect(0, 0, mScreenViewport.width,  mScreenViewport.height);
 
         loadMenuBitmaps();

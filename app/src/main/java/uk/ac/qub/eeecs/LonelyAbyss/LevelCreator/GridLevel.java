@@ -100,6 +100,7 @@ public class GridLevel extends GameScreen {
         }
     }
 
+    //James Bailey 40156063
     //generate a number of grids
     public void generateGrids() {
         //the dimensions of the grid rectangles defined by the the size of the layer view port.
@@ -145,6 +146,7 @@ public class GridLevel extends GameScreen {
         }
     }
 
+    //James Bailey 40156063
     // Select the bitmap for the grid
     private Bitmap selectBitmap(GridType g) {
         String bitmap = "EMPTY";
@@ -185,6 +187,7 @@ public class GridLevel extends GameScreen {
         return super.selectBitmap(bitmap);
     }
 
+    //James Bailey 40156063
     //load the grid square bitmaps into the asset manager to use to create the grid squares.
     public void loadGridBitmaps() {
         getGame().getAssetManager().loadAndAddBitmap("START", "img/GridSquares/Start.png");
@@ -198,6 +201,7 @@ public class GridLevel extends GameScreen {
         getGame().getAssetManager().loadAndAddBitmap("HIDDEN", "img/GridSquares/Hidden.jpg");
     }
 
+    //James Bailey 40156063
     //handling a grid being touched
     public void touchGrid(List<TouchEvent> touchEvents) {
 
@@ -235,6 +239,7 @@ public class GridLevel extends GameScreen {
     }
 
 
+    //James Bailey 40156063
     //selects grid square randomly
     public GridType typeGrid() {
         double randNum = rand.nextDouble();

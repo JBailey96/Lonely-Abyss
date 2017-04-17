@@ -6,6 +6,7 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
  * Created by Jordan and Kyle on 09/03/2017.
  */
 
+        import android.app.ApplicationErrorReport;
         import android.graphics.Bitmap;
         import android.graphics.Paint;
         import android.graphics.Rect;
@@ -14,6 +15,9 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
         import java.util.ArrayList;
         import java.util.List;
 
+        import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
+        import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
+        import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.Element;
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -29,26 +33,50 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
         import uk.ac.qub.eeecs.gage.world.State;
 
 public class OpponentState extends State {
-    UnimonCard OpponentActiveCard; // Opponent card in the active slot
+
+    public enum OpponentStateType { //the statetypes the state can have - control the validity of a user's input primarily
+        VIEW_OPPONENT, MOVE_APPLIED
+    }
+
+    protected OpponentStateType opponentStateType; //the current state type of the state
+
+    protected UnimonCard OpponentActiveCard; // Opponent card in the active slot
 
     ReleaseButton back; // a button to go back to the main screen
     ReleaseButton showDetailsButton; // a button to show deatils od the active unimon
 
-    public OpponentState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, Boolean active) {
+    protected PlayScreen playScreen;
+    protected BattleSetup battleSetup;
+
+    protected UnimonCard playerCard; //the player's card they can use to apply moves onto the opponent car dpresented
+
+    protected int opponentCardHealthBefore; //the health of the opponent's card before a move has been applied.
+    protected int opponentCardHealthAfter; //the health after the player has applied a move.
+
+
+
+    public OpponentState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, BattleSetup battleSetup, Boolean active) {
         super(mScreenViewport, mLayerViewPort, mGame, mGameScreen, active);
+
+        this.playScreen = (PlayScreen) mGameScreen;
+        this.battleSetup = battleSetup;
+
         loadDetailsBitmap();
         generateDetailsButton();
         loadTestCard();
+
+        opponentStateType = OpponentStateType.VIEW_OPPONENT; //initial state is to view the opponent.
     }
 
     @Override
 
     public void update(ElapsedTime elapsedTime) {
         if (active) {
-            mInput = mGame.getInput();
-            touchEvents = mInput.getTouchEvents();
-
-            touchButton(touchEvents);
+            if (opponentStateType == OpponentStateType.VIEW_OPPONENT) {
+                mInput = mGame.getInput();
+                touchEvents = mInput.getTouchEvents();
+                touchButton(touchEvents);
+            }
         }
     }
 
@@ -64,7 +92,6 @@ public class OpponentState extends State {
         if(!(OpponentActiveCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))){
             active = false;
         }
-
     }
 
 
@@ -113,6 +140,61 @@ public class OpponentState extends State {
         mGame.getAssetManager().loadAndAddBitmap("DETAILSBUTTON","img/PlayScreenButtons/card_details.png");
     }
 
+    //James Bailey 40156063
+    //Applies the active unimon move to the opponent's card
+    public void applyMove(UnimonCard playerCard, UnimonMoves unimonMove) {
+        this.playerCard = playerCard; //stores a reference to the player card - used to set the battlesetup
+
+        opponentCardHealthBefore = OpponentActiveCard.getHealth(); //store the opponent's health before the player's move is applied on it
+        Battle.applyMove(playerCard, OpponentActiveCard, unimonMove); //apply the player's move to the opponent active card
+        opponentCardHealthAfter = OpponentActiveCard.getHealth(); //store the opponent's health after the move is applied
+
+        //set the health of the opponent to what it was before the move is applied
+        OpponentActiveCard.setHealth(opponentCardHealthBefore);
+
+        Thread thread = new Thread(new DecreaseHealth());
+        thread.start();
+
+    }
+
+    //James Bailey 40156063
+    //Thread that decreases the health of the opponent card gradually to present the impact of the player's move
+    class DecreaseHealth implements Runnable {
+        @Override
+        public void run() {
+            try {
+                final int totalTimeInMiliSeconds = 4000; //the time to show the decrease in health to the player
+                int healthDifference = opponentCardHealthBefore-opponentCardHealthAfter; //the damage the move did to the opponent's health
+
+                if (healthDifference != 0) { //validates whether the health actually did some damage
+                    int timeEachDecrement = totalTimeInMiliSeconds/healthDifference; //the time for each decrement in health
+
+                    //decreases health until it reaches the opponent's health after the move.
+                    for (int i = opponentCardHealthBefore; i >= opponentCardHealthAfter; i--) {
+                        OpponentActiveCard.decreaseHealth(1);
+                        OpponentActiveCard.setPositionChanged(true); //update the stat bar dimensions
+                        Thread.sleep(timeEachDecrement);
+                    }
+                    battleSetup.setActiveCard(playerCard); //set the battlesetup's active card to the now updated health's card
+                }
+
+                Thread.sleep(2000); //provides the user a short time to view the health of the opponent after the move.
+
+                active = false;
+
+                //need to refresh states that use the player's active unimon card - stats changed
+                playScreen.getPlayOverviewState().refresh();
+                playScreen.getActiveUnimonState().refresh();
+                playScreen.getBenchState().refresh();
+
+                //present the playoverview state to the user again and allow the user to interact with it
+                playScreen.getPlayOverviewState().active = true;
+                playScreen.getPlayOverviewState().touchActive = true;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     //loads test card
@@ -120,16 +202,11 @@ public class OpponentState extends State {
         mGame.getAssetManager().loadAndAddBitmap("CARD", "img/Cards/Demon Slayer.png");
         mGame.getAssetManager().loadAndAddBitmap("BLACK", "img/Particles/black.png");
         Bitmap cardImage = selectBitmap("CARD");
-        OpponentActiveCard = new UnimonCard((mScreenViewport.width/2), (mScreenViewport.height/2), (mScreenViewport.width/2.3f), (int)(mScreenViewport.height), cardImage, mGameScreen,
-                "0", null, null, null, "Earth Dragon",
-                UnimonEvolveType.DEMON, Element.EARTH, null, 5, 6, 7, "test Description",
-                20 ,30, Element.FIRE, 50, Element.HOLY, true, Container.ACTIVE);
-
+        OpponentActiveCard = new UnimonCard((mScreenViewport.width / 2), (mScreenViewport.height / 2), (mScreenViewport.width / 2.3f), (mScreenViewport.height), cardImage, mGameScreen,
+                "0", null, null, null, "Demon Slayer",
+                UnimonEvolveType.DEMON, Element.EARTH, null, 500, 600, 700, "test Description",
+                20, 2, Element.FIRE, 50, Element.HOLY, true, Container.ACTIVE);
     }
-
-
-
-
 
 
 

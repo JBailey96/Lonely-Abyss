@@ -119,6 +119,7 @@ public class EnergyCard extends Card {
         this.type = type;
     }
 
+    //James Bailey 40156063
     //Apply the energy card effect to the player's unimon card.
     public void applyEnergy (UnimonCard playerCard) {
         if (this.container == Container.HAND) { //validates that the card is in the players hand

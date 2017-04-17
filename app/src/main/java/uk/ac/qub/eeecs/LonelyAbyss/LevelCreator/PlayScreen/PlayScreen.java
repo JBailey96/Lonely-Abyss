@@ -22,6 +22,7 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.gage.world.State;
 
 /**
  * Created by Kyle on 22/11/2016.
@@ -39,6 +40,7 @@ public class PlayScreen extends GameScreen {
     protected ActiveUnimonState activeUnimonState;
     protected OpponentState opponentState;
     protected ActiveEnergyState activeEnergyState;
+    protected BenchState benchState;
 
     private BattleSetup playerBattleSetup; //the battle setup the player has
 
@@ -54,15 +56,21 @@ public class PlayScreen extends GameScreen {
         loadPlayScreenBitmaps();
         generateBackground();
         createTestBattleSetup();
-        createStates();
+        createInitialState();
     }
 
+    //James Bailey 40156063
+    //The first state that is called - used to select the active unimon card.
+    public void createInitialState() {
+        benchState = new BenchState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup);
+    }
 
-    //create the states
-    public void createStates() {
+    //James Bailey 40156063
+    //create the other states that require the initialisation of an active unimon card.
+    public void createOtherStates() {
         playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup); //state active initalised to true - first state
         activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
-        opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, false);
+        opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, playerBattleSetup, false);
         activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
     }
 
@@ -88,11 +96,9 @@ public class PlayScreen extends GameScreen {
 
         UnimonCard[] prizeCard = selectPrizeCards(copyUnimonCards);
         UnimonCard[] benchCard = createBenchCards(copyUnimonCards);
-        UnimonCard activeCard = selectActiveCard(copyUnimonCards);
         Stack<Card> deck = createDeck(copyUnimonCards, copyEnergyCards);
 
         playerBattleSetup = new BattleSetup(deck, benchCard, prizeCard);
-        playerBattleSetup.setActiveCard(activeCard);
     }
 
     //James Bailey 40156063
@@ -116,12 +122,12 @@ public class PlayScreen extends GameScreen {
     //James Bailey 40156063
     //Selects random 3 Unimon cards from the user's entire collection of cards to be on the bench
     public UnimonCard[] createBenchCards(ArrayList<UnimonCard> playerUnimonCards) {
-        final int numberOfBenchCards = 3;
+        final int numberOfBenchCardsBeforePlay = 4;
 
-        UnimonCard[] benchCards = new UnimonCard[numberOfBenchCards];
+        UnimonCard[] benchCards = new UnimonCard[numberOfBenchCardsBeforePlay];
 
         Random random = new Random();
-        for (int i = 0; i < numberOfBenchCards; i++) {
+        for (int i = 0; i < numberOfBenchCardsBeforePlay; i++) {
             int randomIndex = random.nextInt(playerUnimonCards.size());
             UnimonCard randomUnimonCard = playerUnimonCards.get(randomIndex);
             benchCards[i] = randomUnimonCard.copy();
@@ -189,10 +195,30 @@ public class PlayScreen extends GameScreen {
     //James Bailey 40156063
     //Updates all the states
     public void updateStates(ElapsedTime elapsedTime) {
-        activeUnimonState.update(elapsedTime);
-        playOverviewState.update(elapsedTime);
-        opponentState.update(elapsedTime);
+        if (verifyState(activeUnimonState)) {
+            activeUnimonState.update(elapsedTime);
+        }
+        if (verifyState(playOverviewState)) {
+            playOverviewState.update(elapsedTime);
+        }
+        if (verifyState(opponentState)) {
+            opponentState.update(elapsedTime);
+        }
+        if (verifyState(benchState)) {
+            benchState.update(elapsedTime);
+        }
         //activeEnergyState.update(elapsedTime);
+    }
+
+    //James Bailey 40156063
+    //verifies that the state has been initialised and is active
+    public boolean verifyState(State state) {
+        if (state != null) {
+            if (state.active) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -208,9 +234,18 @@ public class PlayScreen extends GameScreen {
     //James Bailey 40156063
     //Draws all the states
     public void drawStates(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        playOverviewState.draw(elapsedTime, graphics2D);
-        activeUnimonState.draw(elapsedTime, graphics2D);
-        opponentState.draw(elapsedTime, graphics2D);
+        if (verifyState(playOverviewState)) {
+            playOverviewState.draw(elapsedTime, graphics2D);
+        }
+        if (verifyState(activeUnimonState)) {
+            activeUnimonState.draw(elapsedTime, graphics2D);
+        }
+        if (verifyState(opponentState)) {
+            opponentState.draw(elapsedTime, graphics2D);
+        }
+        if (verifyState(benchState)) {
+            benchState.draw(elapsedTime, graphics2D);
+        }
        //activeEnergyState.draw(elapsedTime, graphics2D);
     }
 
@@ -264,6 +299,14 @@ public class PlayScreen extends GameScreen {
     }
     public void setOpponentState(OpponentState opponentState){
         this.opponentState = opponentState;
+    }
+
+    public BenchState getBenchState() {
+        return benchState;
+    }
+
+    public void setBenchState(BenchState benchState) {
+        this.benchState = benchState;
     }
 
     public BattleSetup getBattleSetup() {

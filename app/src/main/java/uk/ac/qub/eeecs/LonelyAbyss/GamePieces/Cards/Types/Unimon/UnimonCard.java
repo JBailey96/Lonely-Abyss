@@ -139,11 +139,45 @@ public class UnimonCard extends Card {
     }
 
     //James Bailey 40156063
+    //Constructor used to copy a unimon card - the health, stamina and mana fields are included along with the max of each stat.
+    //The constructor takes in the three stats as only the max.
+    public UnimonCard(float x, float y, float width, float height, Bitmap bitmapTemplate, GameScreen gameScreen,
+                      String ID, Bitmap healthBar, Bitmap manaBar, Bitmap staminaBar, String name,
+                      UnimonEvolveType evolveType, Element cardElement, UnimonMoves[] moves, int health, int mana, int stamina, int maxHealth, int maxMana, int maxStamina, String description,
+                      int armourValue,int weaknessValue, Element weaknessElement, int absorptionValue, Element absorptionElement, boolean revealed, Container container) {
+        super(x, y, width, height, bitmapTemplate, gameScreen, ID,name, description, revealed, container);
+
+        this.health = health;
+        this.mana = mana;
+        this.stamina = stamina;
+        this.maxHealth = maxHealth;
+        this.maxMana = maxMana;
+        this.maxStamina = maxStamina;
+
+
+        this.healthBar = healthBar;
+        this.manaBar = manaBar;
+        this.staminaBar = staminaBar;
+        this.evolveType = evolveType;
+        this.cardElement = cardElement;
+        this.moves = moves;
+
+        //defensive stats
+        this.absorptionValue = absorptionValue;
+        this.weaknessValue = weaknessValue;
+        this.armourValue = armourValue;
+        this.weaknessElement = weaknessElement;
+        this.absorptionElement = absorptionElement;
+
+        developCard();
+    }
+
+    //James Bailey 40156063
     //create a deep copy of the unimon card
     public UnimonCard copy() {
         UnimonCard newCard = new UnimonCard(getX(), getY(), getBound().getWidth(), getBound().getHeight(),
                 Bitmap.createBitmap(getBitmap()), getmGameScreen(), getID(), null, null, null, getName(),
-                getEvolveType(), getCardElement(), copyUnimonMovesList(), getHealth(), getMana(), getStamina(),
+                getEvolveType(), getCardElement(), copyUnimonMovesList(), getHealth(), getMana(), getStamina(), getMaxHealth(), getMaxMana(), getMaxStamina(),
                 getDescription(), getArmourValue(), (int) getWeaknessValue(), getWeaknessElement(), getAbsorptionValue(), getAbsorptionElement(), isRevealed(), getContainer());
         newCard.setPositionChanged(true);
         return newCard;
@@ -272,6 +306,7 @@ public class UnimonCard extends Card {
         this.statusEffects = statusEffects;
     }
 
+    //James Bailey 40156063
     //increase unimon card's mana (e.g when an energy card is applied)
     public void increaseMana(int addMana) {
         if (validIntParam(addMana)) { //check if the desired increase in mana is valid (above >= 0)
@@ -286,6 +321,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     public void increaseHealth(int addHealth) {
         if (validIntParam(addHealth)) {
 
@@ -299,6 +335,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     public void increaseStamina(int addStamina) {
         if (validIntParam(addStamina)) {
 
@@ -312,6 +349,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     //increase unimon card's mana (e.g when an opponent's unimon makes an offensive move against this card)
     public void decreaseMana(int subMana) {
         if (validIntParam(subMana)) { //validates whether the desired increase in mana is valid (above >= 0)
@@ -325,6 +363,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     public void decreaseHealth(int subHealth) {
         if (validIntParam(subHealth)) {
             int decreasedHealth = getHealth() - subHealth;
@@ -337,6 +376,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     public void decreaseStamina(int subStamina) {
         if (validIntParam(subStamina)) {
             int decreasedStamina = getStamina() - subStamina;
@@ -349,6 +389,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     //increase the unimon card's mana by a percentage value (>0.0%)
     public void increaseManaPercent(float percMana) {
         if (validPercent(percMana)) { //validates whether the parameter is a valid percentage.
@@ -361,6 +402,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     public void increaseHealthPercent(float percHealth) {
         if (validPercent(percHealth)) {
             int increasedHealth = ((int) (getHealth() + (getHealth()*(percHealth/100))));
@@ -373,6 +415,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     public void increaseStaminaPercent(float percStamina) {
         if (validPercent(percStamina)) {
             int increasedStamina = ((int) (getStamina() + (getStamina()*(percStamina/100))));
@@ -385,6 +428,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     //decrease the card's mana by a percentage value (>0.0%)
     public void decreaseManaPercent(float percMana) {
         if (validPercent(percMana)) { //if the percentage value in the parameter is valid
@@ -399,6 +443,7 @@ public class UnimonCard extends Card {
 
     }
 
+    //James Bailey 40156063
     public void decreaseHealthPercent(float percHealth) {
         if (validPercent(percHealth)) {
             int decreasedHealth= ((int) (getHealth() - (getHealth()*(percHealth/100))));
@@ -411,6 +456,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     public void decreaseStaminaPercent(float percStamina) {
         if (validPercent(percStamina)) {
             int decreasedStamina = ((int) (getStamina() - (getStamina()*(percStamina/100))));
@@ -423,6 +469,7 @@ public class UnimonCard extends Card {
         }
     }
 
+    //James Bailey 40156063
     // validates the integer parameter on value increases/decreases is valid
     public boolean validIntParam(int input) {
         if (0 >= input) { //validates the value is not negative or 0.
@@ -431,6 +478,7 @@ public class UnimonCard extends Card {
         return true;
     }
 
+    //James Bailey 40156063
     // validates the float parameter on percentage value increases/decreases is valid
     public boolean validPercent(float input) {
         if (0 >= input) {

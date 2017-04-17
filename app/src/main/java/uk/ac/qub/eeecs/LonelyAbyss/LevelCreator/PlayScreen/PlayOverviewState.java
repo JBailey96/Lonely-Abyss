@@ -1,10 +1,12 @@
 package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 import java.util.List;
 import java.util.Stack;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -25,14 +27,18 @@ import uk.ac.qub.eeecs.gage.world.State;
  */
 
 public class PlayOverviewState extends State {
+    //the quantity of cards the player has
     protected final int numHandCards = 5;
     protected final int numBenchCards = 3;
     protected final int numPrizeCards = 3;
 
-    private Card[] handCards; //the bench area cards displayed.
-    private Stack<Card> deck; //
-    private UnimonCard[] benchCards;
-    private UnimonCard[] prizeCards;
+    protected boolean touchActive; //true - the user can interact with the state by touching the screen, false no touch events registered
+
+    private Card[] handCards; //the cards in the players hand displayed
+    private Stack<Card> deck; //the deck the player has chosen that can be drawn from when there is an opening in deck cards
+    private UnimonCard[] benchCards; //the bench cards to be displayed
+    private UnimonCard[] prizeCards; //the prize cards to be displayed
+
     ReleaseButton deckButton; //button when pressed draws a card to the player's hand from the player's deck
     ReleaseButton graveyardButton; //button when pressed shows the unimoncards that have been knocked out
 
@@ -40,9 +46,19 @@ public class PlayOverviewState extends State {
 
     private GameObject opponentButton; // the button that will show the opponent's screen
 
+    protected BattleSetup playerBattleSetup; //the player's battle setup
+
+    protected int indexToRemove = -1;
+
+    protected PlayScreen playScreen;
+
 
     public PlayOverviewState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, Boolean active, BattleSetup battleSetup) {
         super(mScreenViewport, mLayerViewPort, mGame, mGameScreen, active);
+        this.playerBattleSetup = battleSetup;
+        this.playScreen = (PlayScreen) mGameScreen;
+        touchActive = true;
+
         loadPlayAreaBitmaps();
         initialiseCards(battleSetup);
         generateButtons();
@@ -55,9 +71,21 @@ public class PlayOverviewState extends State {
     public void initialiseCards(BattleSetup battleSetup) {
         activeUnimonCard = battleSetup.getActiveCard().copy();
         deck = battleSetup.getPlayAreaDeck();
+
         handCards = new Card[numHandCards];
+        battleSetup.setHandCard(handCards); //initialise the player's hand cards
+
         benchCards = battleSetup.getBenchCards();
         prizeCards = battleSetup.getPrizeCards();
+    }
+
+    //James Bailey 40156063
+    //Refreshes the state - called when the battlesetups' objects could have changed
+    public void refresh() {
+        benchCards = playerBattleSetup.getBenchCards(); //store a reference to the player battlesetup's bench cards
+        generateBenchCards();
+        setActiveUnimonCard(playerBattleSetup.getActiveCard().copy());
+        generateActiveUnimon();
     }
 
     @Override
@@ -65,9 +93,13 @@ public class PlayOverviewState extends State {
         if (active) {
             updateCards(elapsedTime);
             updateButtons(elapsedTime);
-            mInput = mGame.getInput();
-            touchEvents = mInput.getTouchEvents();
-            touchButton(touchEvents);
+
+            if (touchActive) {
+                mInput = mGame.getInput();
+                touchEvents = mInput.getTouchEvents();
+                touchButton(touchEvents);
+                touchCards(touchEvents);
+            }
         }
     }
 
@@ -75,11 +107,11 @@ public class PlayOverviewState extends State {
     //update all the cards
     public void updateCards(ElapsedTime elapsedTime) {
         for (Card handCard : handCards) {
-            handCard.update(elapsedTime);
+            if (handCard != null) { //ensures the hand card exists
+                handCard.update(elapsedTime);
+            }
         }
-
         activeUnimonCard.update(elapsedTime);
-
     }
 
     //update all the buttons
@@ -89,14 +121,39 @@ public class PlayOverviewState extends State {
         graveyardButton.update(elapsedTime);
     }
 
-    //checks for touch evetns on the buttons
+    public void touchCards(List<TouchEvent> touchEvents) {
+        for (TouchEvent t: touchEvents) {
+            if (t.type == TouchEvent.TOUCH_UP) {
+                touchBenchCards(t);
+            }
+        }
+    }
+
+    //James Bailey 40156063
+    //Handles touching one of the bench cards
+    public void touchBenchCards(TouchEvent t) {
+        for (UnimonCard benchCard : benchCards) {
+            if ((benchCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) { //validates whether the user has touched a bench card
+                playScreen.getBenchState().setCurrentStateType(BenchState.StateType.VIEW_BENCH); //set the benchstate state's type in order to present to the user to bench cards
+
+                this.touchActive = false;
+
+                playScreen.getBenchState().active = true;
+                mInput.resetAccumulators();
+                break;
+            }
+        }
+    }
+
+    //James Bailey 40156063
+    //checks for touch events on the buttons or active unimon card
     public void touchButton(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 touchActiveUnimon(t);
-                touchDeckButton(t);
-                touchGraveyardButton(t);
-                touchOpponentButton(t);
+                touchDeckButton();
+                touchGraveyardButton();
+                touchActiveUnimon(t);
             }
         }
     }
@@ -105,7 +162,7 @@ public class PlayOverviewState extends State {
     //checks whether the active unimon has been touched and activates the active unimon state
     public void touchActiveUnimon(TouchEvent t) {
         if ((activeUnimonCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
-            PlayScreen playScreen = (PlayScreen) mGameScreen;
+            this.touchActive = false;
             playScreen.getActiveUnimonState().active = true;
         }
     }
@@ -113,23 +170,31 @@ public class PlayOverviewState extends State {
     //checks whether the opponent button has been touched
     public void touchOpponentButton(TouchEvent t) {
         if ((opponentButton.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
-            PlayScreen playScreen = (PlayScreen) mGameScreen;
             playScreen.getOpponentState().active = true;
         }
     }
 
+    //James Bailey 40156063
     //checks whether the deck button has been touched and takes a card from the deck and puts into the hand if space available
-    public void touchDeckButton(TouchEvent t) {
-        if ((deckButton.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
-            PlayScreen playScreen = (PlayScreen) mGameScreen;
+    public void touchDeckButton() {
+        if (deckButton.isPushed()) {
+            int indexNewHandCard = Battle.drawFromDeck(playerBattleSetup); //the index of the new hand card to be added
+
+            if (indexNewHandCard != -1) { //there is an 'opening' for a hand card to be added
+                generateSingleHandCard(handCards[indexNewHandCard], indexNewHandCard); //add a new hand card to the list
+            }
         }
     }
 
+
+
     //James Bailey 40156063
     //checks whether the graveyard button has been touched and allows the player to view cards in the graveyard
-    public void touchGraveyardButton(TouchEvent t) {
-        if ((graveyardButton.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
-            PlayScreen playScreen = (PlayScreen) mGameScreen;
+    public void touchGraveyardButton() {
+        if (graveyardButton.isPushed()) {
+            indexToRemove++;
+            indexToRemove = indexToRemove % 5;
+            Battle.removeFromHand(handCards, indexToRemove);
         }
     }
 
@@ -137,28 +202,51 @@ public class PlayOverviewState extends State {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         if (active) {
             drawCards(elapsedTime, graphics2D);
+            drawButtons(elapsedTime, graphics2D);
         }
     }
 
+    //James Bailey 40156063
     //draw all the cards
     public void drawCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        for (Card handCard : handCards) {
-            handCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+        //draw all the hand cards
+        for (int i = 0; i < handCards.length; i ++) {
+            Card handCard = handCards[i];
+
+            if (handCard != null) { //hand card exists - then draw
+                handCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+            } else { //draw an empty placeholder for the hand card
+                drawEmptyCard(graphics2D, i);
+            }
         }
 
+        //draw all the bench cards
         for (UnimonCard benchCard : benchCards) {
             benchCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
         }
 
+        //draw all the prize cards
         for (UnimonCard prizeCard : prizeCards) {
             prizeCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport, null);
         }
 
+        //draw the active unimon card
+        activeUnimonCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+    }
+
+    //James Bailey 40156063
+    //Draw all the empty cards
+    public void drawEmptyCard(IGraphics2D graphics2D, int indexEmptyCard) {
+        Rect emptyHandCardDimen = generateEmptyHandCardDimension(indexEmptyCard);
+        graphics2D.drawBitmap(selectBitmap("EmptyCard"), null, emptyHandCardDimen, null);
+    }
+
+
+    //draw all the buttons
+    public void drawButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         deckButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
 
         graveyardButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
-
-        activeUnimonCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
 
         opponentButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
@@ -167,7 +255,7 @@ public class PlayOverviewState extends State {
     public void generateCards() {
         generateShowOpponentsScreenButton();
         generateHandCards();
-        generateBenchCard();
+        generateBenchCards();
         generatePrizeCards();
         generateActiveUnimon();
     }
@@ -180,26 +268,55 @@ public class PlayOverviewState extends State {
 
 
     //James Bailey 40156063
-    //generate the cards that go into the user's hand
+    //generate the cards that go into the user's hand - initial set up
     public void generateHandCards() {
+        //takes cards from the top of the deck stack and puts them into the hand cards array - adjusting their position
+        for (int i = 0; i < numHandCards; i++) {
+            Card handCard = deck.pop();
+            generateSingleHandCard(handCard, i); //sets dimensions and position for the hand card - depends upon it's position in the index
+            handCards[i] = handCard; //add handcard to the list
+        }
+    }
+
+    //James Bailey 40156063
+    //sets the dimensions and position of a hand card.
+    public void generateSingleHandCard(Card handCard, int index) {
         float width;
         float x;
         float height;
         float y;
 
-        //takes cards from the top of the deck stack and puts them into the hand cards array - adjusting their position
-        for (int i = 0; i < numHandCards; i++) {
+        //set up the dimensions and position for the card to be drawn to
+        width = mScreenViewport.width / 10;
+        x = calculateHandCardX(width, index);
+        height = mScreenViewport.height / 4;
+        y = height / 2;
 
-            //set up the dimensions for the card to be drawn to
-            width = mScreenViewport.width / 10;
-            x = (width / 2 * (i + 1)) + ((width * i) * 0.75f) + mScreenViewport.width / 6;
-            height = mScreenViewport.height / 4;
-            y = height / 2;
+        handCard.setPosition(mGameScreen, x, y, width, height);
+    }
 
-            Card handCard = deck.pop();
-            handCard.setPosition(mGameScreen, x, y, width, height);
-            handCards[i] = handCard;
-        }
+    //James Bailey 40156063
+    //calculates the x position of individual the hand card
+    private float calculateHandCardX(float width, int index) {
+        float x = (width / 2 * (index + 1)) + ((width * index) * 0.75f) + mScreenViewport.width / 6;
+        return x;
+    }
+
+    //James Bailey 40156063
+    //sets the dimensions and position of a placeholder for an empty hand card.
+    public Rect generateEmptyHandCardDimension(int index) {
+        float width;
+        float x;
+        float height;
+        float y;
+
+        width = mScreenViewport.width / 10;
+        x = calculateHandCardX(width, index);
+        height = mScreenViewport.height / 4;
+        y = height / 2;
+
+        Rect emptyHandCardRect = new Rect((int) (x-width/2), (int) (mScreenViewport.height-height), (int) (x+width/2), (mScreenViewport.height));
+        return emptyHandCardRect;
     }
 
     //generate the button used to represent the top of the deck to be drawn from
@@ -214,7 +331,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate the player's bench cards
-    public void generateBenchCard() {
+    public void generateBenchCards() {
         float width;
         float x;
         float height;
@@ -302,9 +419,23 @@ public class PlayOverviewState extends State {
         mGame.getAssetManager().loadAndAddBitmap("PrizeCard", "img/PlayArea/PrizeCard.png");
         mGame.getAssetManager().loadAndAddBitmap("Graveyard", "img/PlayArea/Graveyard.png");
         mGame.getAssetManager().loadAndAddBitmap("Opponent", "img/PlayScreenButtons/opponent_screen.png");
+        mGame.getAssetManager().loadAndAddBitmap("EmptyCard", "img/Cards/EmptyCard.png");
     }
 
+    public UnimonCard getActiveUnimonCard() {
+        return activeUnimonCard;
+    }
 
+    public void setActiveUnimonCard(UnimonCard activeUnimonCard) {
+        this.activeUnimonCard = activeUnimonCard;
+    }
 
+    public boolean isTouchActive() {
+        return touchActive;
+    }
 
+    public void setTouchActive(boolean touchActive) {
+        this.touchActive = touchActive;
+    }
 }
+

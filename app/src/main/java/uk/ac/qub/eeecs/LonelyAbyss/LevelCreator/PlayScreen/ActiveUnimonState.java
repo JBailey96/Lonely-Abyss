@@ -31,6 +31,8 @@ import uk.ac.qub.eeecs.gage.world.State;
 public class ActiveUnimonState extends State {
     protected final int numMoveButtons = 3; //the number of move buttons
 
+    protected PlayScreen playScreen; //the gamescreen controlling the state
+
     private UnimonCard activeCard;  //player's current active UnimonCard
     private UnimonMoves[] activeCardMoves; //the moves of the active card
 
@@ -47,11 +49,49 @@ public class ActiveUnimonState extends State {
     protected Bitmap blackBitmap; //black background
     protected Paint blackBitmapPaint;
 
+    protected BattleSetup battleSetup; //the player's battlesetup
+
     public ActiveUnimonState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, Boolean active, BattleSetup battleSetup) {
         super(mScreenViewport, mLayerViewPort, mGame, mGameScreen, active);
         loadButtonOptionBitmaps();
         generateBattleOptions();
         loadActiveCard(battleSetup);
+
+        this.playScreen = (PlayScreen) mGameScreen;
+        this.battleSetup = battleSetup;
+    }
+
+    //James Bailey - 40156063
+    //method that resets the generation of the active card
+    //called generally when the active card could have changed
+    public void refresh() {
+        this.moveTextPaint = null; //resets move text
+        loadActiveCard(battleSetup);
+    }
+
+    //James Bailey 40156063
+    //Loads the active UnimonCard in order to draw it onto the canvas
+    public void loadActiveCard(BattleSetup battleSetup) {
+        initaliseActiveCard(battleSetup);
+        generateActiveCard();
+    }
+
+    //James Bailey 40156063
+    //Gets the variables needed from the player's battlesetup in order to draw the active UnimonCard
+    public void initaliseActiveCard(BattleSetup battleSetup) {
+        this.activeCard = battleSetup.getActiveCard();
+        this.activeCardMoves = activeCard.getMoves();
+    }
+
+    //James Bailey 40156063
+    //sets what is needed in order to draw the active UnimonCard
+    public void generateActiveCard() {
+        float x = mScreenViewport.width/2f;
+        float y = mScreenViewport.height/2f;
+        float width = mScreenViewport.width / 2.3f;
+        float height = mScreenViewport.height;
+
+        activeCard.setPosition(mGameScreen, x, y, width, height);
     }
 
     @Override
@@ -59,12 +99,16 @@ public class ActiveUnimonState extends State {
         if (active) {
             activeCard.update(elapsedTime);
             updateButtons(elapsedTime);
+
             mInput = mGame.getInput();
             touchEvents = mInput.getTouchEvents();
+
             touchButton(touchEvents);
         }
     }
 
+    //James Bailey 40156063
+    //Updates all the battle option buttons
     public void updateButtons(ElapsedTime elapsedTime) {
         applyEnergyButton.update(elapsedTime);
         evolveButton.update(elapsedTime);
@@ -75,35 +119,99 @@ public class ActiveUnimonState extends State {
         }
     }
 
+    //James Bailey 40156063
+    //Method that handles the touching of the activeUnimonCard
     public void touchButton(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
-                touchActiveUnimon(t);
+                if (touchBattleOptionButtons() || touchActiveUnimon(t)) break;
             }
         }
     }
 
-    //James Bailey 40156063
+   //James Bailey 40156063
     //checks whether the active unimon has been touched
-    public void touchActiveUnimon(TouchEvent t) {
-
+    public boolean touchActiveUnimon(TouchEvent t) {
         //load the energy card when the active unimon card is pressed
         if ((activeCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
-            PlayScreen playScreen = (PlayScreen) mGameScreen;
             playScreen.getActiveEnergyState().active = true;
-        }
-
-        //hide the active unimon card when it outside the card is pressed
-        if (!(activeCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
+        } else if (!(activeCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) { //dismiss the active unimon card when it outside the card is pressed
             active = false;
+            mInput.resetAccumulators();
+            playScreen.getPlayOverviewState().touchActive = true;
+            return true;
         }
-
-        //displaying the energy card when the energy button is pressed
-        if (applyEnergyButton.isPushed()){
-                PlayScreen playScreen = (PlayScreen) mGameScreen;
-                playScreen.getActiveEnergyState().active = true;
-        }
+        return false;
     }
+
+    //James Bailey 40156063
+    //Handles touching battle option buttons.
+    public boolean touchBattleOptionButtons() {
+        int moveIndex = validateMoveTouch(); //get the index of the move if move button pressed
+
+        if (applyEnergyButton.isPushed()) {
+            handleApplyEnergyTouch();
+            return true;
+        } else if (evolveButton.isPushed()) {
+            return true;
+        } else if (retreatButton.isPushed()) {
+            handleRetreatTouch();
+            return true;
+        } else if (moveIndex != -1)  { //validates whether there has been a move button pressed
+            handleMoveButtonTouch(moveIndex);
+            return true;
+        }
+        return false;
+    }
+
+    //James Bailey 40156063
+    //Handles the transition to the bench state that occurs when touching the retreat button
+    public void handleRetreatTouch() {
+        active = false; //no longer show the active unimon state
+        mInput.resetAccumulators(); //no longer accept further input this update
+
+        playScreen.getPlayOverviewState().touchActive = false; //ensures a user cannot interact with the playoverviewstate
+
+        playScreen.getBenchState().setCurrentStateType(BenchState.StateType.RETREAT);
+        playScreen.getBenchState().refresh();
+        playScreen.getBenchState().active = true;
+    }
+
+    public void handleApplyEnergyTouch() {
+        playScreen.getActiveEnergyState().active = true;
+    }
+
+    //James Bailey 40156063
+    //Handles the transition to the opponent state that occurs when touching a move button.
+    public void handleMoveButtonTouch(int moveIndex) {
+        playScreen.getPlayOverviewState().active = false;
+        mInput.resetAccumulators();
+        active = false;
+
+        playScreen.getOpponentState().opponentStateType = OpponentState.OpponentStateType.MOVE_APPLIED; //show the opponent state with the statetype of that a move has just been applied
+        playScreen.getOpponentState().active = true; //make the opponent state active
+
+        UnimonMoves unimonMove = activeCard.getMoves()[moveIndex]; //get the move the user pressed the corresponding move button for
+        playScreen.getOpponentState().applyMove(activeCard, unimonMove); //apply the move onto the opponent's card
+
+        //updates the dimensions of the unimon card - primarily for the stat bars if they have changed to be recalculated.
+        playScreen.getPlayOverviewState().getActiveUnimonCard().setPositionChanged(true);
+        activeCard.setPositionChanged(true);
+    }
+
+    //James Bailey 40156063
+    //Validates whether the user has touched a move button, and if so which one (returns 0-2, -1 if they did not)
+    public int validateMoveTouch() {
+        for (int i = 0; i < moveButtons.size(); i++) {
+            ReleaseButton moveButton = moveButtons.get(i);
+
+            if (moveButton.isPushed()) {
+                return i; //the index of the moveButton, corresponds to the index of the UnimonMove in the card's move list.
+            }
+        }
+        return -1; //the user did not press any move button.
+    }
+
 
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
@@ -113,6 +221,8 @@ public class ActiveUnimonState extends State {
         }
     }
 
+    //James Bailey 40156063
+    //Draws all the battle options and the move names onto the move buttons.
     public void drawBattleOptions(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         drawBattleOptionButtons(elapsedTime, graphics2D);
         drawMoveNames(graphics2D);
@@ -151,6 +261,7 @@ public class ActiveUnimonState extends State {
         retreatButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
 
+    //James Bailey 40156063
     //generate battle button options
     public void generateBattleOptions() {
         generateEnergyButton();
@@ -158,7 +269,8 @@ public class ActiveUnimonState extends State {
         generateRetreatButton();
         generateMoveButtons();
     }
-    
+
+    //James Bailey 40156063
     //generate the button to apply an energy card to the unimon card
     public void generateEnergyButton() {
         float x = mScreenViewport.width * 0.15f;
@@ -169,6 +281,7 @@ public class ActiveUnimonState extends State {
         applyEnergyButton = new ReleaseButton(x, y, width, height, "ENERGYBUTTON", "ENERGYBUTTON", "", mGameScreen);
     }
 
+    //James Bailey 40156063
     //generate the button to evolve the current active unimon
     public void generateEvolveButton() {
         float x = mScreenViewport.width * 0.15f;
@@ -179,6 +292,7 @@ public class ActiveUnimonState extends State {
         evolveButton = new ReleaseButton(x, y, width, height, "EVOLVEBUTTON", "EVOLVEBUTTON", "", mGameScreen);
     }
 
+    //James Bailey 40156063
     //generate the button to retreat the current active unimon
     public void generateRetreatButton() {
         float x = mScreenViewport.width * 0.15f;
@@ -189,6 +303,7 @@ public class ActiveUnimonState extends State {
         retreatButton = new ReleaseButton(x, y, width, height, "RETREATBUTTON", "RETREATBUTTON", "", mGameScreen);
     }
 
+    //James Bailey 40156063
     //generate the buttons to use the card's moves
     public void generateMoveButtons() {
         float x = mScreenViewport.width * 0.85f;
@@ -203,25 +318,27 @@ public class ActiveUnimonState extends State {
         }
     }
 
+    //James Bailey 40156063
     //draws the name of the move onto the move buttons
     public void drawMoveNames(IGraphics2D graphics2D) {
         ReleaseButton moveButton;
-        moveTextPaint = formatMoveButtonText();
+        moveTextPaint = formatMoveButtonText(); //the text style (font, size) to draw onto the buttons
 
         Rect moveButtonRect;
         BoundingBox moveButtonBound;
         String moveName;
 
-            for (int i = 0; i < numMoveButtons; i++) {
-                moveButton = moveButtons.get(i);
-                moveButtonBound = moveButton.getmBound();
-                moveName = activeCardMoves[i].getName();
-                moveButtonRect = new Rect((int) (moveButtonBound.x - moveButtonBound.halfWidth),
-                        (int) (moveButtonBound.y - moveButtonBound.halfHeight),
-                        (int) (moveButtonBound.x + moveButtonBound.halfWidth),
-                        (int) (moveButtonBound.y + moveButtonBound.halfHeight));
+        for (int i = 0; i < numMoveButtons; i++) {
+            moveButton = moveButtons.get(i);
+            moveButtonBound = moveButton.getmBound(); //get the dimensions of the moveButton
+            moveName = activeCardMoves[i].getName(); //get the name of the UnimonMove
 
-                graphics2D.drawText(moveName, moveButtonRect.centerX(), moveButtonRect.centerY(), moveTextPaint);
+            moveButtonRect = new Rect((int) (moveButtonBound.x - moveButtonBound.halfWidth),
+                    (int) (moveButtonBound.y - moveButtonBound.halfHeight),
+                    (int) (moveButtonBound.x + moveButtonBound.halfWidth),
+                    (int) (moveButtonBound.y + moveButtonBound.halfHeight)); //the dimensions and position to draw the move's text to
+
+            graphics2D.drawText(moveName, moveButtonRect.centerX(), moveButtonRect.centerY(), moveTextPaint); //draw the move name centred onto the move button
             }
         }
 
@@ -233,31 +350,6 @@ public class ActiveUnimonState extends State {
         mGame.getAssetManager().loadAndAddBitmap("EVOLVEBUTTON", "img/PlayScreenButtons/evolveUnimonButton.png");
         mGame.getAssetManager().loadAndAddBitmap("RETREATBUTTON", "img/PlayScreenButtons/retreatUnimonButton.png");
         mGame.getAssetManager().loadAndAddBitmap("MOVEBUTTON", "img/PlayScreenButtons/moveButton.png");
-    }
-
-    //James Bailey 40156063
-    //Loads the active UnimonCard in order to draw it onto the canvas
-    public void loadActiveCard(BattleSetup battleSetup) {
-        initaliseActiveCard(battleSetup);
-        generateActiveCard();
-    }
-
-    //James Bailey 40156063
-    //Gets the variables needed from the player's battlesetup in order to draw the active UnimonCard
-    public void initaliseActiveCard(BattleSetup battleSetup) {
-        this.activeCard = battleSetup.getActiveCard();
-        this.activeCardMoves = activeCard.getMoves();
-    }
-
-    //James Bailey 40156063
-    //sets what is needed in order to draw the active UnimonCard
-    public void generateActiveCard() {
-        float x = mScreenViewport.width/2f;
-        float y = mScreenViewport.height/2f;
-        float width = mScreenViewport.width / 2.3f;
-        float height = mScreenViewport.height;
-
-        activeCard.setPosition(mGameScreen, x, y, width, height);
     }
 
     //James Bailey 40156063
@@ -289,20 +381,23 @@ public class ActiveUnimonState extends State {
         float moveButtonWidth;
         String moveName;
 
-        float smallestTextSize = Float.MAX_VALUE;
+        float textSizeVal;
+
+        float smallestTextSize = Float.MAX_VALUE; //the smallest text size the move button's should have drawn onto them
 
         for (int i = 0; i < numMoveButtons; i++) {
             moveButton = moveButtons.get(i);
-            moveButtonBound = moveButton.getmBound();
+            moveButtonBound = moveButton.getmBound(); //get the dimensions of the move button
             moveButtonWidth = moveButtonBound.getWidth();
-            moveName = activeCardMoves[i].getName();
-            textSize = DrawAssist.calculateTextSize(textSize, moveButtonWidth, moveName);
-            float textSizeVal = textSize.getTextSize();
+            moveName = activeCardMoves[i].getName(); //get the name of the move
+            textSize = DrawAssist.calculateTextSize(textSize, moveButtonWidth, moveName); //calculate the optimal text size (stored as Paint object) for that length of string and dimension of button
+            textSizeVal = textSize.getTextSize(); //get the text size from the Paint object
 
             if (smallestTextSize > textSizeVal) {
                 smallestTextSize = textSizeVal; //the new smallest text size
             }
         }
-        return smallestTextSize;
+        return smallestTextSize; //return the smallest text size the buttons should have drawn onto them.
     }
+
 }

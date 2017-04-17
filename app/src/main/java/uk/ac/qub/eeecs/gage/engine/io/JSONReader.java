@@ -280,7 +280,7 @@ public class JSONReader {
             moveReq.put(MoveResource.MANA, manaReq);
         }
         if (staminaReq != -1) {
-            moveReq.put(MoveResource.STAMINA, manaReq);
+            moveReq.put(MoveResource.STAMINA, staminaReq);
         }
 
         return moveReq;
