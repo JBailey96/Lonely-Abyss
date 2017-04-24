@@ -12,6 +12,7 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.graphics.DrawAssist;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
@@ -37,10 +38,6 @@ public class BenchState extends State {
 
     protected PlayScreen playScreen; //the controlling GameScreen
 
-    //black bitmap drawn in the background of the presented cards.
-    protected Bitmap blackBitmap;
-    protected Paint blackBitmapPaint;
-    protected Rect blackBitmapRect; //the position and dimensions to draw the black bitmap to
 
     protected final int numBenchCardsBeforePlay = 4;
     protected final int numBenchCardsInPlay = 3;
@@ -81,28 +78,9 @@ public class BenchState extends State {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D){
         if (active) {
-            drawBlackBackground(graphics2D);
+            DrawAssist.drawBlackBackground(mScreenViewport, graphics2D);
             drawBenchCards(elapsedTime, graphics2D);
         }
-    }
-
-    //James Bailey 40156063
-    //draws the black bitmap in the background of the foreground bench cards
-    public void drawBlackBackground(IGraphics2D graphics2D) {
-        if (blackBitmapRect == null) {
-            blackBitmapRect = new Rect(0, 0, mScreenViewport.width, mScreenViewport.height); //set black bitmap to fill whole screenviewport
-        }
-        if (blackBitmap == null) {
-            //creates the black bitmap
-            blackBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-            blackBitmap.eraseColor(Color.BLACK);
-        }
-        if (blackBitmapPaint == null) {
-            blackBitmapPaint = new Paint();
-            blackBitmapPaint.setAlpha(200); //make the background behind the unimon card semi-opaque
-        }
-
-        graphics2D.drawBitmap(blackBitmap, null, blackBitmapRect, blackBitmapPaint);
     }
 
     //James Bailey 40156063
@@ -129,6 +107,8 @@ public class BenchState extends State {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 if (touchBenchUnimon(t)) break;
             }
+            touchDismiss();
+            break;
         }
     }
 
@@ -146,14 +126,15 @@ public class BenchState extends State {
                 return true; //bench card has been touched - touch handled
             }
         }
-
-        touchDismiss(); //bench unimon has not been touched, dismiss the bench state
         return true; //user dismissed bench cards - touch handled
     }
 
     //James Bailey 40156063
     //handles touching away from any of the bench unimon to dismiss the bench state.
     public void touchDismiss() {
+        if (currentStateType == StateType.CHOOSE_ACTIVE) {
+            return; //user has to choose an active unimon - cannot dismiss the bench state.
+        }
         active = false;
         mInput.resetAccumulators();
 

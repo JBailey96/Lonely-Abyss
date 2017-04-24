@@ -41,6 +41,7 @@ public class PlayScreen extends GameScreen {
     protected OpponentState opponentState;
     protected ActiveEnergyState activeEnergyState;
     protected BenchState benchState;
+    protected HandCardsState handCardsState;
 
     private BattleSetup playerBattleSetup; //the battle setup the player has
 
@@ -72,6 +73,7 @@ public class PlayScreen extends GameScreen {
         activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
         opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, playerBattleSetup, false);
         activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
+        handCardsState = new HandCardsState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
     }
 
 
@@ -207,6 +209,9 @@ public class PlayScreen extends GameScreen {
         if (verifyState(benchState)) {
             benchState.update(elapsedTime);
         }
+        if (verifyState(handCardsState)) {
+            handCardsState.update(elapsedTime);
+        }
         //activeEnergyState.update(elapsedTime);
     }
 
@@ -245,6 +250,9 @@ public class PlayScreen extends GameScreen {
         }
         if (verifyState(benchState)) {
             benchState.draw(elapsedTime, graphics2D);
+        }
+        if (verifyState(handCardsState)) {
+            handCardsState.draw(elapsedTime, graphics2D);
         }
        //activeEnergyState.draw(elapsedTime, graphics2D);
     }
@@ -307,6 +315,14 @@ public class PlayScreen extends GameScreen {
 
     public void setBenchState(BenchState benchState) {
         this.benchState = benchState;
+    }
+
+    public HandCardsState getHandCardsState() {
+        return handCardsState;
+    }
+
+    public void setHandCardsState(HandCardsState handCardsState) {
+        this.handCardsState = handCardsState;
     }
 
     public BattleSetup getBattleSetup() {

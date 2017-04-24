@@ -48,8 +48,6 @@ public class PlayOverviewState extends State {
 
     protected BattleSetup playerBattleSetup; //the player's battle setup
 
-    protected int indexToRemove = -1;
-
     protected PlayScreen playScreen;
 
 
@@ -88,11 +86,25 @@ public class PlayOverviewState extends State {
         generateActiveUnimon();
     }
 
+    //James Bailey 40156063
+    //Refreshes the hand cards that are displayed to the user
+    public void refreshHandCards() {
+        this.handCards = playerBattleSetup.getHandCard();
+
+        for (int i = 0; i < numHandCards; i++) {
+            Card handCard = handCards[i];
+            if (handCard != null) {
+                generateSingleHandCard(handCard, i);
+            }
+        }
+    }
+
     @Override
     public void update(ElapsedTime elapsedTime) {
         if (active) {
             updateCards(elapsedTime);
             updateButtons(elapsedTime);
+
 
             if (touchActive) {
                 mInput = mGame.getInput();
@@ -183,6 +195,8 @@ public class PlayOverviewState extends State {
             if (indexNewHandCard != -1) { //there is an 'opening' for a hand card to be added
                 generateSingleHandCard(handCards[indexNewHandCard], indexNewHandCard); //add a new hand card to the list
             }
+
+            playScreen.getHandCardsState().refresh();
         }
     }
 
@@ -191,11 +205,11 @@ public class PlayOverviewState extends State {
     //James Bailey 40156063
     //checks whether the graveyard button has been touched and allows the player to view cards in the graveyard
     public void touchGraveyardButton() {
-        if (graveyardButton.isPushed()) {
-            indexToRemove++;
-            indexToRemove = indexToRemove % 5;
-            Battle.removeFromHand(handCards, indexToRemove);
-        }
+//        if (graveyardButton.isPushed()) {
+//            indexToRemove++;
+//            indexToRemove = indexToRemove % 5;
+//            Battle.removeFromHand(handCards, indexToRemove);
+//        }
     }
 
     @Override

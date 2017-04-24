@@ -5,8 +5,10 @@ import java.util.Stack;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonEvolveType;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.PlayScreen;
 
 /**
@@ -45,20 +47,6 @@ public class Battle {
         }
 
         return indexToAdd;
-    }
-
-    //James Bailey 40156063
-    //checks whether removing the card is a valid move
-    public static void removeFromHand(Card[] playerHandCards, int indexToRemove) {
-        if (0 > indexToRemove && indexToRemove >= playerHandCards.length) { //validates the index of the hand card to remove
-            return;
-        }
-
-        if (playerHandCards[indexToRemove] == null) { //validates whether the hand card is empty
-            return;
-        }
-
-        playerHandCards[indexToRemove] = null; //sets the hand card to empty (null)
     }
 
     //James Bailey 40156063
@@ -107,5 +95,117 @@ public class Battle {
     public static void applyMove(UnimonCard playerCard, UnimonCard opponentCard, UnimonMoves unimonMove) {
         unimonMove.doMove(playerCard, opponentCard, unimonMove);
     }
+
+    //James Bailey 40156063
+    //Method that checks whether the player has lost
+    //Losing conditions
+    public static boolean hasPlayerLost(Player player) {
+        if (player.getPlayerBattleSetup().getPlayAreaDeck().size() == 0) {
+            return true;
+        } else if (player.getPlayerBattleSetup().getCardsLost().length == 3) {
+            return true;
+        }
+        return false;
+    }
+
+    //James Bailey 40156063
+    //Method that checks whether there is at least one energy card in the player's hand cards
+    public static boolean checkEnergyCardInHand(Card[] handCards) {
+        for (Card handCard: handCards) { //iterate through the list of handcards
+            if (handCard != null) { //validates the hand card exists
+                if (handCard instanceof EnergyCard) { //validates the hand card is of type energy card
+                    return true; //there exists an energy card in the player's hand cards
+                }
+            }
+        }
+        return false; //there does not exist an energy card in the player's hand cards
+    }
+
+    //James Bailey 40156063
+    //Method that checks whether there is at least one unimon card in the player's hand cards
+    public static boolean checkUnimonCardInHand(Card[] handCards, UnimonCard activeCard) {
+        for (int i = 0; i < handCards.length; i++) {
+            Card handCard = handCards[i];
+
+            if (handCard != null) {
+                if (handCard instanceof UnimonCard) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //James Bailey 40156063
+    //Checks whether the hand card is an evolution of the player's active Unimoncard
+    //Unimon cards can only evolve one step from its own evolve type
+    //Spirit > Phantom > Demon > Unique
+    public static boolean handCardisEvolve(UnimonCard handCard, UnimonCard activeCard) {
+        if (activeCard.getEvolveType() == UnimonEvolveType.UNIQUE) {
+            return false; //unique evolve type is the highest evolve type, cannot be evolved further.
+        }
+
+        //validates whether the active card and hand card share the same name
+        if (activeCard.getName().equals(handCard.getName())) {
+            if (activeCard.getEvolveType() == UnimonEvolveType.SPIRIT) {
+                if (handCard.getEvolveType() == UnimonEvolveType.PHANTOM) {
+                    return true;
+                }
+            } else if (activeCard.getEvolveType() == UnimonEvolveType.PHANTOM) {
+                if (handCard.getEvolveType() == UnimonEvolveType.DEMON) {
+                    return true;
+                }
+        }
+        } else if (activeCard.getEvolveType() == UnimonEvolveType.DEMON) {
+            //if the evolve is demon to unique the active and hand card do not need to share the same name.
+            if (handCard.getEvolveType() == UnimonEvolveType.UNIQUE) {
+                return true;
+            }
+        }
+        return false; //the hand card is not an evolution of the player's active unimoncard
+    }
+
+    //James Bailey 40156063
+    //Method that removes a hand card from the player's list of hand cards
+    public static void discardHandCard(Card[] handCards, int indexSelectedCard, BattleSetup battleSetup) {
+        if (removeFromHandValid(handCards, indexSelectedCard)) {
+            handCards[indexSelectedCard] = null; //removes the hand card from the list of hand cards
+
+            Card[] handCardsBattleSetup = new Card[numHandCards]; //create a new list of hand cards
+
+            //iterate through and add copies of the current elements of list of hand cards to the newly created list.
+            for (int i = 0; i < numHandCards; i++) {
+                Card handCardtoCopy = handCards[i];
+
+                if (handCardtoCopy != null) { //validates whether the hand card exists, otherwise leave as null
+                    handCardsBattleSetup[i] = handCardtoCopy.copy();
+                }
+            }
+
+            battleSetup.setHandCard(handCardsBattleSetup); //set the battlesetup list of hand cards to the newly created list
+        }
+    }
+
+    //James Bailey 40156063
+    //checks whether removing the card is a valid move
+    public static boolean removeFromHandValid(Card[] playerHandCards, int indexToRemove) {
+        if (0 > indexToRemove && indexToRemove >= playerHandCards.length) { //validates the index of the hand card to remove
+            return false;
+        }
+        return true;
+    }
+
+    //James Bailey 40156063
+    //Applies the selected energy card to the battlesetup's active card
+    public static void applyEnergy(BattleSetup battleSetup, EnergyCard energyCard) {
+        energyCard.applyEnergy(battleSetup.getActiveCard());
+    }
+
+    //James Bailey 40156063
+    //Evolve the selected energy card to the battlesetup's active card
+    public static void evolveUnimon(BattleSetup battleSetup, UnimonCard evolveToCard) {
+        battleSetup.setActiveCard(evolveToCard);
+    }
+
 
 }

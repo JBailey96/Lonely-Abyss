@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -23,6 +24,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.State;
+import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.HandCardsState.HandCardStateType;
 
 /**
  * Created by James on 08/03/2017.
@@ -45,9 +47,6 @@ public class ActiveUnimonState extends State {
     List<ReleaseButton> moveButtons = new ArrayList<>();
 
     private static Paint moveTextPaint; //the text used for the moves
-
-    protected Bitmap blackBitmap; //black background
-    protected Paint blackBitmapPaint;
 
     protected BattleSetup battleSetup; //the player's battlesetup
 
@@ -150,9 +149,10 @@ public class ActiveUnimonState extends State {
         int moveIndex = validateMoveTouch(); //get the index of the move if move button pressed
 
         if (applyEnergyButton.isPushed()) {
-            handleApplyEnergyTouch();
+            handleHandCardTouch(HandCardStateType.SELECT_ENERGY);
             return true;
         } else if (evolveButton.isPushed()) {
+            handleHandCardTouch(HandCardStateType.SELECT_UNIMON);
             return true;
         } else if (retreatButton.isPushed()) {
             handleRetreatTouch();
@@ -165,7 +165,7 @@ public class ActiveUnimonState extends State {
     }
 
     //James Bailey 40156063
-    //Handles the transition to the bench state that occurs when touching the retreat button
+    //Handles the transition to the bench state that when the users touches the retreat button
     public void handleRetreatTouch() {
         active = false; //no longer show the active unimon state
         mInput.resetAccumulators(); //no longer accept further input this update
@@ -177,8 +177,28 @@ public class ActiveUnimonState extends State {
         playScreen.getBenchState().active = true;
     }
 
-    public void handleApplyEnergyTouch() {
-        playScreen.getActiveEnergyState().active = true;
+    //James Bailey 40156063
+    //Handles the transition to the hand card state when the user touches the apply energy or evolve button
+    //the parameter variable stateType sets the card type, unimon or energy
+    public void handleHandCardTouch(HandCardStateType stateType) {
+        if (stateType == HandCardStateType.SELECT_ENERGY) {
+            if (!Battle.checkEnergyCardInHand(battleSetup.getHandCard())) {
+                return; //there is no energy card in the player's handcards, cannot present any energy cards
+            }
+        } else if (stateType == HandCardStateType.SELECT_UNIMON) {
+            if (!Battle.checkUnimonCardInHand(battleSetup.getHandCard(), this.activeCard)) {
+                return; //there is no unimon card in the player's hand cards, cannot present any unimon cards
+            }
+        }
+
+        active = false; //disable the active unimon card state
+        mInput.resetAccumulators(); //accept no more input for this state
+
+        playScreen.getPlayOverviewState().touchActive = false; //the playoverview state cannot be interacted with through touch events
+
+        playScreen.getHandCardsState().setHandCardStateType(stateType); //this is used to set which type of  cards are presented in this state
+        playScreen.getHandCardsState().refresh(); //the battlesetup's list of hand cards may have changed, update the state to keep it consistent
+        playScreen.getHandCardsState().active = true; //enable the hand card state.
     }
 
     //James Bailey 40156063
@@ -216,6 +236,7 @@ public class ActiveUnimonState extends State {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         if (active) {
+            DrawAssist.drawBlackBackground(mScreenViewport, graphics2D); //draw a semi-transparent black background
             drawActiveUnimon(elapsedTime, graphics2D);
             drawBattleOptions(elapsedTime, graphics2D);
         }
@@ -232,19 +253,6 @@ public class ActiveUnimonState extends State {
     //James Bailey 40156063
     //draw active unimon card
     public void drawActiveUnimon(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        Rect paintRect = new Rect(0, 0, mScreenViewport.width, mScreenViewport.height); //set background black semi-opaque background to fill whole screenviewport
-
-        //create the semi-transparent black bitmap in the background of the active unimon card
-        if (blackBitmap == null) {
-            blackBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-            blackBitmap.eraseColor(Color.BLACK);
-        }
-        if (blackBitmapPaint == null) {
-            blackBitmapPaint = new Paint();
-            blackBitmapPaint.setAlpha(200); //make the background behind the unimon card semi-opaque
-        }
-
-        graphics2D.drawBitmap(blackBitmap, null, paintRect, blackBitmapPaint);
         activeCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
 

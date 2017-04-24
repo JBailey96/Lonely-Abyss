@@ -78,7 +78,7 @@ public class ReleaseButton extends GameObject {
         assetStore.loadAndAddBitmap("GLOW", "img/Particles/gloweffect.png");
 
         glowEffect = assetStore.getBitmap("GLOW");
-        glowEffectDimen = new Rect((int) (x-mBound.halfWidth-10), (int) (y-mBound.halfHeight-10), (int) (x+mBound.halfWidth+10), (int) (y+mBound.halfHeight+10));
+        glowEffectDimen = new Rect((int) (x-mBound.halfWidth-15), (int) (y-mBound.halfHeight-15), (int) (x+mBound.halfWidth+15), (int) (y+mBound.halfHeight+15));
 
         mDefaultBitmap = assetStore.getBitmap(defaultBitmap);
         mPushBitmap = assetStore.getBitmap(pushBitmap);
@@ -211,5 +211,7 @@ public class ReleaseButton extends GameObject {
         }
     }
 
-
+    public void setmIsPushed(boolean mIsPushed) {
+        this.mIsPushed = mIsPushed;
+    }
 }

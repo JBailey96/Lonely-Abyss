@@ -122,7 +122,6 @@ public class EnergyCard extends Card {
     //James Bailey 40156063
     //Apply the energy card effect to the player's unimon card.
     public void applyEnergy (UnimonCard playerCard) {
-        if (this.container == Container.HAND) { //validates that the card is in the players hand
             Map<EnergyType, Integer> energyEffects = energy.get(playerCard.getEvolveType()); //get the energy type effects for the player's unimon card
             for (EnergyType energyEff: energyEffects.keySet()) { //for each energy effect
                 switch (energyEff) { //selection on the type of energy effect to be applied
@@ -142,8 +141,6 @@ public class EnergyCard extends Card {
                         break;
                 }
             }
-            this.setContainer(Container.GRAVEYARD); //card has been used
-        }
     }
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
