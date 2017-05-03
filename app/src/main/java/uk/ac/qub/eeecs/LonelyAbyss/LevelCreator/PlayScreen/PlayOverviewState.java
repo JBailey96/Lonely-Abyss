@@ -147,10 +147,9 @@ public class PlayOverviewState extends State {
         for (UnimonCard benchCard : benchCards) {
             if ((benchCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) { //validates whether the user has touched a bench card
                 playScreen.getBenchState().setCurrentStateType(BenchState.StateType.VIEW_BENCH); //set the benchstate state's type in order to present to the user to bench cards
-
                 this.touchActive = false;
-
                 playScreen.getBenchState().active = true;
+                playScreen.getBenchState().showMessage();
                 mInput.resetAccumulators();
                 break;
             }
@@ -165,7 +164,6 @@ public class PlayOverviewState extends State {
                 touchActiveUnimon(t);
                 touchDeckButton();
                 touchGraveyardButton();
-                touchActiveUnimon(t);
             }
         }
     }
@@ -450,6 +448,12 @@ public class PlayOverviewState extends State {
 
     public void setTouchActive(boolean touchActive) {
         this.touchActive = touchActive;
+    }
+
+    //James Bailey 40156063
+    //Display a help message to introduce the user to the game's functionality - where to begin
+    public void showInitialHelpMessage() {
+        DrawAssist.showMessage(mGame, "To begin, please touch the ACTIVE UNIMON in the centre.");
     }
 }
 

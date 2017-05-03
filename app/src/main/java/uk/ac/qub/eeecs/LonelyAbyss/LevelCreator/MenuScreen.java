@@ -65,7 +65,7 @@ public class MenuScreen extends GameScreen {
 
         //play the menu music
         menuMusic.setVolume(10);
-        menuMusic.play();
+        //menuMusic.play();
     }
 
     @Override

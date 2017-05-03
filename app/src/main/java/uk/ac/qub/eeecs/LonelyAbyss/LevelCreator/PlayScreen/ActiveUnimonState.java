@@ -175,6 +175,7 @@ public class ActiveUnimonState extends State {
         playScreen.getBenchState().setCurrentStateType(BenchState.StateType.RETREAT);
         playScreen.getBenchState().refresh();
         playScreen.getBenchState().active = true;
+        playScreen.getBenchState().showMessage();
     }
 
     //James Bailey 40156063
@@ -199,6 +200,7 @@ public class ActiveUnimonState extends State {
         playScreen.getHandCardsState().setHandCardStateType(stateType); //this is used to set which type of  cards are presented in this state
         playScreen.getHandCardsState().refresh(); //the battlesetup's list of hand cards may have changed, update the state to keep it consistent
         playScreen.getHandCardsState().active = true; //enable the hand card state.
+        playScreen.getHandCardsState().showMessage();
     }
 
     //James Bailey 40156063

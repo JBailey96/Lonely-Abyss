@@ -119,12 +119,15 @@ public class HandCardsState extends State {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 if (touchButtons()) { //checks whether the buttons have been touched
+                    DrawAssist.clearMessage();
                     mInput.resetAccumulators();
                     break;
                 } else if (touchCard(t)) { //checks whether the selected hand card has been touched
+                    DrawAssist.clearMessage();
                     mInput.resetAccumulators();
                     break;
                 } else { //the touch is outside both of the buttons and selected hand card
+                    DrawAssist.clearMessage();
                     touchDismiss();
                 }
             }
@@ -498,6 +501,19 @@ public class HandCardsState extends State {
 
     public void setHandCardStateType(HandCardStateType handCardStateType) {
         this.handCardStateType = handCardStateType;
+    }
+
+    //James Bailey 40156063
+    //Display a help message to introduce the user to the game's functionality - where to
+    public void showMessage() {
+        String message = "";
+        if (this.handCardStateType == HandCardStateType.SELECT_ENERGY) {
+            message = "These are your ENERGY CARDS in your hand.";
+        } else if (this.handCardStateType == HandCardStateType.SELECT_UNIMON) {
+            message = "These are your UNIMON CARDS in your hand.";
+        }
+
+        DrawAssist.showMessage(mGame, message);
     }
 
 }

@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.widget.Toast;
 
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 /**
@@ -17,6 +19,7 @@ public class DrawAssist {
     protected static Bitmap blackBitmap;
     protected static Paint blackBitmapPaint;
     protected static Rect blackBitmapRect; //the position and dimensions to draw the black bitmap to
+    protected static Toast messageObj = null;
 
     //James Bailey 40156063
     //scale a string to a required width boundary, calculating an optimum text size
@@ -42,6 +45,16 @@ public class DrawAssist {
     }
 
     //James Bailey 40156063
+    //flip a bitmap horizontally
+    public static Bitmap flipBitmapHorizontally(Bitmap bitmap) {
+        Matrix matrix = new Matrix();
+        matrix.preScale(-1f, 1f);
+        Bitmap flippedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+        return flippedBitmap;
+    }
+
+    //James Bailey 40156063
     //Draws a semi-transparent black bitmap background
     public static void drawBlackBackground(ScreenViewport mScreenViewport, IGraphics2D graphics2D) {
         if (blackBitmapRect == null) {
@@ -59,4 +72,25 @@ public class DrawAssist {
 
         graphics2D.drawBitmap(blackBitmap, null, blackBitmapRect, blackBitmapPaint);
     }
+
+    //James Bailey 40156063
+    //Display a toast message
+    //Used to assist the player in using the game's features.
+    public static void showMessage(final Game mGame, final String message) {
+        mGame.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                messageObj = Toast.makeText(mGame.getActivity(), message, Toast.LENGTH_LONG);
+                messageObj.show();
+            }
+        });
+    }
+
+    //James Bailey 40156063
+    //Clear a toast message that is currently displaying.
+    public static void clearMessage() {
+        messageObj.cancel();
+    }
+
+
 }

@@ -1,9 +1,11 @@
 package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -53,13 +55,14 @@ public class BenchState extends State {
 
         copyBenchCards();
         generateBenchUnimon();
+
+        showMessage();
     }
 
     //James Bailey 40156063
     //resets the state in the event of the battlesetup's bench cards potentially changing in an external class.
     public void refresh() {
-        this.benchCards = battleSetup.getBenchCards();
-
+        this.benchCards = this.battleSetup.getBenchCards();
         copyBenchCards();
         generateBenchUnimon();
     }
@@ -105,11 +108,27 @@ public class BenchState extends State {
     public void handleTouch(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
-                if (touchBenchUnimon(t)) break;
+                if (touchBenchUnimon(t)) {
+                    break;
+                } else if (this.currentStateType == StateType.RETREAT || this.currentStateType == StateType.VIEW_BENCH) {
+                    touchDismiss();
+                }
             }
-            touchDismiss();
-            break;
         }
+    }
+
+
+    public void showMessage() {
+        String message = "";
+        if (currentStateType == StateType.CHOOSE_ACTIVE) {
+            message = "Please select a CARD to begin battle with.";
+        } else if (currentStateType == StateType.RETREAT) {
+            message = "Please select a CARD to retreat to";
+        } else if (currentStateType == StateType.VIEW_BENCH) {
+            message = "These are your bench cards.";
+        }
+
+        DrawAssist.showMessage(mGame, message);
     }
 
     //James Bailey 40156063
@@ -126,7 +145,7 @@ public class BenchState extends State {
                 return true; //bench card has been touched - touch handled
             }
         }
-        return true; //user dismissed bench cards - touch handled
+        return false; //user has not touched any of the bench cards - dismiss bench cards
     }
 
     //James Bailey 40156063
@@ -136,6 +155,7 @@ public class BenchState extends State {
             return; //user has to choose an active unimon - cannot dismiss the bench state.
         }
         active = false;
+        DrawAssist.clearMessage();
         mInput.resetAccumulators();
 
         if (currentStateType == StateType.VIEW_BENCH) {
@@ -153,7 +173,6 @@ public class BenchState extends State {
         mGame.getPlayer().setPlayerBattleSetup(battleSetup); //set the new battlesetup after the retreat unimon changes both the bench and active unimon card.
 
         //refresh the states - needed as new battlesetup may have changed objects that need to be recopied
-        refresh();
         playScreen.getPlayOverviewState().refresh();
         playScreen.getActiveUnimonState().refresh();
 
@@ -161,6 +180,7 @@ public class BenchState extends State {
         mInput.resetAccumulators();
 
         playScreen.getPlayOverviewState().setTouchActive(true); //presents the playoveriew the user can interact with.
+        refresh();
     }
 
     //James Bailey 40156063
@@ -171,12 +191,17 @@ public class BenchState extends State {
         mGame.getPlayer().setPlayerBattleSetup(battleSetup);
 
         playScreen.createOtherStates(); //create the other states that require the initialisation of an active unimon card.
-        setCurrentStateType(StateType.VIEW_BENCH);
-
-        refresh(); //needs to refresh state - bench card list changes in Battle's chooseActive method.
 
         active = false;
+        DrawAssist.clearMessage();
         mInput.resetAccumulators();
+
+        if (currentStateType == StateType.CHOOSE_ACTIVE) {
+            playScreen.getPlayOverviewState().showInitialHelpMessage(); //show the initial help message for the playoverviewstate
+        }
+
+        setCurrentStateType(StateType.VIEW_BENCH);
+        refresh(); //needs to refresh state - bench card list changes in Battle's chooseActive method.
     }
 
     //James Bailey 40156063
