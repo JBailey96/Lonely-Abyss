@@ -90,7 +90,9 @@ public class BenchState extends State {
     //draws all the presented bench cards
     public void drawBenchCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         for (UnimonCard unimonCard: copyBenchCards) {
-            unimonCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+            if (unimonCard != null) {
+                unimonCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+            }
         }
     }
 
@@ -99,7 +101,9 @@ public class BenchState extends State {
     //updates all the presented bench cards
     public void updateBenchCards(ElapsedTime elapsedTime) {
         for (UnimonCard unimonCard: copyBenchCards) {
-            unimonCard.update(elapsedTime);
+            if (unimonCard != null) {
+                unimonCard.update(elapsedTime);
+            }
         }
     }
 
@@ -136,13 +140,16 @@ public class BenchState extends State {
     public boolean touchBenchUnimon(TouchEvent t) {
         for (int i = 0; i < copyBenchCards.length; i++) {
             UnimonCard benchCard = copyBenchCards[i];
-            if (benchCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y)) { //checks whether the touch event is in the bench unimon's touch boundary
-                if (currentStateType == StateType.RETREAT) {
-                    touchRetreat(i); //handles the user selecting a bench unimon to swap with the current active unimon
-                } else if (currentStateType == StateType.CHOOSE_ACTIVE) {
-                    touchActive(i); //handles the user selecting a bench unimon to be th initial active unimon
+
+            if (benchCard != null) {
+                if (benchCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y)) { //checks whether the touch event is in the bench unimon's touch boundary
+                    if (currentStateType == StateType.RETREAT) {
+                        touchRetreat(i); //handles the user selecting a bench unimon to swap with the current active unimon
+                    } else if (currentStateType == StateType.CHOOSE_ACTIVE) {
+                        touchActive(i); //handles the user selecting a bench unimon to be th initial active unimon
+                    }
+                    return true; //bench card has been touched - touch handled
                 }
-                return true; //bench card has been touched - touch handled
             }
         }
         return false; //user has not touched any of the bench cards - dismiss bench cards

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.Grid;
 
 /**
  * Created by James on 05/02/2017.
@@ -13,6 +14,10 @@ public class Player {
     private BattleSetup playerBattleSetup; //the player's battle setup they bring into battle
     private ArrayList<EnergyCard> energyCards;
     private ArrayList<UnimonCard> unimonCards; // cards the player possesses
+
+    private Grid[][] gridLevelTiles;
+    private int playerGridPosI = 0;
+    private int playerGridPosJ = 0;
 
     public Player() {
 
@@ -41,5 +46,29 @@ public class Player {
 
     public void setUnimonCards(ArrayList<UnimonCard> unimonCards) {
         this.unimonCards = unimonCards;
+    }
+
+    public Grid[][] getGridLevelTiles() {
+        return gridLevelTiles;
+    }
+
+    public void setGridLevelTiles(Grid[][] gridLevelTiles) {
+        this.gridLevelTiles = gridLevelTiles;
+    }
+
+    public int getPlayerGridPosI() {
+        return playerGridPosI;
+    }
+
+    public void setPlayerGridPosI(int playerGridPosI) {
+        this.playerGridPosI = playerGridPosI;
+    }
+
+    public int getPlayerGridPosJ() {
+        return playerGridPosJ;
+    }
+
+    public void setPlayerGridPosJ(int playerGridPosJ) {
+        this.playerGridPosJ = playerGridPosJ;
     }
 }

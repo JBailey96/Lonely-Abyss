@@ -14,7 +14,7 @@ public class BattleSetup {
     protected final int numberOfHandCards = 5;
     protected final int numberOfPrizeCards = 3;
     protected final int numberofGraveyardCards = 3;
-    protected final int numberOfBenchCards = 5;
+    protected final int numberOfBenchCards = 4;
     protected final int maxCardsWon = 3;
     protected final int maxCardsLost = 3;
 

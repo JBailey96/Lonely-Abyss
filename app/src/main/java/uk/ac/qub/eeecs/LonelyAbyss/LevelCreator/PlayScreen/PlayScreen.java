@@ -11,11 +11,15 @@ import java.util.Stack;
 
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
+import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.DeckManagement;
+import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.GridLevel;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.ScreenManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -276,6 +280,15 @@ public class PlayScreen extends GameScreen {
         mGame.getAssetManager().loadAndAddBitmap("PlayAreaBackground", "img/PlayArea/Background.jpeg");
     }
 
+    //James Bailey 40156063
+    //Method that handles the end of the battle and the transition back to the GridLevel.
+    public void endBattleTransition() {
+        ScreenManager screenManager = getGame().getScreenManager();
+
+        screenManager.removeScreen(screenManager.getCurrentScreen().getName());
+        GridLevel gridLevel = new GridLevel(mGame);
+        screenManager.addScreen(gridLevel);
+    }
 
     //getters and setters for the states
     public PlayOverviewState getPlayOverviewState() {

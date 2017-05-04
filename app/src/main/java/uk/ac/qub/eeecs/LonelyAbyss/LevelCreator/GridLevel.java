@@ -6,6 +6,7 @@ import android.graphics.Color;
 import java.util.List;
 import java.util.Random;
 
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.Grid;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.GridType;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.PlayerSprite;
@@ -86,13 +87,15 @@ public class GridLevel extends GameScreen {
     protected int playerGridPosI = 0;
     protected int playerGridPosJ = 0;
 
-    protected Grid selectGrid;
+    protected Grid selectGrid; //the grid tile the player has selected
+
+    protected Player player; //the player
 
     public GridLevel(Game game) {
         super("GridLevel", game);
         mLayerViewport = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());createGrid(); //calculate the size of grid and create the grid
-
+        setPlayer();
         loadGrid();
         loadPlayer();
 
@@ -104,23 +107,37 @@ public class GridLevel extends GameScreen {
     }
 
     //James Bailey 40156063
+    //Set the player instance variable and their current position on the grid square.
+    public void setPlayer() {
+        this.player = mGame.getPlayer();
+        this.playerGridPosI = this.player.getPlayerGridPosI();
+        this.playerGridPosJ = this.player.getPlayerGridPosJ();
+    }
+
+    //James Bailey 40156063
     //Generate a new grid for the player to navigate - called when the player enters the terminus grid square.
-    public void generateNewGrid() {
-        loadGrid();
+    public void generateNewGridAndPlayer() {
         this.playerGridPosI = 0;
         this.playerGridPosJ = 0;
+        this.player.setGridLevelTiles(null);
+        loadGrid();
         loadPlayer();
     }
 
     //James Bailey 40156063
     //load the required assets and the variables to present the grid.
     private void loadGrid() {
-        createGrid(); //calculate the size of grid and create the grid
-        calculateNumGridsGenerate(); //calculate each type of grid tile to create
-        loadGridBitmaps(); //load grid tile bitmaps into asset manager
-        this.hiddenBitmap = getGame().getAssetManager().getBitmap("HIDDEN");
-        generateGridDimension(); //generate the grid tiles in preparation of being displayed
-        fillGridArray(); //fill the grid array with grid objects.
+        if (this.player.getGridLevelTiles() == null) { //
+            createGrid(); //calculate the size of grid and create the grid
+            calculateNumGridsGenerate(); //calculate each type of grid tile to create
+            loadGridBitmaps(); //load grid tile bitmaps into asset manager
+            this.hiddenBitmap = getGame().getAssetManager().getBitmap("HIDDEN");
+            generateGridDimension(); //generate the grid tiles in preparation of being displayed
+            fillGridArray(); //fill the grid array with grid objects.
+        } else {
+            this.gridArray = this.player.getGridLevelTiles();
+            this.gridSize = this.gridArray.length;
+        }
     }
 
     //James Bailey 40156063
@@ -221,7 +238,6 @@ public class GridLevel extends GameScreen {
     private void fillGridArray() {
         GridType gType;
         boolean showGrid = true;
-        boolean terminus = false;
 
         float x = this.x;
         float y = this.y;
@@ -234,18 +250,16 @@ public class GridLevel extends GameScreen {
                 } else if (i == gridSize - 1 && j == gridSize - 1) { //assigns bottom right grid to end
                     gType = GridType.END;
                     showGrid = true;
-                    terminus = true;
                 } else {
                     //fill the grid array with a random type of grid object.
                     gType = typeGrid();
                 }
 
-                this.gridArray[i][j] = new Grid(x, y, squareDimen, squareDimen, hiddenBitmap, this, showGrid, selectBitmap(gType), terminus, gType); //generate a new grid object
+                this.gridArray[i][j] = new Grid(x, y, squareDimen, squareDimen, hiddenBitmap, this, showGrid, selectBitmap(gType), gType); //generate a new grid object
                 x = x + gridWidth; //move the x co-ordinate by the width of the grid Rectangle
 
                 //reset the variables for the next iteration.
                 showGrid = false;
-                terminus = false;
             }
             x = mLayerViewport.getLeft() + gridWidth / 2; //reset the x co-ordinate back to the initial position, drawing left from right
             y = y - gridHeight; //move the y co-ordinate down by the height of the rectangle
@@ -308,9 +322,10 @@ public class GridLevel extends GameScreen {
     //James Bailey 40156063
     //the action to be taken if a grid square is touched.
     private void touchSingleGridSquare(int i , int j) {
-        if (validGridMove(i, j)) { //validates whether it is a valid grid move.
+        if (validGridMove(i, j) && (!((this.playerGridPosI == i) && (this.playerGridPosJ == j)))) { //validates whether it is a valid grid move.
             calculateDirectionOfMove(i, j);
 
+            //set the player's new position on the grid square
             this.playerGridPosI = i;
             this.playerGridPosJ = j;
 
@@ -318,14 +333,14 @@ public class GridLevel extends GameScreen {
 
             this.selectGrid = gridArray[i][j]; //the grid the player has touched
 
-            movePlayerAction = new Thread(new MovePlayerSprite());
+            movePlayerAction = new Thread(new MovePlayerSprite()); //start the player movement animation
 
-                if (!this.selectGrid.isGridSelected()) {
-                    this.selectGrid.reveal(); //reveal the grid square
-                    movePlayerAction.start();
-                } else {
-                    movePlayerAction.start();
-                }
+            if (!this.selectGrid.isGridSelected()) { //
+                this.selectGrid.reveal(); //reveal the grid square
+                movePlayerAction.start();
+            } else {
+                movePlayerAction.start();
+            }
         }
     }
 
@@ -350,7 +365,7 @@ public class GridLevel extends GameScreen {
         return true;
     }
 
-    //James Bailey 40156063
+    /*//James Bailey 40156063
     //Validates whether the selected grid tile is terminus - not valid
     private boolean isSelectedGridTerminus(int i, int j) {
         if ((i < this.gridSize) && (gridArray[i + 1][j].getTerminus())) {
@@ -363,7 +378,7 @@ public class GridLevel extends GameScreen {
             return true;
         }
         return false;
-    }
+    } */
 
     //James Bailey 40156063
     //Validates whether the grid is selected - not valid.
@@ -421,15 +436,24 @@ public class GridLevel extends GameScreen {
     //James Bailey 40156063
     //performs the action the revealed grid should perform
     public void gridAction() {
+        if (!selectGrid.isActive()) {
+            return;
+        }
+
         GridType selectGridType = this.selectGrid.getType(); //gets the type of grid revealed
 
         //selection of the grid type to perform the action.
         if (selectGridType == GridType.END) {
-            generateNewGrid();
+            generateNewGridAndPlayer();
         } else if (selectGridType == GridType.BATTLE) {
+            this.player.setGridLevelTiles(gridArray);
+            this.player.setPlayerGridPosI(this.playerGridPosI);
+            this.player.setPlayerGridPosJ(this.playerGridPosJ);
             transitionBattle = new Thread(new TransitionBattle()); //initalise the thread that handles the transition to the battle screen
             transitionBattle.start();
         }
+
+        selectGrid.setActive(false);
     }
 
     public void loadSounds(){

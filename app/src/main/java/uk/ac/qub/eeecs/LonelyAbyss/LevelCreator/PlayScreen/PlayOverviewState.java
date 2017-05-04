@@ -145,13 +145,15 @@ public class PlayOverviewState extends State {
     //Handles touching one of the bench cards
     public void touchBenchCards(TouchEvent t) {
         for (UnimonCard benchCard : benchCards) {
-            if ((benchCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) { //validates whether the user has touched a bench card
-                playScreen.getBenchState().setCurrentStateType(BenchState.StateType.VIEW_BENCH); //set the benchstate state's type in order to present to the user to bench cards
-                this.touchActive = false;
-                playScreen.getBenchState().active = true;
-                playScreen.getBenchState().showMessage();
-                mInput.resetAccumulators();
-                break;
+            if (benchCard != null) {
+                if ((benchCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) { //validates whether the user has touched a bench card
+                    playScreen.getBenchState().setCurrentStateType(BenchState.StateType.VIEW_BENCH); //set the benchstate state's type in order to present to the user to bench cards
+                    this.touchActive = false;
+                    playScreen.getBenchState().active = true;
+                    playScreen.getBenchState().showMessage();
+                    mInput.resetAccumulators();
+                    break;
+                }
             }
         }
     }
@@ -234,7 +236,9 @@ public class PlayOverviewState extends State {
 
         //draw all the bench cards
         for (UnimonCard benchCard : benchCards) {
-            benchCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+            if (benchCard != null) {
+                benchCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
+            }
         }
 
         //draw all the prize cards

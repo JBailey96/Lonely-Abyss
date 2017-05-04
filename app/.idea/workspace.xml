@@ -11,15 +11,7 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c02b86f2-5f11-4d78-9221-140a075da180" name="Default" comment="T">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/assets/img/PlayerSprites/playerRest.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/assets/img/PlayerSprites/playermoveX1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/assets/img/PlayerSprites/playermoveX2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/assets/img/PlayerSprites/playermoveX3.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/assets/img/PlayerSprites/playermoveX4.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/assets/img/PlayerSprites/playermoveY1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/assets/img/PlayerSprites/playermoveY2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/PlayerSprite.java" />
+    <list default="true" id="c02b86f2-5f11-4d78-9221-140a075da180" name="Default" comment="Transition battle">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
@@ -28,14 +20,15 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.iml" afterPath="$PROJECT_DIR$/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Battle.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Battle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/BattleSetup.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/BattleSetup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/Player.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/Player.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Grids/Grid.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Grids/Grid.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/GridLevel.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/GridLevel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveUnimonState.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveUnimonState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/HandCardsState.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/HandCardsState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayOverviewState.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayOverviewState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/DrawAssist.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/DrawAssist.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java" />
     </list>
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,21 +60,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BenchState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java">
+      <file leaf-file-name="PlayScreen.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="120" column="27" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayOverviewState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayOverviewState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="452" column="3" selection-start-line="452" selection-start-column="3" selection-end-line="456" selection-end-column="5" />
+            <state relative-caret-position="338">
+              <caret line="290" column="5" selection-start-line="290" selection-start-column="5" selection-end-line="290" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -90,28 +73,38 @@
       <file leaf-file-name="ActiveUnimonState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveUnimonState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="185" column="37" selection-start-line="185" selection-start-column="37" selection-end-line="185" selection-end-column="37" />
+            <state relative-caret-position="-3307">
+              <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActiveEnergyState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveEnergyState.java">
+      <file leaf-file-name="BenchState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="73" column="36" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="36" />
+            <state relative-caret-position="1853">
+              <caret line="168" column="49" selection-start-line="168" selection-start-column="45" selection-end-line="168" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HandCardsState.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Battle.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Battle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="683">
+              <caret line="267" column="16" selection-start-line="267" selection-start-column="16" selection-end-line="267" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HandCardsState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/HandCardsState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="129" column="46" selection-start-line="129" selection-start-column="46" selection-end-line="129" selection-end-column="46" />
+            <state relative-caret-position="-5647">
+              <caret line="121" column="29" selection-start-line="121" selection-start-column="27" selection-end-line="121" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -120,51 +113,35 @@
       <file leaf-file-name="OpponentState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/OpponentState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2106">
-              <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+            <state relative-caret-position="-667">
+              <caret line="152" column="36" selection-start-line="152" selection-start-column="26" selection-end-line="152" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayScreen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java">
+      <file leaf-file-name="Grid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Grids/Grid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1725">
-              <caret line="79" column="27" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DrawAssist.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/DrawAssist.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="69" column="20" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoadingScreen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LoadingScreen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2040">
-              <caret line="161" column="0" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MenuScreen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
+            <state relative-caret-position="264">
+              <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
               <folding>
-                <element signature="imports" expanded="false" />
+                <element signature="e#1429#1430#0" expanded="true" />
+                <element signature="e#1469#1470#0" expanded="true" />
+                <element signature="e#1531#1532#0" expanded="true" />
+                <element signature="e#1576#1577#0" expanded="true" />
+                <element signature="e#1612#1613#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActiveEnergyState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveEnergyState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-67">
+              <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1140,34 +1117,34 @@
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/OpponentScreen.java" />
         <option value="$PROJECT_DIR$/src/main/assets/ClassObjectJSON/Cards.json" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LoadingScreen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/world/GameScreen.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Grids/GridType.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveEnergyState.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/TestScreens/InProgActiveUnimonState.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/world/GameObject.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Generic/Card.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/BattleSetup.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/world/State.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Moves/UnimonMoves.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/io/JSONReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Unimon/UnimonCard.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/OpponentState.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Energy/EnergyCard.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Battle.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/ui/ReleaseButton.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/world/Sprite.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/DrawAssist.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/PlayerSprite.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/HandCardsState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/BattleSetup.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/io/JSONReader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveUnimonState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Grids/Grid.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/GridLevel.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/DrawAssist.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/PlayerSprite.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayOverviewState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveUnimonState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/HandCardsState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Battle.java" />
       </list>
     </option>
   </component>
@@ -1201,6 +1178,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1217,38 +1198,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1417,63 +1366,15 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eeecs" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gage" />
+              <option name="myItemId" value="LonelyAbyss" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="engine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eeecs" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gage" />
+              <option name="myItemId" value="GamePieces" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="engine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="graphics" />
+              <option name="myItemId" value="Cards" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1497,10 +1398,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2014,7 +1911,14 @@
       <option name="project" value="LOCAL" />
       <updated>1493062869421</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="A player sprite is now drawn onto the grid area with various animations traversing the tiles. Help messages implemented to help assist the user in using the key game functionality.">
+      <created>1493855259036</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1493855259036</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2068,7 +1972,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22129783" sideWeight="0.7439577" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20965058" sideWeight="0.7439577" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23460898" sideWeight="0.46072507" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.018302828" sideWeight="0.4939577" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294702" sideWeight="0.49697885" order="11" side_tool="false" content_ui="tabs" />
@@ -2076,7 +1980,6 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.014900662" sideWeight="0.53927493" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29229608" sideWeight="0.71201813" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -2093,6 +1996,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2148,7 +2052,8 @@
     <MESSAGE value="Refactored the PlayArea and its states' code. Implemented an abstract copy method in the Card class and a overloaded setPosition() method in the GameObject class that avoided code repetition when setting up a Card's dimension in a new GameScreen. Created a DrawAssist class that has static methods that help when manipulating bitmaps and text. A move's name is now drawn onto the battle option buttons and this is scaled uniformly." />
     <MESSAGE value="Implemented selecting an initial active card, viewing the current bench cards and swapping the active card with a bench card (BenchState class). Removing a card from the hand and drawing a card from the deck is now handled. Functionality to apply a move to the opponent’s unimon card and show an animation of the opponent’s health bar decreasing by the move added. Battle class created that handles basic turn moves the player can make with the play area." />
     <MESSAGE value="Functionality implemented to allow the player to view their hand cards and use them on their active unimon card, evolving the card or applying energy to it." />
-    <option name="LAST_COMMIT_MESSAGE" value="Functionality implemented to allow the player to view their hand cards and use them on their active unimon card, evolving the card or applying energy to it." />
+    <MESSAGE value="A player sprite is now drawn onto the grid area with various animations traversing the tiles. Help messages implemented to help assist the user in using the key game functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="A player sprite is now drawn onto the grid area with various animations traversing the tiles. Help messages implemented to help assist the user in using the key game functionality." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2165,14 +2070,8 @@
           <properties />
           <option name="timeStamp" value="339" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java</url>
-          <line>170</line>
-          <properties />
-          <option name="timeStamp" value="548" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="595" />
+      <option name="time" value="596" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="app">
@@ -2181,67 +2080,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Generic/Card.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Energy/EnergyType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Unimon/Element.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/MenuImages/ExitButton.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/MenuImages/PlayButton.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/DeckManagement/Unimon.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/DeckManagement/Stamina.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/DeckManagement/Previous.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/DeckManagement/Right.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/PlayScreenButtons/useHandButton.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/PlayScreenButtons/applyEnergyButton.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/assets/img/PlayScreenButtons/card_details.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2274,20 +2112,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/BattleSetup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Energy/EnergyCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="142" column="13" selection-start-line="142" selection-start-column="13" selection-end-line="142" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/TestObjects/Testing/UnimonMoveTesting.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4282">
@@ -2313,13 +2137,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-375">
           <caret line="80" column="158" selection-start-line="80" selection-start-column="158" selection-end-line="80" selection-end-column="158" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Battle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="204" column="12" selection-start-line="204" selection-start-column="12" selection-end-line="204" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -2359,13 +2176,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="569" column="33" selection-start-line="569" selection-start-column="29" selection-end-line="569" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/ai/SteeringBehaviours.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-960">
@@ -2398,7 +2208,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="436">
           <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2406,29 +2215,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11895">
           <caret line="848" column="0" selection-start-line="848" selection-start-column="0" selection-end-line="848" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Grids/Grid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding>
-            <element signature="e#1454#1455#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LonelyAbyssGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#530#531#0" expanded="false" />
-            <element signature="e#553#554#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2442,14 +2228,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="263" column="68" selection-start-line="263" selection-start-column="68" selection-end-line="263" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LoadingScreen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
@@ -2458,84 +2236,230 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/GridLevel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-216">
-          <caret line="546" column="36" selection-start-line="546" selection-start-column="36" selection-end-line="546" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/DrawAssist.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="69" column="20" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/io/JSONReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4095">
+          <caret line="297" column="28" selection-start-line="297" selection-start-column="28" selection-end-line="297" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/BattleSetup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="27" column="51" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
+          <folding>
+            <element signature="e#3035#3036#0" expanded="false" />
+            <element signature="e#3068#3069#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/ScreenManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1296">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/DeckManagement/Stamina.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/DeckManagement/Right.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/DeckManagement/Previous.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LonelyAbyssGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <folding>
+            <element signature="e#1859#1860#0" expanded="false" />
+            <element signature="e#1911#1912#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="519">
+          <caret line="569" column="33" selection-start-line="569" selection-start-column="29" selection-end-line="569" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/PlayerSprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2010">
+        <state relative-caret-position="-51">
           <caret line="177" column="5" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Generic/Container.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1725">
-          <caret line="79" column="27" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="27" />
+        <state relative-caret-position="105">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/OpponentState.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Unimon/UnimonCard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2106">
-          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        <state relative-caret-position="533">
+          <caret line="508" column="25" selection-start-line="508" selection-start-column="21" selection-end-line="508" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayOverviewState.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Unimon/UnimonEvolveType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="452" column="3" selection-start-line="452" selection-start-column="3" selection-end-line="456" selection-end-column="5" />
+        <state relative-caret-position="105">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Unimon/Element.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="120" column="27" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="27" />
+        <state relative-caret-position="90">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Generic/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1492">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Types/Energy/EnergyCard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1530">
+          <caret line="142" column="13" selection-start-line="142" selection-start-column="13" selection-end-line="142" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Grids/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
+          <folding>
+            <element signature="e#1429#1430#0" expanded="true" />
+            <element signature="e#1469#1470#0" expanded="true" />
+            <element signature="e#1531#1532#0" expanded="true" />
+            <element signature="e#1576#1577#0" expanded="true" />
+            <element signature="e#1612#1613#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveEnergyState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-67">
+          <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveUnimonState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="185" column="37" selection-start-line="185" selection-start-column="37" selection-end-line="185" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveEnergyState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="73" column="36" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="36" />
+        <state relative-caret-position="-3307">
+          <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/HandCardsState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="129" column="46" selection-start-line="129" selection-start-column="46" selection-end-line="129" selection-end-column="46" />
+        <state relative-caret-position="-5647">
+          <caret line="121" column="29" selection-start-line="121" selection-start-column="27" selection-end-line="121" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/OpponentState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-667">
+          <caret line="152" column="36" selection-start-line="152" selection-start-column="26" selection-end-line="152" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3420">
+          <caret line="263" column="68" selection-start-line="263" selection-start-column="68" selection-end-line="263" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/GridLevel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3919">
+          <caret line="337" column="55" selection-start-line="337" selection-start-column="55" selection-end-line="337" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayOverviewState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="451" column="0" selection-start-line="451" selection-start-column="0" selection-end-line="451" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="290" column="5" selection-start-line="290" selection-start-column="5" selection-end-line="290" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1853">
+          <caret line="168" column="49" selection-start-line="168" selection-start-column="45" selection-end-line="168" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Battle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="683">
+          <caret line="267" column="16" selection-start-line="267" selection-start-column="16" selection-end-line="267" selection-end-column="16" />
           <folding />
         </state>
       </provider>

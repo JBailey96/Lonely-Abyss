@@ -13,16 +13,16 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 public class Grid extends GameObject {
     private boolean gridSelected; //false if the grid has not been selected, true if the grid has
     private Bitmap realBitmap; //the actual bitmap displayed after the grid has been touched
-    private boolean terminus; //whether the grid square is an 'end' grid
     private GridType type; //type of grid square e.g battle, location, start
+    private boolean active; //true - not yet selected, user can be transitioned upon touching this grid square.
 
 
-    public Grid(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen, boolean gridSelected, Bitmap realBitmap, boolean terminus, GridType type) {
+    public Grid(float x, float y, float width, float height, Bitmap bitmap, GameScreen gameScreen, boolean gridSelected, Bitmap realBitmap, GridType type) {
         super(x, y, width, height, bitmap, gameScreen);
         this.gridSelected = gridSelected;
         this.realBitmap = realBitmap;
-        this.terminus = terminus;
         this.type = type;
+        this.active = true;
 
         if (gridSelected) { //if the grid is not hidden
             reveal(); //reveal the grid square
@@ -39,12 +39,16 @@ public class Grid extends GameObject {
         return this.gridSelected;
     }
 
-    public void setGridSelected(boolean gridSelected) {
-        this.gridSelected = gridSelected;
+    public boolean isActive() {
+        return active;
     }
 
-    public boolean getTerminus() {
-        return this.terminus;
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setGridSelected(boolean gridSelected) {
+        this.gridSelected = gridSelected;
     }
 
     public GridType getType() {

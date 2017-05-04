@@ -1,5 +1,7 @@
 package uk.ac.qub.eeecs.LonelyAbyss.GamePieces;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
@@ -207,5 +209,64 @@ public class Battle {
         battleSetup.setActiveCard(evolveToCard);
     }
 
+    //James Bailey 40156063
+    //Method that removes prize cards lost by the player
+    //Allocates cards won to the player
+    public void concludeBattle(Player player) {
+        BattleSetup playerBattleSetup = player.getPlayerBattleSetup();
+
+        ArrayList<UnimonCard> playerUnimonCards = player.getUnimonCards(); //the player's list of unimon cards they own
+
+        Card[] prizeCardsLost = playerBattleSetup.getCardsLost(); //the prize cards the opponent has won from the player
+        removeCardsLostPlayer(prizeCardsLost, playerUnimonCards);
+
+        Card[] prizeCardsWon = playerBattleSetup.getCardsWon(); //the prize cards the player has won from the opponent
+        addCardsWonPlayer(prizeCardsWon, playerUnimonCards);
+
+        player.setPlayerBattleSetup(null); //clear the battlesetup
+    }
+
+    //James Bailey 40156063
+    //Method that handles allocating prize cards the player has won to their list of cards.
+    public static void addCardsWonPlayer(Card[] playerCardsWon, ArrayList<UnimonCard> playerUnimonCards) {
+        UnimonCard cardWon; //the prize card won by the player
+        for (int i = 0; i < playerCardsWon.length; i++) {
+            cardWon = (UnimonCard) playerCardsWon[i];
+
+            if (cardWon != null) { //the prize card exists
+                addCardToPlayer(cardWon, playerUnimonCards); //add the card to the player's list of owned cards
+            }
+        }
+    }
+
+    //James Bailey 40156063
+    //Adds a single unimon card to the player's list of owned unimon cards.
+    public static void addCardToPlayer(UnimonCard cardWon, ArrayList<UnimonCard> playerUnimonCards) {
+        playerUnimonCards.add(cardWon.copy());
+    }
+
+    //James Bailey 40156063
+    //Method that handles removing prize cards the player has to lost to the opponent
+    public static void removeCardsLostPlayer(Card[] playerCardsLost, ArrayList<UnimonCard> playerUnimonCards) {
+        UnimonCard cardLost; //the prize card lost by the player
+        for (int i = 0; i < playerCardsLost.length; i++) {
+            cardLost = (UnimonCard) playerCardsLost[i];
+
+            if (cardLost != null) {
+                removeCardFromPlayer(cardLost, playerUnimonCards); //remove the card from the player's list of owned cards.
+            }
+        }
+    }
+
+    //James Bailey 40156063
+    //Removes a single unimon card from the player's list of owned unimon cards
+    public static void removeCardFromPlayer(UnimonCard cardLost, ArrayList<UnimonCard> playerUnimonCards) {
+        for (int j = 0; j < playerUnimonCards.size(); j++) { //iterate through te list of owned unimon cards.
+            UnimonCard playerCard = playerUnimonCards.get(j); //a card owned by the player
+                if (cardLost.getID().equals(playerCard.getID())) { //card IDs are equal - the same card
+                    playerUnimonCards.remove(j); //remove the owned card.
+                }
+        }
+    }
 
 }
