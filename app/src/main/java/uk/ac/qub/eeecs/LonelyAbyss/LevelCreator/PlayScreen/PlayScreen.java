@@ -60,7 +60,8 @@ public class PlayScreen extends GameScreen {
         mLayerViewPort = new LayerViewport(mScreenViewport.width/2, mScreenViewport.height/2, mScreenViewport.width/2, mScreenViewport.height/2);
         loadPlayScreenBitmaps();
         generateBackground();
-        createTestBattleSetup();
+        //createTestBattleSetup();
+        playerBattleSetup = mGame.getPlayer().getPlayerBattleSetup();
         createInitialState();
     }
 

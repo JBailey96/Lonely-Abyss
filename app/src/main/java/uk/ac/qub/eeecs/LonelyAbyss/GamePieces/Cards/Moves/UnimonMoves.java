@@ -219,6 +219,7 @@ public class UnimonMoves {
 
 
     /**
+     * Patrick Conway 40150555
      * This method sets up a temp array of moves and sets it equal to the array of moves the players card has
      * It then runs a loop through the temp array
      * It then checks that the hash map of this move does not contain the key mana. If it doesn't it calls the checkStamina method
@@ -254,6 +255,7 @@ public class UnimonMoves {
     }
 
     /**
+     * Patrick Conway 40150555
      * This method returns true if the player's card has enough stamina to do the move
      * @param playerCard - the players card
      * @param move - temp array of moves
@@ -268,6 +270,7 @@ public class UnimonMoves {
     }
 
     /**
+     * Patrick Conway 40150555
      * This method returns true if the players card has enough mana to do the move
      * @param playerCard - the players card
      * @param move - temp array of moves

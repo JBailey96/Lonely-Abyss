@@ -503,6 +503,7 @@ public class UnimonCard extends Card {
     }
 
     /**
+     * Patrick Conway 40150555
      * Checks if the health is less than/equal to zero and if true sets it statue to Graveyard
      * @return - the true;
      */
@@ -515,7 +516,7 @@ public class UnimonCard extends Card {
     }
 
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     //create the card's rectangle that will be used to proportionally draw the stats onto
     public void developCard() {
         templateRect = new Rect((int) (mBound.x-mBound.halfWidth), (int) (mBound.y-mBound.halfHeight), (int) (mBound.x+mBound.halfWidth), (int) (mBound.y+mBound.halfHeight));
@@ -524,7 +525,6 @@ public class UnimonCard extends Card {
 
     public void update(ElapsedTime elapsedTime) {
         isDead();
-
         if (positionChanged) {
             developCard();
         }
@@ -537,7 +537,7 @@ public class UnimonCard extends Card {
     }
 
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     //draw all the stats' bars and foreground text
     private void drawStats(IGraphics2D graphics2D) {
         formatText = formatText(); //get the default formatting for stat text
@@ -546,7 +546,7 @@ public class UnimonCard extends Card {
         drawManaStat(graphics2D, formatText);
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     //default text formatting methods can call and modify
     private static Paint formatText() {
         if (formatText == null) {
@@ -560,7 +560,7 @@ public class UnimonCard extends Card {
         }
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     private void drawHealthStat(IGraphics2D graphics2D, Paint formatText) {
         if (positionChanged) {
             healthPointTextRect = constructStatRect(StatType.HEALTH);
@@ -569,7 +569,7 @@ public class UnimonCard extends Card {
         drawHealthText(graphics2D, healthPointTextRect, formatText);
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     private void drawHealthText(IGraphics2D graphics2D, Rect healthPointTextRect, Paint formatText) {
         String healthString = ("Health | " +  Integer.toString(health) + "/" + Integer.toString(maxHealth));
 
@@ -595,7 +595,7 @@ public class UnimonCard extends Card {
         graphics2D.drawBitmap(healthBar, null, healthBarRect, null);
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway
     private void drawStaminaStat(IGraphics2D graphics2D, Paint formatText) {
         if (positionChanged) {
             staminaPointTextRect = constructStatRect(StatType.STAMINA);
@@ -604,7 +604,7 @@ public class UnimonCard extends Card {
         drawStaminaText(graphics2D, staminaPointTextRect, formatText);
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     private void drawStaminaText(IGraphics2D graphics2D, Rect staminaPointTextRect, Paint formatText) {
         String staminaString = ("Stamina | " +  Integer.toString(stamina) + "/" + Integer.toString(maxStamina));
 
@@ -631,7 +631,7 @@ public class UnimonCard extends Card {
         graphics2D.drawBitmap(staminaBar, null, staminaBarRect, null);
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     //draw the mana bar bitmaps and the text showing the mana stats
     private void drawManaStat(IGraphics2D graphics2D, Paint formatText) {
         if (positionChanged) {
@@ -641,7 +641,7 @@ public class UnimonCard extends Card {
         drawManaText(graphics2D, manaPointTextRect, formatText);
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     //draw the text showing the current mana stats
     private void drawManaText(IGraphics2D graphics2D, Rect manaPointTextRect, Paint formatText) {
         String manaString = ("Mana | " +  Integer.toString(mana) + "/" + Integer.toString(maxMana)); //string showing the current mana and the maximum mana the card can have
@@ -674,7 +674,7 @@ public class UnimonCard extends Card {
         graphics2D.drawBitmap(manaBar, null, manaBarRect, null); //draw the current mana bar in the foreground - emphasises contrast through opacity
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     //construct the rectangle boundaries for each stat to be drawn onto the card proportional to the card's size
     private Rect constructStatRect(StatType statToBeDrawn) {
         Rect statRect = new Rect();

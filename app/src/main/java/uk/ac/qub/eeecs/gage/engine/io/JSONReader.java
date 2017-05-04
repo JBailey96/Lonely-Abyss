@@ -70,6 +70,7 @@ public class JSONReader {
         return processedUnimonCards; //returns the processed unimon card objects.
     }
 
+    //Patrick Conway 40150555
     public static ArrayList<EnergyCard> loadJSONEnergy(Game mGame) throws JSONException, IOException{
         Context context = mGame.getActivity();
 
@@ -184,7 +185,7 @@ public class JSONReader {
         return playerEnergyCards;
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     //Process a unimon card represented in the JSON from the generic JSON Object to UnimonCard object
     private static UnimonCard processUnimonCard(JSONObject unimonCard) throws JSONException {
         //general identifiers
@@ -233,7 +234,7 @@ public class JSONReader {
         return unimonCardProcessed;
     }
 
-    //James Bailey 40156063
+    //James Bailey 40156063/Patrick Conway 40150555
     //Process a unimon card's moves
     private static UnimonMoves[] processUnimonMoves(JSONArray unimonMoves) throws JSONException {
         final int numberOfMoves = 3; //the number of moves a UnimonCard can have
@@ -286,6 +287,7 @@ public class JSONReader {
         return moveReq;
     }
 
+    //Patrick Conway 40150555
     private static EnergyCard processEnergyCard(JSONObject energyCards) throws JSONException{
         String ID = (String)energyCards.get("ID");
 
@@ -302,6 +304,7 @@ public class JSONReader {
         return energyCardProcessed;
     }
 
+    //Patrick Conway 40150555
     private static Map<UnimonEvolveType,Map<EnergyType, Integer>> processEnergyValues(JSONArray energiesJSONArr) throws JSONException{
 
         Map<UnimonEvolveType,Map<EnergyType, Integer>> energies = new HashMap<>();

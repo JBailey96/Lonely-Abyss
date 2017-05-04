@@ -522,8 +522,8 @@ public class GridLevel extends GameScreen {
 
             //load the play area
             mGame.getScreenManager().removeScreen("GridLevel");
-            PlayScreen playS = new PlayScreen(mGame);
-            mGame.getScreenManager().addScreen(playS);
+            DeckManagement DM = new DeckManagement(mGame);
+            mGame.getScreenManager().addScreen(DM);
         }
     }
 
