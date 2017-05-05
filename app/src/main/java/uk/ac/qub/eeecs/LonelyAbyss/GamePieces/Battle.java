@@ -7,6 +7,8 @@ import java.util.Stack;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Difficulty;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.OpponentPlayer;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -18,6 +20,11 @@ import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.PlayScreen;
  */
 
 public class Battle {
+
+
+    protected Difficulty battleDifficulty;
+
+
     //the quantity of cards a battle setup has
     protected static final int numHandCards = 5;
     protected static final int numBenchCardsBeforePlay = 4;
@@ -269,4 +276,85 @@ public class Battle {
         }
     }
 
+
+    //Jordan McComb and Kyle Bell
+    //40156883 / 40158884
+    //This method returns the difficulty of the AI
+    //Used in checking which moves the AI has to make
+    public Difficulty getAIDifficulty(){
+        return this.battleDifficulty;
+
+    }
+
+    //Jordan McComb and Kyle Bell
+    //40156883 / 40158884
+    //This method returns
+    //this method sets the difficulty of the AI
+    //called when AI difficulty is changed in menu screen
+    public void setAIDifficulty(Difficulty newDifficulty){
+        this.battleDifficulty = newDifficulty;
+    }
+
+    //Jordan McComb and Kyle Bell
+    //40156883 / 40158884
+    //This is the main implementation of all the AI's methods and ultimately calls everything it does in battle
+    //All methods contained within are found in the Opponent Player Class
+    //This method plays out differently dependiong on the difficulty setting
+    public void AIFullTurnCycle( UnimonCard playerActiveCard, OpponentPlayer AIPlayer){
+        //at the start of the opponents turn it will check if the active card is dead and if it is will find a suitable replacement from the bench
+        if(AIPlayer.getPlayerBattleSetup().getActiveCard().getHealth() == 0){
+            AIPlayer.chooseReplacement(playerActiveCard, AIPlayer.getPlayerBattleSetup());
+        }
+
+        //Hard mode draws cards automatically for the AI after every card usage, however easy mode can only draw one card at the start of every turn
+
+        AIPlayer.drawCard(AIPlayer.getPlayerBattleSetup()); // at the start checks if any cards need drawn
+        AIPlayer.checkForEvolution(AIPlayer.getPlayerBattleSetup()); // check if the active card is eligible for evolution
+
+        //only for hard diffuclty will be player evaluate the opponents highest possible damage
+        //hard mode also auto heals below 35
+        //easy mode auto heals below 20
+
+        if(getAIDifficulty() == Difficulty.HARD){
+
+            //if the hard player drops below 35% if its attributes and has a potion to replenish them, it will automatically use that potion
+
+
+            AIPlayer.autoHealthApply(AIPlayer.getPlayerBattleSetup(), 35.0); // checks if health is below 35% and if so a potion is used (if the hand contains one)
+            AIPlayer.drawCard(AIPlayer.getPlayerBattleSetup()); // checks if any cards need drawn
+            AIPlayer.AutoManaApply(AIPlayer.getPlayerBattleSetup(), 35.0);// checks if mana is below 35% and if so a potion is used (if the hand contains one)
+            AIPlayer.drawCard(AIPlayer.getPlayerBattleSetup()); // checks if any cards need drawn
+            AIPlayer.AutoStaminaApply(AIPlayer.getPlayerBattleSetup(), 35.0);// checks if stamina is below 35% and if so a potion is used (if the hand contains one)
+            AIPlayer.drawCard(AIPlayer.getPlayerBattleSetup()); // checks if any cards need drawn
+            //if the hard player drops below 35% if its attributes and has a potion to replinish them, it will automatically use that potion
+
+            if(AIPlayer.getPlayerBattleSetup().getActiveCard().getHealth() < AIPlayer.GetOpponentsHighestDamage(playerActiveCard)) {
+                AIPlayer.ManualHealthApply(AIPlayer.getPlayerBattleSetup());
+                AIPlayer.drawCard(AIPlayer.getPlayerBattleSetup()); // checks if any cards need drawn
+
+            }
+        }
+
+        if(getAIDifficulty() == Difficulty.EASY){
+            AIPlayer.autoHealthApply(AIPlayer.getPlayerBattleSetup(), 20);
+            // checks if health is below 35% and if so a potion is used (if the hand contains one)
+            //different minimum health value for easy AI - 20%
+            //the easy AI doesn't draw a card after as it can only draw once at the start of the turn
+        }
+
+
+        AIPlayer.chooseEfficientAttack(AIPlayer.getPlayerBattleSetup(), playerActiveCard);
+        //chooses the best moves and whether or not the AI can make them
+        //if can make no moves, it applies a potion
+        //if it still cannot make a move it then substitutes with a card on the bench
+
+
+    }
+
+
+
+
 }
+
+
+
