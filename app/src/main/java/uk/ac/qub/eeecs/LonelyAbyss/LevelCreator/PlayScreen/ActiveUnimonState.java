@@ -1,6 +1,5 @@
 package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -15,15 +14,15 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.gage.engine.graphics.DrawAssist;
+import uk.ac.qub.eeecs.gage.CustomGage.DrawAssist;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
-import uk.ac.qub.eeecs.gage.ui.ReleaseButton;
+import uk.ac.qub.eeecs.gage.CustomGage.ReleaseButton;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.gage.world.State;
+import uk.ac.qub.eeecs.gage.CustomGage.State;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.HandCardsState.HandCardStateType;
 
 /**
@@ -187,7 +186,7 @@ public class ActiveUnimonState extends State {
                 return; //there is no energy card in the player's handcards, cannot present any energy cards
             }
         } else if (stateType == HandCardStateType.SELECT_UNIMON) {
-            if (!Battle.checkUnimonCardInHand(battleSetup.getHandCard(), this.activeCard)) {
+            if (!Battle.checkUnimonCardInHand(battleSetup.getHandCard())) {
                 return; //there is no unimon card in the player's hand cards, cannot present any unimon cards
             }
         }

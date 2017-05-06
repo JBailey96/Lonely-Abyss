@@ -1,7 +1,7 @@
 package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon;
 
 /**
- * Created by appcamp on 14/01/2017.
+ * Created by James on 14/01/2017.
  */
 
 //the evolution of the unimon card

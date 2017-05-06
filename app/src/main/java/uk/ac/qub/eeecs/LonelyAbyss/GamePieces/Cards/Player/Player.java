@@ -15,7 +15,8 @@ public class Player {
     private ArrayList<EnergyCard> energyCards;
     private ArrayList<UnimonCard> unimonCards; // cards the player possesses
 
-    private Grid[][] gridLevelTiles;
+    private Grid[][] gridLevelTiles; //grid level tiles the player is currently on
+    //the position of the player on the grid
     private int playerGridPosI = 0;
     private int playerGridPosJ = 0;
 

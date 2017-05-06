@@ -6,13 +6,10 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
  * Created by Jordan and Kyle on 09/03/2017.
  */
 
-        import android.app.ApplicationErrorReport;
         import android.graphics.Bitmap;
         import android.graphics.Paint;
         import android.graphics.Rect;
 
-        import java.security.interfaces.ECKey;
-        import java.util.ArrayList;
         import java.util.List;
 
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
@@ -26,11 +23,11 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
         import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
         import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
         import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
-        import uk.ac.qub.eeecs.gage.ui.ReleaseButton;
+        import uk.ac.qub.eeecs.gage.CustomGage.ReleaseButton;
         import uk.ac.qub.eeecs.gage.world.GameScreen;
         import uk.ac.qub.eeecs.gage.world.LayerViewport;
         import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-        import uk.ac.qub.eeecs.gage.world.State;
+        import uk.ac.qub.eeecs.gage.CustomGage.State;
 
 public class OpponentState extends State {
 

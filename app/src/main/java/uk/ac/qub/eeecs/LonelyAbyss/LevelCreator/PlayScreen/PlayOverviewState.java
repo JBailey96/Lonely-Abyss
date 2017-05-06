@@ -12,15 +12,15 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.gage.engine.graphics.DrawAssist;
+import uk.ac.qub.eeecs.gage.CustomGage.DrawAssist;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
-import uk.ac.qub.eeecs.gage.ui.ReleaseButton;
+import uk.ac.qub.eeecs.gage.CustomGage.ReleaseButton;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.gage.world.State;
+import uk.ac.qub.eeecs.gage.CustomGage.State;
 
 /**
  * Created by kyle on 08/03/2017.
@@ -126,6 +126,7 @@ public class PlayOverviewState extends State {
         activeUnimonCard.update(elapsedTime);
     }
 
+    //James Bailey 40156063
     //update all the buttons
     public void updateButtons(ElapsedTime elapsedTime) {
         deckButton.update(elapsedTime);
@@ -133,6 +134,8 @@ public class PlayOverviewState extends State {
         graveyardButton.update(elapsedTime);
     }
 
+    //James Bailey 40156063
+    //validates whether a card has been touched
     public void touchCards(List<TouchEvent> touchEvents) {
         for (TouchEvent t: touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) {
@@ -257,7 +260,7 @@ public class PlayOverviewState extends State {
         graphics2D.drawBitmap(selectBitmap("EmptyCard"), null, emptyHandCardDimen, null);
     }
 
-
+    //James Bailey 40156063
     //draw all the buttons
     public void drawButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         deckButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
@@ -267,6 +270,7 @@ public class PlayOverviewState extends State {
         opponentButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
 
+    //James Bailey 40156063
     //generate all the cards
     public void generateCards() {
         generateShowOpponentsScreenButton();
@@ -276,6 +280,7 @@ public class PlayOverviewState extends State {
         generateActiveUnimon();
     }
 
+    //James Bailey 40156063
     //generate the buttons
     public void generateButtons() {
         generateDeckButton();
@@ -335,6 +340,7 @@ public class PlayOverviewState extends State {
         return emptyHandCardRect;
     }
 
+    //James Bailey 40156063
     //generate the button used to represent the top of the deck to be drawn from
     public void generateDeckButton() {
         float width = mScreenViewport.width / 10;

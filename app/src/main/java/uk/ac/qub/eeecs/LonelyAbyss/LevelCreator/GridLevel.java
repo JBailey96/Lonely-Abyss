@@ -9,8 +9,7 @@ import java.util.Random;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.Grid;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.GridType;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.PlayerSprite;
-import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.PlayScreen;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.PlayerSprite;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.audio.Music;
@@ -22,7 +21,7 @@ import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.PlayerSprite.MovementDirection;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.PlayerSprite.MovementDirection;
 
 
 /**
@@ -364,38 +363,6 @@ public class GridLevel extends GameScreen {
 
         return true;
     }
-
-    /*//James Bailey 40156063
-    //Validates whether the selected grid tile is terminus - not valid
-    private boolean isSelectedGridTerminus(int i, int j) {
-        if ((i < this.gridSize) && (gridArray[i + 1][j].getTerminus())) {
-            return true;
-        } else if (((j < this.gridSize) && (gridArray[i][j + 1].getTerminus()))) {
-            return true;
-        } else if ((j > 0) && (gridArray[i][j - 1].getTerminus())) {
-            return true;
-        } else if ((i > 0) && (gridArray[i - 1][j].getTerminus())) {
-            return true;
-        }
-        return false;
-    } */
-
-    //James Bailey 40156063
-    //Validates whether the grid is selected - not valid.
-    private boolean isSelectedGridSelected(int i , int j) {
-        if ((i < this.gridSize) && gridArray[i + 1][j].isGridSelected()) {
-            return true;
-        } else if ((j < this.gridSize) && (gridArray[i][j + 1].isGridSelected())) {
-            return true;
-        } else if ((j > 0) && (gridArray[i][j - 1].isGridSelected())) {
-            return true;
-        } else if ((i > 0) && (gridArray[i - 1][j].isGridSelected())) {
-            return true;
-        }
-
-        return false;
-    }
-
 
 
     //James Bailey 40156063

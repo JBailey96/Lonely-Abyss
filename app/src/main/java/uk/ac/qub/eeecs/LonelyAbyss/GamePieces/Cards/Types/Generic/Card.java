@@ -19,13 +19,14 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 public abstract class Card extends GameObject {
     protected String name;
     protected String description;
+    protected String ID;
+
     protected boolean revealed; // true - card is visible and 'in play', false - only the back of the card is visible.
     protected Bitmap icon; //icon on the top left of the card.
     protected Container container; //the container where the card is.
+
     protected float x, y;
     protected Vector2 velocity;
-    protected String ID;
-
 
 
 

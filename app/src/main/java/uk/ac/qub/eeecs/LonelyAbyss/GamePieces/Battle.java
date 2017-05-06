@@ -111,10 +111,30 @@ public class Battle {
     public static boolean hasPlayerLost(Player player) {
         if (player.getPlayerBattleSetup().getPlayAreaDeck().size() == 0) {
             return true;
-        } else if (player.getPlayerBattleSetup().getCardsLost().length == 3) {
+        } else if (checkAllCardsLost(player.getPlayerBattleSetup().getCardsLost())) {
             return true;
         }
         return false;
+    }
+
+    //James Bailey 40156063
+    //Method that validates whether the player has lost 3 prize cards, returning true if so and false if not.
+    private static boolean checkAllCardsLost(Card[] cardsLost) {
+        int numberOfPrizeCardsCount = 0; //number of prize cards the player has
+
+        //iterate through and increment the card counter if a prize card exists (not null)
+        for (Card prizeCardsLost : cardsLost) {
+            if (prizeCardsLost != null) { //validates whether the prize card exists
+                numberOfPrizeCardsCount++;
+            }
+        }
+
+        //validates whether the player's list of prize cards is full
+        if (numberOfPrizeCardsCount == numPrizeCards) {
+            return true;
+        }
+
+        return false; //the player has not lost 3 prize cards.
     }
 
     //James Bailey 40156063
@@ -132,7 +152,7 @@ public class Battle {
 
     //James Bailey 40156063
     //Method that checks whether there is at least one unimon card in the player's hand cards
-    public static boolean checkUnimonCardInHand(Card[] handCards, UnimonCard activeCard) {
+    public static boolean checkUnimonCardInHand(Card[] handCards) {
         for (int i = 0; i < handCards.length; i++) {
             Card handCard = handCards[i];
 

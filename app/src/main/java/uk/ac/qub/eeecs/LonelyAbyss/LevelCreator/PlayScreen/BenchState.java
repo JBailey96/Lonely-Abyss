@@ -1,12 +1,5 @@
 package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.widget.Toast;
-
 import java.util.List;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
@@ -14,13 +7,13 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.gage.engine.graphics.DrawAssist;
+import uk.ac.qub.eeecs.gage.CustomGage.DrawAssist;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.gage.world.State;
+import uk.ac.qub.eeecs.gage.CustomGage.State;
 
 /**
  * Created by James on 12/04/2017.
@@ -32,14 +25,13 @@ public class BenchState extends State {
         RETREAT, VIEW_BENCH, CHOOSE_ACTIVE
     }
 
-    protected StateType currentStateType;
+    protected StateType currentStateType; //the current state type
 
     protected BattleSetup battleSetup;
     protected UnimonCard[] benchCards; //the battle setup's bench cards
     protected UnimonCard[] copyBenchCards; //a copy of the battlesetup's bench cards - has to be copy as different dimensions and position in different state types.
 
     protected PlayScreen playScreen; //the controlling GameScreen
-
 
     protected final int numBenchCardsBeforePlay = 4;
     protected final int numBenchCardsInPlay = 3;
@@ -122,6 +114,8 @@ public class BenchState extends State {
     }
 
 
+    //James Bailey 40156063
+    //Shows a helpful message to the user of what functionality they have for the specific state type.
     public void showMessage() {
         String message = "";
         if (currentStateType == StateType.CHOOSE_ACTIVE) {

@@ -2,22 +2,18 @@ package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.StatusEffect;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
-import uk.ac.qub.eeecs.gage.Game;
-import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.gage.engine.graphics.DrawAssist;
+import uk.ac.qub.eeecs.gage.CustomGage.DrawAssist;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -34,20 +30,25 @@ public class UnimonCard extends Card {
      * Bitmap images to make up areas of the card
      */
 
+    //the card's dimension
     protected Rect templateRect;
 
-    private Bitmap healthBar; //health bar bitmap representing how much health the player has
+    //the health bar bitmap of the card with its dimension and the format of text drawn onto it
+    private Bitmap healthBar;
     private Rect healthBarRect;
     private Paint healthTextFormat;
 
+    //mana bar
     private Bitmap manaBar;
     private Rect manaBarRect;
     private Paint manaTextFormat;
 
+    //stamina bar
     private Bitmap staminaBar;
     private Rect staminaBarRect;
     private Paint staminaTextFormat;
 
+    //the text to be drawn onto the stat bars.
     private Rect healthPointTextRect;
     private Rect staminaPointTextRect;
     private Rect manaPointTextRect;

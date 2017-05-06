@@ -10,12 +10,11 @@ import java.util.Random;
 import java.util.Stack;
 
 
+import uk.ac.qub.eeecs.LonelyAbyss.DiscontinuedCode.ActiveEnergyState;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
-import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.DeckManagement;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.GridLevel;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -26,7 +25,7 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.gage.world.State;
+import uk.ac.qub.eeecs.gage.CustomGage.State;
 
 /**
  * Created by Kyle on 22/11/2016.
@@ -68,128 +67,19 @@ public class PlayScreen extends GameScreen {
     //James Bailey 40156063
     //The first state that is called - used to select the active unimon card.
     public void createInitialState() {
-        benchState = new BenchState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup);
+        this.benchState = new BenchState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup);
     }
 
     //James Bailey 40156063
     //create the other states that require the initialisation of an active unimon card.
     public void createOtherStates() {
-        playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup); //state active initalised to true - first state
-        activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
-        opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, playerBattleSetup, false);
-        activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
-        handCardsState = new HandCardsState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
+        this.playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup); //state active initalised to true - first state
+        this.activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
+        this.opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, playerBattleSetup, false);
+        this.activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
+        this.handCardsState = new HandCardsState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
     }
 
-
-    //James Bailey 40156063
-    //Creates a test battle setup - loads in the cards used in the playarea
-    public void createTestBattleSetup() {
-        ArrayList<UnimonCard> unimonCards = mGame.getPlayer().getUnimonCards();
-        ArrayList<EnergyCard> energyCards = mGame.getPlayer().getEnergyCards();
-
-
-        //copy the player's battle setup
-        ArrayList<UnimonCard> copyUnimonCards = new ArrayList<>();
-        ArrayList<EnergyCard> copyEnergyCards = new ArrayList<>();
-
-        for (UnimonCard unimonCard : unimonCards) {
-            copyUnimonCards.add(unimonCard.copy());
-        }
-
-        for (EnergyCard energyCard : energyCards) {
-            copyEnergyCards.add(energyCard.copy());
-        }
-
-        UnimonCard[] prizeCard = selectPrizeCards(copyUnimonCards);
-        UnimonCard[] benchCard = createBenchCards(copyUnimonCards);
-        Stack<Card> deck = createDeck(copyUnimonCards, copyEnergyCards);
-
-        playerBattleSetup = new BattleSetup(deck, benchCard, prizeCard);
-    }
-
-    //James Bailey 40156063
-    //Selects 3 random Unimon cards from the user's entire collection of cards to be used as prize cards
-    public UnimonCard[] selectPrizeCards(ArrayList<UnimonCard> playerUnimonCards) {
-        final int numberOfPrizeCards = 3;
-
-        UnimonCard[] prizeCards = new UnimonCard[numberOfPrizeCards];
-
-        Random random = new Random();
-        for (int i = 0; i < numberOfPrizeCards; i++) {
-            int randomIndex = random.nextInt(playerUnimonCards.size());
-            UnimonCard randomUnimonCard = playerUnimonCards.get(randomIndex);
-            prizeCards[i] = randomUnimonCard.copy();
-            playerUnimonCards.remove(randomIndex);
-        }
-
-        return prizeCards;
-    }
-
-    //James Bailey 40156063
-    //Selects random 3 Unimon cards from the user's entire collection of cards to be on the bench
-    public UnimonCard[] createBenchCards(ArrayList<UnimonCard> playerUnimonCards) {
-        final int numberOfBenchCardsBeforePlay = 4;
-
-        UnimonCard[] benchCards = new UnimonCard[numberOfBenchCardsBeforePlay];
-
-        Random random = new Random();
-        for (int i = 0; i < numberOfBenchCardsBeforePlay; i++) {
-            int randomIndex = random.nextInt(playerUnimonCards.size());
-            UnimonCard randomUnimonCard = playerUnimonCards.get(randomIndex);
-            benchCards[i] = randomUnimonCard.copy();
-            playerUnimonCards.remove(randomIndex);
-        }
-
-        return benchCards;
-    }
-
-
-    //James Bailey 40156063
-    //Selects a single active Unimon card - active Unimon
-    public UnimonCard selectActiveCard(ArrayList<UnimonCard> playerUnimonCards) {
-            int maxIndexPlayerUnimonCards = playerUnimonCards.size()-1;
-            int randomIndex = (int) (Math.random() * maxIndexPlayerUnimonCards);
-            UnimonCard activeCard = playerUnimonCards.get(randomIndex).copy();
-            playerUnimonCards.remove(randomIndex);
-
-            return activeCard;
-    }
-
-    //James Bailey 40156063
-    //Creates a deck that will be used to take cards off
-    public Stack<Card> createDeck(ArrayList<UnimonCard> playerUnimonCards, ArrayList<EnergyCard> energyCards) {
-        Random random = new Random();
-        Stack<Card> deck = new Stack<>(); //the deck that the cards are pushed to
-
-        final int deck_size = 25;
-
-        int randomUnimonIndex;
-        UnimonCard randomUnimonCard;
-
-        int randomEnergyIndex;
-        EnergyCard randomEnergyCard;
-
-        boolean arraysEmpty = false;
-        while ((!arraysEmpty) && (deck_size > deck.size())) {
-            int randomIndex = random.nextInt(2);
-            if ((randomIndex == 0) && (playerUnimonCards.size() > 0)) {
-                randomUnimonIndex = random.nextInt(playerUnimonCards.size());
-                randomUnimonCard = playerUnimonCards.get(randomUnimonIndex);
-                deck.push(randomUnimonCard.copy());
-                playerUnimonCards.remove(randomUnimonIndex);
-            } else if (energyCards.size() > 0) {
-                randomEnergyIndex = random.nextInt(energyCards.size());
-                randomEnergyCard = energyCards.get(randomEnergyIndex);
-                deck.push(randomEnergyCard.copy());
-                energyCards.remove(randomEnergyIndex);
-            } else {
-                arraysEmpty = true;
-            }
-        }
-
-        return deck;
-    }
 
     @Override
     public void update(ElapsedTime elapsedTime) {
