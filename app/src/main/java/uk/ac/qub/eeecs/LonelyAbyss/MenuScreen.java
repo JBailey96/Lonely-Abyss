@@ -156,7 +156,8 @@ public class MenuScreen extends GameScreen {
         //the exit and play button constructed with the dimensions above and the bitmaps loaded
         exitButton = new ReleaseButton(exitButtonRect.exactCenterX(), exitButtonRect.exactCenterY(), exitButtonRect.width(), exitButtonRect.height(), "EXIT", "EXIT", "", this);
         playButton = new ReleaseButton(playButtonRect.exactCenterX(), playButtonRect.exactCenterY(), playButtonRect.width(), playButtonRect.height(), "PLAY", "PLAY", "", this);
-       // rulesButton = new ReleaseButton(rulesButtonRect.exactCenterX(), rulesButtonRect.exactCenterY(), rulesButtonRect.width(), rulesButtonRect.height(), "PLAY", "PLAY", "", this);
+        playButton.setEnableGlow(false);
+        // rulesButton = new ReleaseButton(rulesButtonRect.exactCenterX(), rulesButtonRect.exactCenterY(), rulesButtonRect.width(), rulesButtonRect.height(), "PLAY", "PLAY", "", this);
         //uWotMateButton = new ReleaseButton(uWotMateRect.exactCenterX(), uWotMateRect.exactCenterY(), uWotMateRect.width(), uWotMateRect.height(), "EXIT", "EXIT", "", this);
 
     }

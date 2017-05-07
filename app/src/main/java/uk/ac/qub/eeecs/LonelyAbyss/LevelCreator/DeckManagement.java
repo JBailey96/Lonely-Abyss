@@ -47,59 +47,59 @@ public class DeckManagement extends GameScreen {
     int offset = 0;
     Random rand = new Random();
 
-    private final int numPrizeCards = 3;
+    private final int numPrizeCards = 3; //Max number of prize cards
 
-    private final int numBenchCards = 4;
-    private final int numUnimonDeckCards = 5;
-    private final int numEnergyDeckCards = 13;
+    private final int numBenchCards = 4;  //Max number of bench cards
+    private final int numUnimonDeckCards = 5; //Max number of Unimon Cards
+    private final int numEnergyDeckCards = 13;  //Max energy cards
 
-    private int numBenchCardsSelected = 4;
-    private int unimonDeckSelected = 5;
-    private int energyDeckSelected = 13;
-    private int benchCardsCounter = 0;
+    private int numBenchCardsSelected = 4;  //number of bench cards needed
+    private int unimonDeckSelected = 5; //number of unimon deck cards needed
+    private int energyDeckSelected = 13;    //number of energy deck cards needed
+    private int benchCardsCounter = 0;  // bench array counter
 
-    protected Bitmap backGround;
-    protected Rect backgroundRect;
+    protected Bitmap backGround; // the background bitmap
+    protected Rect backgroundRect;  //backGround rectangle
 
-    protected Rect counterRect;
+    protected Rect counterRect; //card selectiuon counter rectangle
 
-    protected Rect nextButtonRect; //the exit game button dimensions
-    protected ReleaseButton nextButton;
+    protected Rect nextButtonRect; //next button rect
+    protected ReleaseButton nextButton; //next button
 
-    protected Rect previousButtonRect;
-    protected ReleaseButton previousButton;
+    protected Rect previousButtonRect; // previous button rect
+    protected ReleaseButton previousButton; //previous button
 
-    protected Rect manaSearchSortButtonRect;
-    protected ReleaseButton manaSearchButton;
+    protected Rect manaSearchSortButtonRect; //mana button rect
+    protected ReleaseButton manaSearchButton; //mana button
 
-    protected Rect staminaSearchSortButtonRect;
-    protected ReleaseButton staminaSearchButton;
+    protected Rect staminaSearchSortButtonRect; //stamina button rect
+    protected ReleaseButton staminaSearchButton; //stamina button
 
-    protected Rect quickSetupRect;
-    protected ReleaseButton quickSetupButton;
+    protected Rect quickSetupRect;  //quickSetup rect
+    protected ReleaseButton quickSetupButton; //quickSetupButton
 
     protected Music backgroundMusic;
     protected Sound buttonClick;
 
     /*protected Music deckManagementMusic;*/
 
-    private Toast objMessage = null;
+    private Toast objMessage = null;    //toast message
 
-    private Paint counterTextFormat;
+    private Paint counterTextFormat;    //the selection counter text
 
     private static Paint formatText;
 
-    UnimonCard[]prizeCards = new UnimonCard[numPrizeCards];
-    UnimonCard[]benchCards = new UnimonCard[numBenchCards];
-    List<Card> tempDeck = new ArrayList<>();
-    Stack<Card> deck = new Stack<Card>();
+    UnimonCard[]prizeCards = new UnimonCard[numPrizeCards]; // prize card array
+    UnimonCard[]benchCards = new UnimonCard[numBenchCards]; //bench cards array
+    List<Card> tempDeck = new ArrayList<>();    //temp deck list
+    Stack<Card> deck = new Stack<Card>();   //offical deck stack
 
-    List<UnimonCard> oldUnimonCard = mGame.getPlayer().getUnimonCards();
-    List<EnergyCard> oldEnergyCard = mGame.getPlayer().getEnergyCards();
+    List<UnimonCard> oldUnimonCard = mGame.getPlayer().getUnimonCards();// hold the loaded unimon cards from JSON
+    List<EnergyCard> oldEnergyCard = mGame.getPlayer().getEnergyCards();//hold the loaded energy cards from JSOM
 
-    List<UnimonCard> newUnimonCard = new ArrayList<>();
-    List<EnergyCard> newEnergyCards = new ArrayList<>();
-    List<UnimonCard> unevlovedUnimonCards = new ArrayList<>();
+    List<UnimonCard> newUnimonCard = new ArrayList<>(); //list of unimonCards
+    List<EnergyCard> newEnergyCards = new ArrayList<>();//list of energy cards
+    List<UnimonCard> unevlovedUnimonCards = new ArrayList<>();//list of unevolved unimon cards
 
 
 
@@ -136,6 +136,7 @@ public class DeckManagement extends GameScreen {
         playSound();*/
     }
 
+    //Patrick Conway 40150555
     /**
      * Places copies of oldUnimonCard elements into newUnimonCard ArrayList
      */
@@ -146,6 +147,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Places copies of the unevolved cards from newUnimonCard into unevolvedUnimonCard ArrayList
      */
@@ -158,6 +160,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     public void removingUnevolvedUnimon(){
         for(int i = 0; i < newUnimonCard.size(); i++){
             UnimonCard unimonCard = newUnimonCard.get(i);
@@ -168,6 +171,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Places copies of the oldEnergyCard ArrayList elements into newEnergyCards ArrayList
      */
@@ -178,6 +182,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     //For response to a touch event
     public void update(ElapsedTime elapsedTime) {
         updateNextButtonCheck(elapsedTime);
@@ -185,7 +190,6 @@ public class DeckManagement extends GameScreen {
         updateManaButton(elapsedTime);
         updateStaminaButton(elapsedTime);
         updateQuickSetupButton(elapsedTime);
-       /* toast();*/
        if(playerFinishSelect){
            toastClear();
            setPlayerBattleSetup();
@@ -195,6 +199,7 @@ public class DeckManagement extends GameScreen {
         touchButton(touchEvents);
     }
 
+    //Patrick Conway 40150555
     /**
      * Checks if the Offset + 3 is less than the ArrayList size on which it is acting upon.
      * If so update the nextButton.
@@ -217,6 +222,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Check if the offset variable is greater than zero. If so call the update method on the previousButton.
      * @param elapsedTime - time elapsed from last update
@@ -226,6 +232,8 @@ public class DeckManagement extends GameScreen {
             previousButton.update(elapsedTime);
         }
     }
+
+    //Patrick Conway 40150555
     /**
      * Check to see if the Hand Unimon have been selected. If not call the update method on the manaSearchButton.
      * @param elapsedTime - time elapsed from last update
@@ -236,6 +244,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Check to see if the Hand Unimon have been selected. If not call the update method on the staminaSearchButton.
      * @param elapsedTime - time elapsed from last update
@@ -246,6 +255,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Check to see if  have been selected. If not call the update method on the manaSearchButton,
      * @param elapsedTime - time elapsed from last update
@@ -256,6 +266,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Checks for touch and then calls the method associated with the touch.
      * @param touchEvents - List of touchEvents that will be iterated through.
@@ -292,6 +303,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Applies a check to decide which List to apply the sortMethod for Mana on. Then resets the offset back to 0,
      * so user views the List in sorted order by Mana from the start.
@@ -308,6 +320,7 @@ public class DeckManagement extends GameScreen {
         toast("Sorted By Mana");
     }
 
+    //Patrick Conway 40150555
     /**
      * Applies a check to decide which List to apply the sortMethod for Stamina on. Then resets the offset back to 0,
      * so user views the List in sorted order by Stamina from the start.
@@ -324,6 +337,7 @@ public class DeckManagement extends GameScreen {
         toast("Sorted By Stamina");
     }
 
+    //Patrick Conway 40150555
     /**
      * Set up the dimensions of the NextButtonRect
      */
@@ -335,6 +349,7 @@ public class DeckManagement extends GameScreen {
         nextButtonRect = new Rect(LeftDimen, TopDimen, RightDimen, BottomDimen);
     }
 
+    //Patrick Conway 40150555
     /**
      * Set up the dimensions of the PreviousButtonRect
      */
@@ -346,6 +361,7 @@ public class DeckManagement extends GameScreen {
         previousButtonRect = new Rect(LeftDimen, TopDimen, RightDimen, BottomDimen);
     }
 
+    //Patrick Conway 40150555
     /**
      * Set up the dimensions of the ManaSearchSortButtonRect
      */
@@ -357,6 +373,7 @@ public class DeckManagement extends GameScreen {
         manaSearchSortButtonRect = new Rect(LeftDimen, TopDimen, RightDimen, BottomDimen);
     }
 
+    //Patrick Conway 40150555
     /**
      * Set up the dimensions of the staminaSearchSortButtonRect
      */
@@ -368,6 +385,7 @@ public class DeckManagement extends GameScreen {
         staminaSearchSortButtonRect = new Rect(LeftDimen, TopDimen, RightDimen, BottomDimen);
     }
 
+    //Patrick Conway 40150555
     /**
      * Set up the dimensions of the counterRect.
      */
@@ -379,6 +397,7 @@ public class DeckManagement extends GameScreen {
         counterRect = new Rect(LeftDimen, TopDimen, RightDimen, BottomDimen);
     }
 
+    //Patrick Conway 40150555
     /**
      * Set up the dimensions of the quickSetupRect.
      */
@@ -390,6 +409,7 @@ public class DeckManagement extends GameScreen {
         quickSetupRect = new Rect(LeftDimen, TopDimen, RightDimen, BottomDimen);
     }
 
+    //Patrick Conway 40150555
     /**
      * Set the Released buttons to their location on the screen by setting them within the Rectangles created.
      * Also applies the Bitmap image of the Button to the Released Buttons.
@@ -403,6 +423,7 @@ public class DeckManagement extends GameScreen {
 
     }
 
+    //Patrick Conway 40150555
     /**
      * Generates all the buttons for the screen by calling the dimensions Methods.
      */
@@ -416,6 +437,7 @@ public class DeckManagement extends GameScreen {
     }
 
 
+    //Patrick Conway 40150555
     /**
      * Check if the offset variable is greater than zero. If so call the draw method on the previousButton.
      * @param elapsedTime - time elapsed from last draw.
@@ -427,6 +449,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Checks if the Offset + 3 is less than the ArrayList size on which it is acting upon.
      * If so draw the nextButton.
@@ -450,6 +473,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Check to see if the Hand Unimon have been selected. If not, call the draw method on the manaSearchButton.
      * @param elapsedTime - time elapsed from last update
@@ -461,6 +485,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Check to see if the Hand Unimon have been selected. If not call the draw method on the staminaSearchButton.
      * @param elapsedTime - time elapsed from last update
@@ -472,13 +497,14 @@ public class DeckManagement extends GameScreen {
         }
     }
 
-
+    //Patrick Conway 40150555
     public void quickSetupButtonDraw(ElapsedTime elapsedTime,IGraphics2D graphics2D){
         if(!playerFinishSelect){
             quickSetupButton.draw(elapsedTime,graphics2D,mLayerViewport,mScreenViewport);
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Adds 3 from the offset variable.
      */
@@ -486,6 +512,7 @@ public class DeckManagement extends GameScreen {
         offset += 3;
     }
 
+    //Patrick Conway 40150555
     /**
      * Subtracts 3 from the offset variable.
      */
@@ -493,7 +520,7 @@ public class DeckManagement extends GameScreen {
         offset -= 3;
     }
 
-
+    //Patrick Conway 40150555
     /**
      * Finds the modulus of unimonCards and adds it to the local variable 'value'.
      * @param unimonCards - List of unimonCards to check size.
@@ -504,6 +531,8 @@ public class DeckManagement extends GameScreen {
         value += mod;
         return value;
     }
+
+    //Patrick Conway 40150555
     /**
      * Finds the modulus of newEnergyCards and adds it to the local variable 'value'.
      */
@@ -515,6 +544,7 @@ public class DeckManagement extends GameScreen {
     }
 
 
+    //Patrick Conway 40150555
     /**
      * Checks if the offset + 3 is larger than the List size
      * @return - true or false depending on outcome
@@ -537,6 +567,7 @@ public class DeckManagement extends GameScreen {
     }
 
 
+    //Patrick Conway 40150555
     /**
      * Generates the dimensions for the next 3 cards from the giving list to be drawn.
      * Then calls the draw method on these card instance(setUpCard)
@@ -564,6 +595,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Generates the dimensions for the next 3 cards from the newEnergyCards List to be drawn.
      * Then calls the draw method on these card instance(setUpCard)
@@ -590,6 +622,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Checks which List to apply the touch upon. Checks if the Bounds of the cards at i + offset are on the touch area.
      * If so call the related touch methods.
@@ -627,6 +660,7 @@ public class DeckManagement extends GameScreen {
         return false;
     }
 
+    //Patrick Conway 40150555
     /**
      *  Adds the selected unimon card to the benchCards array.
      *  Then increments the benchCards Counter and decrements the numberOfSelected unimon cards
@@ -647,6 +681,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      *  Adds the selected unimon card to the tempDeck array.
      *  Then decrements the unimonDeckSelected
@@ -666,6 +701,7 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      *  Adds the selected Energy card to the tempDeck array.
      *  Then decrements the unimonDeckSelected
@@ -685,6 +721,7 @@ public class DeckManagement extends GameScreen {
     }
 
 
+    //Patrick Conway 40150555
     /**
      * Sets the dimensions of the setUpCard and the bounding values.
      * @param x - index of the List card
@@ -709,14 +746,16 @@ public class DeckManagement extends GameScreen {
 
     }
 
+    //Patrick Conway 40150555
     /**
-     *
+     * Calls the methods to draw buttons or text.
+     *@param elapsedTime - time elapsed from the last draw
+     *@param graphics2D - drawing to the canvas
      */
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         graphics2D.drawBitmap(backGround, null, backgroundRect, null);
         drawCards(elapsedTime,graphics2D);
 
-        //drawingCards(elapsedTime, graphics2D);
         prevButtonDraw(elapsedTime, graphics2D);
         nextButtonDraw(elapsedTime, graphics2D);
 
@@ -729,6 +768,12 @@ public class DeckManagement extends GameScreen {
         drawCounterValue(graphics2D, formatText,counterRect);
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Calls the methods to draw cards.
+     *@param elapsedTime - time elapsed from the last draw
+     *@param graphics2D - drawing to the canvas
+     */
     public void drawCards(ElapsedTime elapsedTime,IGraphics2D graphics2D){
         if(!selectedBenchUnimon){
             developUnimonCard(elapsedTime,graphics2D,unevlovedUnimonCards);
@@ -754,8 +799,10 @@ public class DeckManagement extends GameScreen {
         }
     }
 
-
-    //Load button bitmaps from the asset manager.
+    //Patrick Conway 40150555
+    /**
+     * Load button bitmaps from the asset manager.
+     */
     public void loadBitmaps() {
         getGame().getAssetManager().loadAndAddBitmap("Next", "img/DeckManagement/button_Next.png");
         getGame().getAssetManager().loadAndAddBitmap("Previous", "img/DeckManagement/button_Previous.png");
@@ -767,11 +814,25 @@ public class DeckManagement extends GameScreen {
         getGame().getAssetManager().loadAndAddBitmap("QuickSetup","img/DeckManagement/QuickSetup.png");
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Loads the BackGround bitmap from the asset manager
+     */
     public void accessBitmaps(){
         backGround = mGame.getAssetManager().getBitmap("BackGround");
     }
 
 
+    //Patrick Conway 40150555
+    /**
+     * Takes in a list of unimonCards and partitions the list between the start and end.
+     * Then checks if the start cards Stamina value is less than the pivot. If so increment i.
+     * Then checks if the last card is greater than the pivot. If so decrement j
+     * then swap i and j elements.[Of O(nlog(n) time complexity]
+     * @param unimonCards - list of unimon Cards;
+     * @param left - the left most part of the unimon Card List
+     * @param right - the right most part of the unimon Card List
+     */
     int partitionByStamina(List<UnimonCard>unimonCards, int left, int right)
     {
         int i = left, j = right;
@@ -797,6 +858,7 @@ public class DeckManagement extends GameScreen {
         return i;
     }
 
+
     void quickSortByStamina(List<UnimonCard>unimonCards, int left, int right) {
         int index = partitionByStamina(unimonCards, left, right);
         if (left < index - 1)
@@ -805,6 +867,16 @@ public class DeckManagement extends GameScreen {
             quickSortByStamina(unimonCards, index, right);
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Takes in a list of unimonCards and partitions the list between the start and end.
+     * Then checks if the start cards Mana value is less than the pivot. If so increment i.
+     * Then checks if the last card is greater than the pivot. If so decrement j
+     * then swap i and j elements.[Of O(nlog(n) time complexity]
+     * @param unimonCards - list of unimon Cards;
+     * @param left - the left most part of the unimon Card List
+     * @param right - the right most part of the unimon Card List
+     */
     int partitionByMana(List<UnimonCard>unimonCards, int left, int right)
     {
         int i = left, j = right;
@@ -830,6 +902,7 @@ public class DeckManagement extends GameScreen {
         return i;
     }
 
+
     void quickSortByMana(List<UnimonCard>unimonCards, int left, int right) {
         int index = partitionByMana(unimonCards, left, right);
         if (left < index - 1)
@@ -838,6 +911,11 @@ public class DeckManagement extends GameScreen {
             quickSortByStamina(unimonCards, index, right);
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Goes through the List of unimonCards and using random selection selects 3 Unimon cards
+     * and places them in the prizeCard array.
+     */
     public void autoGenPrizeCards(){
         int arrayListSize = newUnimonCard.size();
         for(int i = 0; i < numPrizeCards; i++){
@@ -848,6 +926,14 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Checks if manual selection has taken place. If so the total number of cards need is max number subtract the number selected,
+     * and if not it is the max number needed.
+     * @param numCardsSelected - the number of cards manually selected
+     * @param numCardsNeededOverall - the max number of cards need.
+     * @return - the number of cards still to select.
+     */
     public int numCardsRemaining(int numCardsSelected, int numCardsNeededOverall){
         int totalNumCardsNeeded;
         if(manualSelection){
@@ -858,6 +944,12 @@ public class DeckManagement extends GameScreen {
         return totalNumCardsNeeded;
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Sets the number of cards need. Goes through the Unevolved Unimon List and using random selection selects
+     * the remaining bench cards placing them in the bench array
+     * Sets the boolean variable selectedBenchUnion to true
+     */
     public void autoGenBenchCards(){
         int totalNumBenchCardsNeeded = numCardsRemaining(numBenchCardsSelected,numBenchCards);
         int arrayListSize = unevlovedUnimonCards.size();
@@ -872,6 +964,12 @@ public class DeckManagement extends GameScreen {
         selectedBenchUnimon = true;
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Sets the number of cards need. Goes through the new Unimon List and using random selection selects
+     * the remaining unimon hand cards placing them in the hand List
+     * Sets the boolean variable selectedHandUnion to true
+     */
     public void autoGenDeckUnimon(){
         int arrayListSize = newUnimonCard.size();
         int totalNumHandCardsNeeded = numCardsRemaining(unimonDeckSelected,numUnimonDeckCards);
@@ -887,6 +985,12 @@ public class DeckManagement extends GameScreen {
         selectedHandUnimon = true;
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Sets the number of cards need. Goes through the new energy List and using random selection selects
+     * the remaining energy hand cards placing them in the hand List
+     * Sets the boolean variable playerFinishedSelect to true
+     */
     public void autoGenDeckEnergy(){
         int arrayListSize = newEnergyCards.size();
         int totalNumEnergyCardsNeeded = numCardsRemaining(energyDeckSelected,numEnergyDeckCards);
@@ -902,6 +1006,10 @@ public class DeckManagement extends GameScreen {
         playerFinishSelect = true;
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Based on the boolean values calls the required auto select methods
+     */
     public void quickSetup(){
         if(!selectedBenchUnimon) {
             autoGenBenchCards();
@@ -913,6 +1021,11 @@ public class DeckManagement extends GameScreen {
         }
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Using the Collections framework method shuffle(), shuffles the tempDeck List.
+     * Then pushes copies of the shuffled temp deck elements to the Stack deck.
+     */
     public void shuffle(){
         Collections.shuffle(tempDeck);
         for(Card item:tempDeck){
@@ -922,6 +1035,8 @@ public class DeckManagement extends GameScreen {
         tempDeck.clear();
 
     }
+
+
     public void setPlayerBattleSetup(){
         shuffle();
         BattleSetup battleSetup = new BattleSetup(deck,benchCards,prizeCards);
@@ -932,6 +1047,11 @@ public class DeckManagement extends GameScreen {
 
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Takes in the String message and using the toast calls the makeText method using the UIThread of Android.
+     * @param message - Message to display to the user.
+     */
     public void toast(final String message){
 
         getGame().getActivity().runOnUiThread(new Runnable() {
@@ -945,12 +1065,20 @@ public class DeckManagement extends GameScreen {
 
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Clears the toast message.
+     */
     public void toastClear(){
         objMessage.cancel();
     }
 
 
-
+    //Patrick Conway 40150555
+    /**
+     * Checks if the cards element type is of Spirit. The least evolved card type.
+     * @param deckCard - the card being checked.
+     */
     public boolean isUnevolved(UnimonCard deckCard){
         if(deckCard.getEvolveType().equals(UnimonEvolveType.SPIRIT)){
             return true;
@@ -958,6 +1086,10 @@ public class DeckManagement extends GameScreen {
         return false;
     }
 
+    //Patrick Conway 40150555
+    /**
+     * Setting the colour and format of the counter text
+     */
     private static Paint formatText() {
         if (formatText == null) {
             Paint paint = new Paint();
@@ -970,7 +1102,13 @@ public class DeckManagement extends GameScreen {
         }
     }
 
-
+    //Patrick Conway 40150555
+    /**
+     * Based on what has been selected, set the counterValue text and pass to the drawText method.
+     * @param graphics2D - drawing to the canvas
+     * @param formatText - the text format
+     * @param counterValueRect - the rectangle to draw the text to.
+     */
     public void drawCounterValue(IGraphics2D graphics2D, Paint formatText,Rect counterValueRect){
         String counterValue = "";
         if(!selectedBenchUnimon) {
@@ -996,160 +1134,19 @@ public class DeckManagement extends GameScreen {
     }
 
 
-
+    //Patrick Conway 40150555
 /*   public void loadingSound(){
        getGame().getAssetManager().loadAndAddMusic("DeckManagment", "Music/GridMusic2.mp3");
        deckManagementMusic = mGame.getAssetManager().getMusic("DeckManagement");
    }
+
+   //Patrick Conway 40150555
    public void playSound(){
        deckManagementMusic.setLopping(true);
        deckManagementMusic.setVolume(10);
        deckManagementMusic.play();
    }*/
 
-
-   /* public Card extraCardSpace(){
-        Bitmap bitmap = selectBitmap("extra");
-        Card extra = new UnimonCard(0,0,0,0,bitmap,this,"",null,null,null,"",null,null,null,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,"",0,0,null,0,null,false,Container.LOADED);
-       return extra;
-    }*/
-
-
-
-
-    //Loads the card bitmaps from the asset manager. Adds the token of the Bitmap to an ArrayList
-   /* public void loadCardBitmaps() {
-        getGame().getAssetManager().loadAndAddBitmap("CARD", "img/Cards/Earth Dragon.png");;
-        getGame().getAssetManager().loadAndAddBitmap("CARD1", "img/Cards/Knight of Fire - Spirit.png");
-        cardBitmapReference = new ArrayList<>();
-        cardBitmapReference.add("CARD");
-        cardBitmapReference.add("CARD");
-        cardBitmapReference.add("CARD");
-        cardBitmapReference.add("CARD1");
-        cardBitmapReference.add("CARD1");
-        cardBitmapReference.add("CARD1");
-
-    }*/
-
-    //FOR SORTING WHEN TAKEN IN FROM JSON AND ARRANGING INTO ARRAYS;
-/*
-    public void searchingForUnimon(){
-        unimonCards = new ArrayList<UnimonCard>();
-        energyCards = new ArrayList<EnergyCard>();
-        for(Card item: allCards){
-            if(instanceCheck(item)){
-                unimonCards.add((UnimonCard)(item));
-            }else{
-                energyCards.add((EnergyCard)(item));
-            }
-        }
-    }
-
-    public boolean instanceCheck(Card card){
-        if(card instanceof UnimonCard){
-            return true;
-        }
-        return false;
-    }*/
-
-/*  public void equalCards(){
-        int mod = newUnimonCardSort.size() % 3;
-        Card extra = extraCardSpace();
-        if((mod) != 0){
-            int spaceToBeAdded = (3 - mod);
-            for(int i = 0; i < spaceToBeAdded; i++){
-                newUnimonCardSort.add((UnimonCard)(extra));
-            }
-        }
-    }*/
-
-    /*public void prevButtonDraw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        *//*if (nextCardIndex > 3) {//If the nextCardIndex is > 3 there is previous cards to view
-            previousButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
-        }*//*
-
-    }
-
-    public void nextButtonDraw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-          *//* if (nextCardIndex + 3 <= newUnimonCard.size()) {// if the nextCardIndex+3 is less than the size of the card array then there is more cards to be displayed
-               nextButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
-           }*//*
-
-    }*/
-
-
-   /* public void drawingCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        for (Card drawCard : drawCards) {
-            drawCard.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
-        }
-    }*/
-
-    // Sets up an array of type Bitmap which gets filled with the token of the Bitmaps using a foreach loop and counter.
-    /*public void gettingNextCards(List<UnimonCard> unimonCards) {
-
-        unimonCardsToDraw = new Card[3];
-        int uniCard = 0;
-        int j;
-
-        for (j = nextCardIndex; j < nextCardIndex + 3; j++) {
-            unimonCardsToDraw[uniCard] = unimonCards.get(j);
-            uniCard++;
-        }
-        nextCardIndex = j;
-    }*/
-
-    // selects the previous 3 cards of the cardBitmapReference arrayList
-    /*public void gettingPreviousCards(List<UnimonCard> unimonCards) {
-        unimonCardsToDraw = new Card[3];// only holds 3 cards which can be drawen to the screen
-        int uniCard = 2;//need to make sure that the order of the cards being printed are in the same order as before
-        nextCardIndex -= 4;// need to decrement back 4 to get to the last previous card index
-        int j;
-
-        for (j = nextCardIndex; j >= nextCardIndex - 2; j--) {
-            unimonCardsToDraw[uniCard] = unimonCards.get(j);
-            uniCard--;
-        }
-        nextCardIndex = j + 4;//Need to leave the nextCardIndex at the start index of the next 3 cards
-    }
-    //Creates an Array of size numCardsDisplayed and of type GameObject
-
-    public void createCard() {
-        drawCards = new Card[numCardsDisplayed];
-        Card setUpCards;
-        //Runs a for loop, creating a instance of UnimonObject, Which sets the cards location on the screen.
-        //Adds all the unimonObjects to the drawCards array array.
-        for (int i = 0; i < numCardsDisplayed; i++) {
-            if (i == 0) {
-                setUpCards = unimonCardsToDraw[i];
-                generateCardDimensions((mLayerViewport.getLeft() + mLayerViewport.x / 3),setUpCards);
-                drawCards[i] = setUpCards;
-            } else if (i == 2) {
-                setUpCards = unimonCardsToDraw[i];
-                generateCardDimensions((mLayerViewport.getRight() - mLayerViewport.x / 3),setUpCards);
-                drawCards[i] = setUpCards;
-            } else {
-                setUpCards = unimonCardsToDraw[i];
-                generateCardDimensions(mLayerViewport.x,setUpCards);
-                drawCards[i] = setUpCards;
-            }
-        }
-    }*/
-
-    /*public void updateNextButtonCheck(ElapsedTime elapsedTime){
-            *//*if (nextCardIndex + 3 <= newUnimonCard.size()) {// if the nextCardIndex+3 is less than the size of the card array then there is more cards to be displayed
-                nextButton.update(elapsedTime);
-            }*//*
-
-
-
-    }
-
-    public void updatePreviousButtonCheck(ElapsedTime elapsedTime){
-        *//*if (nextCardIndex > 3) {//If the nextCardIndex is > 3 there is previous cards to view
-            previousButton.update(elapsedTime);
-        }*//*
-
-    }*/
 }
 
 

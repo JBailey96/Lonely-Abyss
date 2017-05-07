@@ -31,6 +31,7 @@ public class UnimonMoveTesting {
 
 
     @Test
+    //Patrick Conway 40150555
     public void physicalAttack_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
@@ -53,6 +54,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void checkAbsorptionTrue_Test(){
 
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
@@ -77,6 +79,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void checkAbsorptionFalse_Test(){
 
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
@@ -101,6 +104,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void checkWeaknessTrue_Test(){
 
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
@@ -125,6 +129,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void checkWeaknessFalse_Test(){
 
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
@@ -149,6 +154,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void elementalAttack_checkWeakness_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
@@ -172,6 +178,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void elementalAttack_checkAbsorption_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
@@ -196,6 +203,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void elementalAttack_False_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
@@ -218,6 +226,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void selectAttack_Physical_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
@@ -242,6 +251,7 @@ public class UnimonMoveTesting {
 
     }
     @Test
+    //Patrick Conway 40150555
     public void selectAttack_Elemental_Test(){
             Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
             moveVal.put(MoveResource.MANA,50);
@@ -267,6 +277,7 @@ public class UnimonMoveTesting {
         }
 
     @Test
+    //Patrick Conway 40150555
     public void checkingStamina_True_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.STAMINA,50);
@@ -284,6 +295,7 @@ public class UnimonMoveTesting {
 
     }
     @Test
+    //Patrick Conway 40150555
     public void checkingStamina_False_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
@@ -298,6 +310,7 @@ public class UnimonMoveTesting {
         assertEquals(expected,actual);
     }
     @Test
+    //Patrick Conway 40150555
     public void checkingMana_True_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.MANA,50);
@@ -313,6 +326,7 @@ public class UnimonMoveTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void checkingMana_False_Test(){
         Map<MoveResource,Integer> moveVal = new HashMap<MoveResource,Integer>();
         moveVal.put(MoveResource.STAMINA,50);

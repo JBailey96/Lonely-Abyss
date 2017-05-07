@@ -26,6 +26,7 @@ public class UnimonCardTest{
     GameScreen aScreen = Mockito.mock(GameScreen.class);
 
     @Test
+    //Patrick Conway 40150555
     public void increaingHealth_BeyondMaxHealth_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -39,6 +40,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void increaingHealth_IncreasingHealth_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -54,6 +56,7 @@ public class UnimonCardTest{
 
 
     @Test
+    //Patrick Conway 40150555
     public void decreaseHealth_DecreasingHealth_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -67,6 +70,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void decreaseHealth_BeyondZero_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -80,6 +84,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void increaingMana_BeyondMaxMana_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -93,6 +98,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void increaingMana_IncreasingMana_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -108,6 +114,7 @@ public class UnimonCardTest{
 
 
     @Test
+    //Patrick Conway 40150555
     public void decreaseMana_DecreasingMana_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -121,6 +128,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void decreaseMana_BeyondZero_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -135,6 +143,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void increaingStamina_BeyondMaxStamina_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -149,6 +158,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void increaingStamina_IncreasingStamina_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -165,6 +175,7 @@ public class UnimonCardTest{
 
 
     @Test
+    //Patrick Conway 40150555
     public void decreaseStamina_DecreasingStamina_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -179,6 +190,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void decreaseStamina_BeyondZero_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -193,6 +205,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void dead_MaxHealth_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -205,6 +218,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void dead_ZeroHealth_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -217,6 +231,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void processArmourDAM_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -230,6 +245,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void processWeaknessDAM_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",
@@ -243,6 +259,7 @@ public class UnimonCardTest{
     }
 
     @Test
+    //Patrick Conway 40150555
     public void processAbsorb_Test(){
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
                 "1", null, null, null, "FireCard",

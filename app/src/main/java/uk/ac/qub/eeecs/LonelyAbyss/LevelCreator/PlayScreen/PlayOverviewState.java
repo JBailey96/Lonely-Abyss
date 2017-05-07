@@ -130,7 +130,7 @@ public class PlayOverviewState extends State {
     //update all the buttons
     private void updateButtons(ElapsedTime elapsedTime) {
         deckButton.update(elapsedTime);
-        opponentButton.update(elapsedTime);
+        //opponentButton.update(elapsedTime);
         graveyardButton.update(elapsedTime);
     }
 
@@ -169,7 +169,7 @@ public class PlayOverviewState extends State {
                 touchActiveUnimon(t);
                 touchDeckButton();
                 touchGraveyardButton();
-                touchOpponentButton(t);
+                //touchOpponentButton(t);
             }
         }
     }

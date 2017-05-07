@@ -85,7 +85,7 @@ public class PlayScreen extends GameScreen {
     //James Bailey 40156063
     //create the other states that require the initialisation of an active unimon card.
     public void createOtherStates() {
-        this.playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup); //state active initalised to true - first state
+        this.playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup); //state active initalised to true - first state
         this.activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
         this.opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, playerBattleSetup, false);
         this.activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);

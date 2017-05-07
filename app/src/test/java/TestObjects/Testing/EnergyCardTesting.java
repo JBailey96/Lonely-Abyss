@@ -29,7 +29,9 @@ public class EnergyCardTesting {
     GameScreen aScreen = Mockito.mock(GameScreen.class);
     /*EnergyCard EnergyCard = Mockito.mock(EnergyCard.class);*/
 
+
     @Test
+    //Patrick Conway 40150555
     public void applyEnergyWithMana_Test() {
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,
@@ -52,6 +54,7 @@ public class EnergyCardTesting {
     }
 
     @Test
+    //Patrick Conway 40150555
     public void applyEnergyWithManaAndHealth_Test() {
 
         UnimonCard player = new UnimonCard(0, 0, 0, 0, null, aScreen,

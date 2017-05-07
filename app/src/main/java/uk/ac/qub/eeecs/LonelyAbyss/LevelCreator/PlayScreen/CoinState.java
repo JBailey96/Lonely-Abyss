@@ -47,6 +47,7 @@ public class CoinState extends State {
         coinFlipThread = new Thread(new coinResultRunnable());
     }
 
+    //Patrick Conway 40150555
     //To control any response on touch and check for change.
     //@param elapsedTime - the time elapsed from the last update
     @Override
@@ -54,14 +55,16 @@ public class CoinState extends State {
         if(notSelected) {
             headsCoinButton.update(elapsedTime);
             tailsCoinButton.update(elapsedTime);
+            mInput = mGame.getInput();
+            touchEvents = mInput.getTouchEvents();
+            touchButton(touchEvents);
         }else{
             updateAfterSelection(elapsedTime);
         }
-        mInput = mGame.getInput();
-        touchEvents = mInput.getTouchEvents();
-        touchButton(touchEvents);
+
     }
 
+    //Patrick Conway 40150555
     /**
      * Checks if randomly selected coinSide is equal to Heads or tails and updates in respect to this.
      * @param elapsedTime - time elapsed from last update
@@ -76,6 +79,7 @@ public class CoinState extends State {
 
 
     @Override
+    //Patrick Conway 40150555
     /**
      * Checks if a coin has been selected and if so centers the buttons. Either way calls the draw method on the Buttons
      * @param elapsedTime - time elapsed from last update
@@ -94,6 +98,7 @@ public class CoinState extends State {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Checks if randomly selected coinSide is equal to Heads or tails and calls the draw method on the buttons in respect to this.
      * @param elapsedTime - time elapsed from last update
@@ -108,6 +113,7 @@ public class CoinState extends State {
     }
 
 
+    //Patrick Conway 40150555
     /**
      * Checks if randomly selected coinSide is equal to Heads or tails and calls the draw method on the buttons in respect to this.
      * @return - 0 or 1 depending on the random outcome. 1 if the ranNumber is greater than or equal to 0.5 and 1 if less than.
@@ -122,6 +128,7 @@ public class CoinState extends State {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Checks if the Random value and sets the coinSide variable to the required size
      */
@@ -133,6 +140,7 @@ public class CoinState extends State {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Checks for touch and then calls the method associated with the touch.
      * Also starts the coinFlipThread to start running.
@@ -162,6 +170,7 @@ public class CoinState extends State {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      *To run the transitionMethod and sleep the thread for 4sec so the user can view the result of the coin flip
      */
@@ -178,6 +187,7 @@ public class CoinState extends State {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Displays a toast, informing the user who gets the first move;
      */
@@ -189,7 +199,7 @@ public class CoinState extends State {
         }
     }
 
-
+    //Patrick Conway 40150555
     /**
      * Sets the current states activity to false and sets the next states activity to true;
      */
@@ -207,6 +217,7 @@ public class CoinState extends State {
         }
     }
 
+    //Patrick Conway 40150555
     /**
      * Sets the Buttons locations on the screen and loads the Bitmaps to the buttons
      */
@@ -218,6 +229,7 @@ public class CoinState extends State {
     }
 
 
+    //Patrick Conway 40150555
     /**
      * Sets the Button locations to the center of the screen and loads the Bitmaps to the buttons
      */
@@ -226,6 +238,7 @@ public class CoinState extends State {
         headsCoinButton.setEnableGlow(false);
     }
 
+    //Patrick Conway 40150555
     /**
      * Sets the Button locations to the center of the screen and loads the Bitmaps to the buttons
      */
@@ -234,6 +247,7 @@ public class CoinState extends State {
         tailsCoinButton.setEnableGlow(false);
     }
 
+    //Patrick Conway 40150555
     /**
      * Calls the center methods for the buttons
      */
@@ -242,6 +256,7 @@ public class CoinState extends State {
         centerTailsCoin();
     }
 
+    //Patrick Conway 40150555
     /**
      * loads the Bitmaps and adds a tag.
      */
