@@ -10,7 +10,7 @@ import java.util.List;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -43,7 +43,7 @@ public class ActiveUnimonState extends State {
     private ReleaseButton retreatButton;
 
     //Move battle options
-    List<ReleaseButton> moveButtons = new ArrayList<>();
+    protected List<ReleaseButton> moveButtons = new ArrayList<>();
 
     private static Paint moveTextPaint; //the text used for the moves
 
@@ -69,21 +69,21 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //Loads the active UnimonCard in order to draw it onto the canvas
-    public void loadActiveCard(BattleSetup battleSetup) {
+    private void loadActiveCard(BattleSetup battleSetup) {
         initaliseActiveCard(battleSetup);
         generateActiveCard();
     }
 
     //James Bailey 40156063
     //Gets the variables needed from the player's battlesetup in order to draw the active UnimonCard
-    public void initaliseActiveCard(BattleSetup battleSetup) {
+    private void initaliseActiveCard(BattleSetup battleSetup) {
         this.activeCard = battleSetup.getActiveCard();
         this.activeCardMoves = activeCard.getMoves();
     }
 
     //James Bailey 40156063
     //sets what is needed in order to draw the active UnimonCard
-    public void generateActiveCard() {
+    private void generateActiveCard() {
         float x = mScreenViewport.width/2f;
         float y = mScreenViewport.height/2f;
         float width = mScreenViewport.width / 2.3f;
@@ -107,7 +107,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //Updates all the battle option buttons
-    public void updateButtons(ElapsedTime elapsedTime) {
+    private void updateButtons(ElapsedTime elapsedTime) {
         applyEnergyButton.update(elapsedTime);
         evolveButton.update(elapsedTime);
         retreatButton.update(elapsedTime);
@@ -119,7 +119,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //Method that handles the touching of the activeUnimonCard
-    public void touchButton(List<TouchEvent> touchEvents) {
+    private void touchButton(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 if (touchBattleOptionButtons() || touchActiveUnimon(t)) break;
@@ -129,7 +129,7 @@ public class ActiveUnimonState extends State {
 
    //James Bailey 40156063
     //checks whether the active unimon has been touched
-    public boolean touchActiveUnimon(TouchEvent t) {
+    private boolean touchActiveUnimon(TouchEvent t) {
         //load the energy card when the active unimon card is pressed
         if ((activeCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             playScreen.getActiveEnergyState().active = true;
@@ -144,7 +144,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //Handles touching battle option buttons.
-    public boolean touchBattleOptionButtons() {
+    private boolean touchBattleOptionButtons() {
         int moveIndex = validateMoveTouch(); //get the index of the move if move button pressed
 
         if (applyEnergyButton.isPushed()) {
@@ -165,7 +165,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //Handles the transition to the bench state that when the users touches the retreat button
-    public void handleRetreatTouch() {
+    private void handleRetreatTouch() {
         active = false; //no longer show the active unimon state
         mInput.resetAccumulators(); //no longer accept further input this update
 
@@ -180,7 +180,7 @@ public class ActiveUnimonState extends State {
     //James Bailey 40156063
     //Handles the transition to the hand card state when the user touches the apply energy or evolve button
     //the parameter variable stateType sets the card type, unimon or energy
-    public void handleHandCardTouch(HandCardStateType stateType) {
+    private void handleHandCardTouch(HandCardStateType stateType) {
         if (stateType == HandCardStateType.SELECT_ENERGY) {
             if (!Battle.checkEnergyCardInHand(battleSetup.getHandCard())) {
                 return; //there is no energy card in the player's handcards, cannot present any energy cards
@@ -204,7 +204,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //Handles the transition to the opponent state that occurs when touching a move button.
-    public void handleMoveButtonTouch(int moveIndex) {
+    private void handleMoveButtonTouch(int moveIndex) {
         playScreen.getPlayOverviewState().active = false;
         mInput.resetAccumulators();
         active = false;
@@ -222,7 +222,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //Validates whether the user has touched a move button, and if so which one (returns 0-2, -1 if they did not)
-    public int validateMoveTouch() {
+    private int validateMoveTouch() {
         for (int i = 0; i < moveButtons.size(); i++) {
             ReleaseButton moveButton = moveButtons.get(i);
 
@@ -245,7 +245,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //Draws all the battle options and the move names onto the move buttons.
-    public void drawBattleOptions(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+    private void drawBattleOptions(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         drawBattleOptionButtons(elapsedTime, graphics2D);
         drawMoveNames(graphics2D);
     }
@@ -253,13 +253,13 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //draw active unimon card
-    public void drawActiveUnimon(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+    private void drawActiveUnimon(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         activeCard.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
     }
 
     //James Bailey 40156063
     //method for drawing the battle option buttons
-    public void drawBattleOptionButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+    private void drawBattleOptionButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         for (ReleaseButton moveButton : moveButtons) { //drawing the move buttons
             moveButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
         }
@@ -272,7 +272,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //generate battle button options
-    public void generateBattleOptions() {
+    private void generateBattleOptions() {
         generateEnergyButton();
         generateEvolveButton();
         generateRetreatButton();
@@ -281,7 +281,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //generate the button to apply an energy card to the unimon card
-    public void generateEnergyButton() {
+    private void generateEnergyButton() {
         float x = mScreenViewport.width * 0.15f;
         float y = mScreenViewport.height / 2 - mScreenViewport.height / 6;
         float width = mScreenViewport.width / 5;
@@ -292,7 +292,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //generate the button to evolve the current active unimon
-    public void generateEvolveButton() {
+    private void generateEvolveButton() {
         float x = mScreenViewport.width * 0.15f;
         float y = mScreenViewport.height / 2;
         float width = mScreenViewport.width / 5;
@@ -303,7 +303,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //generate the button to retreat the current active unimon
-    public void generateRetreatButton() {
+    private void generateRetreatButton() {
         float x = mScreenViewport.width * 0.15f;
         float y = mScreenViewport.height / 2 + mScreenViewport.height / 6;
         float width = mScreenViewport.width / 5;
@@ -314,7 +314,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //generate the buttons to use the card's moves
-    public void generateMoveButtons() {
+    private void generateMoveButtons() {
         float x = mScreenViewport.width * 0.85f;
         float y;
         float width = mScreenViewport.width / 5;
@@ -329,7 +329,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //draws the name of the move onto the move buttons
-    public void drawMoveNames(IGraphics2D graphics2D) {
+    private void drawMoveNames(IGraphics2D graphics2D) {
         ReleaseButton moveButton;
         moveTextPaint = formatMoveButtonText(); //the text style (font, size) to draw onto the buttons
 
@@ -354,7 +354,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //load the bitmaps for the battle option buttons.
-    public void loadButtonOptionBitmaps() {
+    private void loadButtonOptionBitmaps() {
         mGame.getAssetManager().loadAndAddBitmap("ENERGYBUTTON", "img/PlayScreenButtons/applyEnergyButton.png");
         mGame.getAssetManager().loadAndAddBitmap("EVOLVEBUTTON", "img/PlayScreenButtons/evolveUnimonButton.png");
         mGame.getAssetManager().loadAndAddBitmap("RETREATBUTTON", "img/PlayScreenButtons/retreatUnimonButton.png");
@@ -363,7 +363,7 @@ public class ActiveUnimonState extends State {
 
     //James Bailey 40156063
     //formats the Paint that is used to draw the text on move buttons
-    public Paint formatMoveButtonText() {
+    private Paint formatMoveButtonText() {
         if (moveTextPaint == null) {
             Paint paint = new Paint();
             paint.setColor(Color.WHITE);

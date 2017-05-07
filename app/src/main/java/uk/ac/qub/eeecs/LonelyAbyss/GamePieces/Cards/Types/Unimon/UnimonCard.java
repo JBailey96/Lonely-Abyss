@@ -95,7 +95,7 @@ public class UnimonCard extends Card {
 
     private static Paint formatText; // the default format for the card's text
 
-    final int numberOfMoves = 3;
+    protected final int numberOfMoves = 3;
 
     /**
      * This is a constructor method for the unimon card object.
@@ -186,7 +186,7 @@ public class UnimonCard extends Card {
 
     //James Bailey 40156063
     //creat a deep copy of the list of unimon moves
-    public UnimonMoves[] copyUnimonMovesList() {
+    private UnimonMoves[] copyUnimonMovesList() {
         UnimonMoves[] moves = getMoves();
         UnimonMoves[] movesCopy = new UnimonMoves[numberOfMoves];
 

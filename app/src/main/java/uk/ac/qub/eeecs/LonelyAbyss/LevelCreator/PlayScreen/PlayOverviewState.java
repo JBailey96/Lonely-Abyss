@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.Game;
@@ -39,8 +39,8 @@ public class PlayOverviewState extends State {
     private UnimonCard[] benchCards; //the bench cards to be displayed
     private UnimonCard[] prizeCards; //the prize cards to be displayed
 
-    ReleaseButton deckButton; //button when pressed draws a card to the player's hand from the player's deck
-    ReleaseButton graveyardButton; //button when pressed shows the unimoncards that have been knocked out
+    protected ReleaseButton deckButton; //button when pressed draws a card to the player's hand from the player's deck
+    protected ReleaseButton graveyardButton; //button when pressed shows the unimoncards that have been knocked out
 
     private UnimonCard activeUnimonCard; //the unimon card that the player has currently active
 
@@ -66,7 +66,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //Gets the variables needed from the player's battlesetup in order to draw the cards onto the play area screen
-    public void initialiseCards(BattleSetup battleSetup) {
+    private void initialiseCards(BattleSetup battleSetup) {
         activeUnimonCard = battleSetup.getActiveCard().copy();
         deck = battleSetup.getPlayAreaDeck();
 
@@ -117,7 +117,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //update all the cards
-    public void updateCards(ElapsedTime elapsedTime) {
+    private void updateCards(ElapsedTime elapsedTime) {
         for (Card handCard : handCards) {
             if (handCard != null) { //ensures the hand card exists
                 handCard.update(elapsedTime);
@@ -128,7 +128,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //update all the buttons
-    public void updateButtons(ElapsedTime elapsedTime) {
+    private void updateButtons(ElapsedTime elapsedTime) {
         deckButton.update(elapsedTime);
         opponentButton.update(elapsedTime);
         graveyardButton.update(elapsedTime);
@@ -136,7 +136,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //validates whether a card has been touched
-    public void touchCards(List<TouchEvent> touchEvents) {
+    private void touchCards(List<TouchEvent> touchEvents) {
         for (TouchEvent t: touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) {
                 touchBenchCards(t);
@@ -146,7 +146,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //Handles touching one of the bench cards
-    public void touchBenchCards(TouchEvent t) {
+    private void touchBenchCards(TouchEvent t) {
         for (UnimonCard benchCard : benchCards) {
             if (benchCard != null) {
                 if ((benchCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) { //validates whether the user has touched a bench card
@@ -163,7 +163,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //checks for touch events on the buttons or active unimon card
-    public void touchButton(List<TouchEvent> touchEvents) {
+    private void touchButton(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 touchActiveUnimon(t);
@@ -175,7 +175,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //checks whether the active unimon has been touched and activates the active unimon state
-    public void touchActiveUnimon(TouchEvent t) {
+    private void touchActiveUnimon(TouchEvent t) {
         if ((activeUnimonCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             this.touchActive = false;
             playScreen.getActiveUnimonState().active = true;
@@ -183,7 +183,7 @@ public class PlayOverviewState extends State {
     }
 
     //checks whether the opponent button has been touched
-    public void touchOpponentButton(TouchEvent t) {
+    private void touchOpponentButton(TouchEvent t) {
         if ((opponentButton.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             playScreen.getOpponentState().active = true;
         }
@@ -191,7 +191,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //checks whether the deck button has been touched and takes a card from the deck and puts into the hand if space available
-    public void touchDeckButton() {
+    private void touchDeckButton() {
         if (deckButton.isPushed()) {
             int indexNewHandCard = Battle.drawFromDeck(playerBattleSetup); //the index of the new hand card to be added
 
@@ -207,12 +207,10 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //checks whether the graveyard button has been touched and allows the player to view cards in the graveyard
-    public void touchGraveyardButton() {
-//        if (graveyardButton.isPushed()) {
-//            indexToRemove++;
-//            indexToRemove = indexToRemove % 5;
-//            Battle.removeFromHand(handCards, indexToRemove);
-//        }
+    private void touchGraveyardButton() {
+      if (graveyardButton.isPushed()) {
+
+       }
     }
 
     @Override
@@ -225,7 +223,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //draw all the cards
-    public void drawCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+    private void drawCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         //draw all the hand cards
         for (int i = 0; i < handCards.length; i ++) {
             Card handCard = handCards[i];
@@ -255,14 +253,14 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //Draw all the empty cards
-    public void drawEmptyCard(IGraphics2D graphics2D, int indexEmptyCard) {
+    private void drawEmptyCard(IGraphics2D graphics2D, int indexEmptyCard) {
         Rect emptyHandCardDimen = generateEmptyHandCardDimension(indexEmptyCard);
         graphics2D.drawBitmap(selectBitmap("EmptyCard"), null, emptyHandCardDimen, null);
     }
 
     //James Bailey 40156063
     //draw all the buttons
-    public void drawButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+    private void drawButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         deckButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
 
         graveyardButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
@@ -272,7 +270,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate all the cards
-    public void generateCards() {
+    private void generateCards() {
         generateShowOpponentsScreenButton();
         generateHandCards();
         generateBenchCards();
@@ -282,7 +280,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate the buttons
-    public void generateButtons() {
+    private void generateButtons() {
         generateDeckButton();
         generateGraveyardButton();
     }
@@ -290,7 +288,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate the cards that go into the user's hand - initial set up
-    public void generateHandCards() {
+    private void generateHandCards() {
         //takes cards from the top of the deck stack and puts them into the hand cards array - adjusting their position
         for (int i = 0; i < numHandCards; i++) {
             Card handCard = deck.pop();
@@ -301,7 +299,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //sets the dimensions and position of a hand card.
-    public void generateSingleHandCard(Card handCard, int index) {
+    private void generateSingleHandCard(Card handCard, int index) {
         float width;
         float x;
         float height;
@@ -325,7 +323,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //sets the dimensions and position of a placeholder for an empty hand card.
-    public Rect generateEmptyHandCardDimension(int index) {
+    private Rect generateEmptyHandCardDimension(int index) {
         float width;
         float x;
         float height;
@@ -342,7 +340,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate the button used to represent the top of the deck to be drawn from
-    public void generateDeckButton() {
+    private void generateDeckButton() {
         float width = mScreenViewport.width / 10;
         float x = mScreenViewport.width - mScreenViewport.width / 10;
         float height = mScreenViewport.height / 4;
@@ -353,7 +351,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate the player's bench cards
-    public void generateBenchCards() {
+    private void generateBenchCards() {
         float width;
         float x;
         float height;
@@ -376,7 +374,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate the player's current prize cards.
-    public void generatePrizeCards() {
+    private void generatePrizeCards() {
         float width;
         float x;
         float height;
@@ -402,7 +400,7 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate the dimensions for the active unimon
-    public void generateActiveUnimon() {
+    private void generateActiveUnimon() {
         float width = mScreenViewport.width / 4;
         float x = mScreenViewport.width / 2;
         float height = mScreenViewport.height / 1.7f;
@@ -411,7 +409,7 @@ public class PlayOverviewState extends State {
     }
 
     // generate the dimensions for the button that will show the opponent's screen
-    public void generateShowOpponentsScreenButton() {
+    private void generateShowOpponentsScreenButton() {
         float width = mScreenViewport.width / 7;
         float x = width / 2 + mScreenViewport.width / 5.6f;
         float height = mScreenViewport.height / 8;
@@ -421,13 +419,14 @@ public class PlayOverviewState extends State {
 
     //James Bailey 40156063
     //generate the cards not currently active in the game - graveyard
-    public void generateGraveyardButton() {
+    private void generateGraveyardButton() {
         float width = mScreenViewport.width / 10;
         float height = mScreenViewport.height / 4;
         float x = width / 2 + mScreenViewport.width / 40;
         float y = mScreenViewport.height-(mScreenViewport.height- mScreenViewport.height / 40 - height / 2);
         graveyardButton = new ReleaseButton(x, y, width, height, "Graveyard", "Graveyard", "", mGameScreen);
     }
+
     /*
  Loads all of the bitmaps onto the play area.
   */
@@ -442,6 +441,12 @@ public class PlayOverviewState extends State {
         mGame.getAssetManager().loadAndAddBitmap("Graveyard", "img/PlayArea/Graveyard.png");
         mGame.getAssetManager().loadAndAddBitmap("Opponent", "img/PlayScreenButtons/opponent_screen.png");
         mGame.getAssetManager().loadAndAddBitmap("EmptyCard", "img/Cards/EmptyCard.png");
+    }
+
+    //James Bailey 40156063
+    //Display a help message to introduce the user to the game's functionality - where to begin
+    public void showInitialHelpMessage() {
+        DrawAssist.showMessage(mGame, "To begin, please touch the ACTIVE UNIMON in the centre.");
     }
 
     public UnimonCard getActiveUnimonCard() {
@@ -460,10 +465,5 @@ public class PlayOverviewState extends State {
         this.touchActive = touchActive;
     }
 
-    //James Bailey 40156063
-    //Display a help message to introduce the user to the game's functionality - where to begin
-    public void showInitialHelpMessage() {
-        DrawAssist.showMessage(mGame, "To begin, please touch the ACTIVE UNIMON in the centre.");
-    }
 }
 

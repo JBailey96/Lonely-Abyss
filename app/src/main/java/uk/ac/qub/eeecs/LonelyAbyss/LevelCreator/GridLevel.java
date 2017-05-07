@@ -6,10 +6,10 @@ import android.graphics.Color;
 import java.util.List;
 import java.util.Random;
 
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.Player;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.Grid;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Grids.GridType;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.PlayerSprite;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.PlayerSprite;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.audio.Music;
@@ -21,7 +21,7 @@ import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.PlayerSprite.MovementDirection;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.PlayerSprite.MovementDirection;
 
 
 /**
@@ -44,8 +44,8 @@ public class GridLevel extends GameScreen {
     protected int maxRanCardSquare;
     protected int numEmptySquare;
 
-    final int minimumTiles = 4; //the minimum number of tiles
-    final int numStartEndTiles = 2;
+    protected final int minimumTiles = 4; //the minimum number of tiles
+    protected final int numStartEndTiles = 2;
 
     //the dimensions of a single grid
     protected float gridWidth;
@@ -107,7 +107,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //Set the player instance variable and their current position on the grid square.
-    public void setPlayer() {
+    private void setPlayer() {
         this.player = mGame.getPlayer();
         this.playerGridPosI = this.player.getPlayerGridPosI();
         this.playerGridPosJ = this.player.getPlayerGridPosJ();
@@ -115,7 +115,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //Generate a new grid for the player to navigate - called when the player enters the terminus grid square.
-    public void generateNewGridAndPlayer() {
+    private void generateNewGridAndPlayer() {
         this.playerGridPosI = 0;
         this.playerGridPosJ = 0;
         this.player.setGridLevelTiles(null);
@@ -178,7 +178,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //generate the grid tile dimensions and fill the grid array.
-    public void generateGridDimension() {
+    private void generateGridDimension() {
         //the dimensions of the grid rectangles defined by the the size of the layer view port.
         this.gridWidth = mLayerViewport.getWidth() / gridSize;
         this.gridHeight = mLayerViewport.getHeight() / gridSize;
@@ -267,7 +267,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //load the grid square bitmaps into the asset manager to use to create the grid squares.
-    public void loadGridBitmaps() {
+    private void loadGridBitmaps() {
         getGame().getAssetManager().loadAndAddBitmap("START", "img/GridSquares/Start.png");
         getGame().getAssetManager().loadAndAddBitmap("END", "img/GridSquares/End.png");
         getGame().getAssetManager().loadAndAddBitmap("BATTLE", "img/GridSquares/Battle.png");
@@ -279,7 +279,7 @@ public class GridLevel extends GameScreen {
         getGame().getAssetManager().loadAndAddBitmap("HIDDEN", "img/GridSquares/Hidden.jpg");
     }
 
-    public void loadPlayerBitmaps() {
+    private void loadPlayerBitmaps() {
         getGame().getAssetManager().loadAndAddBitmap("PLAYERREST", "img/PlayerSprites/playerRest.png");
 
         getGame().getAssetManager().loadAndAddBitmap("PLAYERMOVEY1", "img/PlayerSprites/playermoveY1.png");
@@ -293,7 +293,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //handles the touch events for this gamescreen
-    public void touchGrid(List<TouchEvent> touchEvents) {
+    private void touchGrid(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) {
                 if ((handleGridTouch(t))) {
@@ -345,7 +345,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //method to validate that the grids to the top,bottom,right or left are not hidden and not the end grid (terminus)
-    public boolean validGridMove(int i, int j) {
+    private boolean validGridMove(int i, int j) {
         if (!isSelectedGridAdjacent(i, j)) return false;
         return true;
     }
@@ -367,7 +367,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //selects grid square randomly
-    public GridType typeGrid() {
+    private GridType typeGrid() {
         double randNum = rand.nextDouble();
 
         //calculate the probability of selecting each grid square from the remaining grid squares
@@ -402,7 +402,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //performs the action the revealed grid should perform
-    public void gridAction() {
+    private void gridAction() {
         if (!selectGrid.isActive()) {
             return;
         }
@@ -423,7 +423,7 @@ public class GridLevel extends GameScreen {
         selectGrid.setActive(false);
     }
 
-    public void loadSounds(){
+    private void loadSounds(){
         getGame().getAssetManager().loadAndAddSound("CARDFLIP", "Sounds/CardFlip.mp3");
         cardFlip = mGame.getAssetManager().getSound("CARDFLIP");
 
@@ -434,7 +434,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //Generate the player sprite that traverses the grid squares.
-    public void generatePlayerSprite() {
+    private void generatePlayerSprite() {
         Grid firstGrid = gridArray[playerGridPosI][playerGridPosJ]; //the grid square the player starts in, the top left 'start' grid.
         BoundingBox firstGridBound = firstGrid.getBound(); //the dimension and position of the grid the player starts in
 
@@ -520,7 +520,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //Method that validates whether there are transition threads currently active.
-    public boolean isTransitionThreadAlive() {
+    private boolean isTransitionThreadAlive() {
         if (transitionBattle.isAlive()) {
             return true;
         } else if (movePlayerAction.isAlive()) {
@@ -541,7 +541,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //sets the number of each square to be filled
-    public void calculateNumGridsGenerate() {
+    private void calculateNumGridsGenerate() {
         //The proportion of each different type of grid square
         float propBattle = 0.5f;
         float propMove = 0.1f;
@@ -560,7 +560,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //Generates the two dimensional grid array
-    public void createGrid() {
+    private void createGrid() {
         //4x4, 5x5, 6x6 - randomly sets the size of the grid
         this.gridSize = rand.nextInt(2)+this.minimumTiles;
         this.gridArray = new Grid[gridSize][gridSize]; //2-dimensional array to hold the grid squares in rows and columns
@@ -568,7 +568,7 @@ public class GridLevel extends GameScreen {
 
     //James Bailey 40156063
     //Sets the direction of movement from the current grid to the selected grid.
-    public void calculateDirectionOfMove(int nextGridI, int nextGridJ) {
+    private void calculateDirectionOfMove(int nextGridI, int nextGridJ) {
         if (nextGridI > this.playerGridPosI) {
             this.playerMoveDirection = MovementDirection.DOWN;
         } else if (this.playerGridPosI > nextGridI) {

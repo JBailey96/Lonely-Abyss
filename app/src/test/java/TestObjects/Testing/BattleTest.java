@@ -9,8 +9,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Stack;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.BattleSetup;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.Player;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;

@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player;
 
 import android.graphics.Bitmap;
 
@@ -67,7 +67,7 @@ public class PlayerSprite extends GameObject {
 
     //James Bailey 40156063
     //Sets the current bitmap to be drawn
-    public void determineBitmap() {
+    private void determineBitmap() {
         long currentTime = System.currentTimeMillis();
 
         if (this.startTime == -1) { //validates whether start time has not been initialised
@@ -135,7 +135,7 @@ public class PlayerSprite extends GameObject {
 
     //James Bailey 40156063
     //Sets the array of bitmaps that are used to animate the player sprite's movement
-    public void setBitmapsToAnimate() {
+    private void setBitmapsToAnimate() {
         if (this.movementDirection == MovementDirection.LEFT) {
             this.bitmapsToAnimate = this.playerMovementXLeftBitmaps;
         } else if (this.movementDirection == MovementDirection.RIGHT) {
@@ -149,7 +149,7 @@ public class PlayerSprite extends GameObject {
 
     //James Bailey 40156063
     //Calculates the difference between the initial x, y and the destination x, y and what quantity to move each step.
-    public void calculateStepping() {
+    private void calculateStepping() {
         float xDifference = this.destX-getPosition().x;
         float yDifference = this.destY-getPosition().y;
 
@@ -163,7 +163,7 @@ public class PlayerSprite extends GameObject {
 
     //James Bailey 40156063
     //Sets the new x, y position of the player sprite.
-    public void determineSpritePosition() {
+    private void determineSpritePosition() {
         if (currentSteps == 0) { //validates whether there is an move process
             return;
         }

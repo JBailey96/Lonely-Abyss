@@ -3,7 +3,7 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 import java.util.List;
 
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -77,7 +77,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Refreshes the hand cards after a hand card is discarded
-    public void refreshAfterDiscard() {
+    private void refreshAfterDiscard() {
         this.playerHandCards = this.playerBattleSetup.getHandCard();
         copyHandCards();
         generateHandCards();
@@ -97,7 +97,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Update all the buttons - checks if there has been a touch event on them
-    public void updateButtons(ElapsedTime elapsedTime) {
+    private void updateButtons(ElapsedTime elapsedTime) {
         if (checkPrevCardAvailable()) { //validates that the selected hand card isn't the first of the cards to present
             prevButton.update(elapsedTime);
         }
@@ -115,19 +115,17 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //handles a touch event while the state is active
-    public void handleTouch(List<TouchEvent> touchEvents) {
+    private void handleTouch(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
+                DrawAssist.clearMessage();
                 if (touchButtons()) { //checks whether the buttons have been touched
-                    DrawAssist.clearMessage();
                     mInput.resetAccumulators();
                     break;
                 } else if (touchCard(t)) { //checks whether the selected hand card has been touched
-                    DrawAssist.clearMessage();
                     mInput.resetAccumulators();
                     break;
                 } else { //the touch is outside both of the buttons and selected hand card
-                    DrawAssist.clearMessage();
                     touchDismiss();
                 }
             }
@@ -136,7 +134,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //method that is called when the user touches the black background
-    public void touchDismiss() {
+    private void touchDismiss() {
         active = false;
         mInput.resetAccumulators();
 
@@ -149,7 +147,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //method that is called to check whether the user has touched the selected hand card
-    public boolean touchCard(TouchEvent t) {
+    private boolean touchCard(TouchEvent t) {
         if ((selectedHandCard.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             return true; //user has touched the selected hand card
         }
@@ -158,7 +156,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //method that is called to check whether the user has touched one of the buttons
-    public boolean touchButtons() {
+    private boolean touchButtons() {
     if (prevButton.isPushed()) {
         prevSelectedCard();
         return true;
@@ -179,7 +177,7 @@ public class HandCardsState extends State {
     //James Bailey 40156063
     //Method that uses the selected hand card on the player's active unimon.
     //Called when the user touches the use button
-    public void useHandCard() {
+    private void useHandCard() {
         if (this.handCardStateType == HandCardStateType.SELECT_ENERGY) {
             Battle.applyEnergy(playerBattleSetup, (EnergyCard) selectedHandCard); //apply the energy hand card to the active unimoncard.
         } else if (this.handCardStateType == HandCardStateType.SELECT_UNIMON) {
@@ -194,7 +192,7 @@ public class HandCardsState extends State {
     //James Bailey 40156063
     //Method that removes the selected hand card from the list of hand cards
     //Called when the user touches the discard button
-    public void discardHandCard() {
+    private void discardHandCard() {
         removeHandCardFromList();
 
 
@@ -210,7 +208,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Method that selects the next card to be presented to the user.
-    public void nextSelectedCard() {
+    private void nextSelectedCard() {
         for (int i = indexToDisplay + 1; i < stateHandCards.length; i++) {
             Card handCard = stateHandCards[i];
 
@@ -229,7 +227,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Method that sets the use button's boolean check to true if the user can use the selected hand card on the active card
-    public void decideUseButtonAvailable() {
+    private void decideUseButtonAvailable() {
         if (handCardStateType == HandCardStateType.SELECT_UNIMON) {
             //validate whether the selected hand card is an evolution of the player's active card
             if (Battle.handCardisEvolve((UnimonCard) selectedHandCard, playerBattleSetup.getActiveCard())) {
@@ -246,7 +244,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Method that checks whether the selected card is of the type of card required by the state type
-    public boolean checkSelectedCardValid(Card selectedHandCard) {
+    private boolean checkSelectedCardValid(Card selectedHandCard) {
         if (handCardStateType == HandCardStateType.SELECT_ENERGY) {
             if (selectedHandCard instanceof EnergyCard) {
                 return true;
@@ -263,7 +261,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Method that selects the first previous selected card that is required by the state type.
-    public void prevSelectedCard() {
+    private void prevSelectedCard() {
         for (int i = indexToDisplay - 1; i >= 0; i--) {
             Card handCard = stateHandCards[i];
 
@@ -280,7 +278,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Copy the hand cards from the battlesetup to a new list in this state
-    public void copyHandCards() {
+    private void copyHandCards() {
         stateHandCards = new Card[numHandCards]; //initialise a new list of hand cards to draw and update this state.
 
         //iterate through and copy the state
@@ -295,7 +293,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Generates all the hand cards draw and touch positions on the canvas, linking them to the playscreen
-    public void generateHandCards() {
+    private void generateHandCards() {
         for (int i = 0; i < stateHandCards.length; i++) {
             Card handCard = stateHandCards[i];
 
@@ -307,7 +305,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Generates the positions and links it to the gamescreen for a single hand card
-    public void generateSingleHandCard(Card handCard) {
+    private void generateSingleHandCard(Card handCard) {
         float width;
         float x;
         float height;
@@ -323,7 +321,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Generate the states' positions and link them to the gamescreen.
-    public void generateButtons() {
+    private void generateButtons() {
         generateNextButton();
         generatePrevButton();
         generateUseButton();
@@ -332,7 +330,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Generate the next button - when pressed presents the next card to the user.
-    public void generateNextButton() {
+    private void generateNextButton() {
         float width;
         float x;
         float height;
@@ -348,7 +346,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Generates the previous button - when pressed presents the previous card to the user
-    public void generatePrevButton() {
+    private void generatePrevButton() {
         float width;
         float x;
         float height;
@@ -366,7 +364,7 @@ public class HandCardsState extends State {
     //Generates the use handcard button
     //when pressed, if in select energy statetype, will apply the energy card to the active unimon
     //if in select unimon statetype, will evolve the active card to the selected hand card
-    public void generateUseButton() {
+    private void generateUseButton() {
         float width;
         float x;
         float height;
@@ -382,7 +380,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Generates the discard button - when pressed will discard the selected hand card
-    public void generateDiscardButton() {
+    private void generateDiscardButton() {
         float width;
         float x;
         float height;
@@ -398,7 +396,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Draws the buttons that provide the functionality of the state to the user.
-    public void drawButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+    private void drawButtons(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         if (checkPrevCardAvailable()) {
             prevButton.draw(elapsedTime, graphics2D, mLayerViewPort, mScreenViewport);
         }
@@ -416,7 +414,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Checks whether there is a card after the selected card in the hand card list available to be presented to the user.
-    public boolean checkNextCardAvailable() {
+    private boolean checkNextCardAvailable() {
         if (indexToDisplay == stateHandCards.length-1) { //validates whether the selected hand card index is the last index
             nextButton.setmIsPushed(false); //make sure the action of the next button is not called
             return false; //as the index is the last, cannot find next
@@ -439,7 +437,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Checks whether there is a card before the selected card in the hand card list available to be presented to the user.
-    public boolean checkPrevCardAvailable() {
+    private boolean checkPrevCardAvailable() {
         if (indexToDisplay == 0) { //the selected hand card is the first in the list of hand cards.
             prevButton.setmIsPushed(false); //makes sure the action of the previous button is not called
             return false; //as the index is first, cannot find previous
@@ -470,7 +468,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //Load button bitmaps from the asset manager to be used as the bitmaps of the buttons in this state.
-    public void loadBitmaps(){
+    private void loadBitmaps(){
         mGame.getAssetManager().loadAndAddBitmap("UseCard", "img/PlayScreenButtons/useHandButton.png");
         mGame.getAssetManager().loadAndAddBitmap("NextCard", "img/PlayScreenButtons/nextHandCardButton.png");
         mGame.getAssetManager().loadAndAddBitmap("PrevCard", "img/PlayScreenButtons/previousHandCardButton.png");
@@ -479,7 +477,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //check that the hand card is not empty (null)
-    public boolean checkHandCardExist(Card handCardToTest) {
+    private boolean checkHandCardExist(Card handCardToTest) {
         if (handCardToTest != null) {
             return true; //hand card exists
         }
@@ -488,7 +486,7 @@ public class HandCardsState extends State {
 
     //James Bailey 40156063
     //removes the hand card from the list of hand cards
-    public void removeHandCardFromList() {
+    private void removeHandCardFromList() {
         Battle.discardHandCard(stateHandCards, indexToDisplay, playerBattleSetup);
         //list of battlesetup's hand cards may have changed in the Battle method - keep states consistent
         playScreen.getPlayOverviewState().refreshHandCards();

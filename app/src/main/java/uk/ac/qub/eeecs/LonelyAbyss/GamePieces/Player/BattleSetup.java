@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player;
+package uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player;
 
 import java.util.LinkedList;
 import java.util.Stack;

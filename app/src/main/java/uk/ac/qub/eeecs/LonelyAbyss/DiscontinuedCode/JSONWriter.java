@@ -38,7 +38,7 @@ public class JSONWriter {
 
     //James Bailey 40156063
     //put in generic fields that every type of card has to the json object.
-    public static JSONObject createJSONCardObject(JSONObject obj, Card card) throws JSONException {
+    private static JSONObject createJSONCardObject(JSONObject obj, Card card) throws JSONException {
         obj.put("ID", card.getID());
         obj.put("Name", card.getName());
         obj.put("Description", card.getDescription());
@@ -48,7 +48,7 @@ public class JSONWriter {
 
     //James Bailey 40156063
     //Put in the fields unique to a unimon card type to the json object.
-    public static JSONObject createJSONUnimonCardObject(JSONObject obj, UnimonCard uniCard) throws JSONException {
+     private static JSONObject createJSONUnimonCardObject(JSONObject obj, UnimonCard uniCard) throws JSONException {
         obj.put("EvolveType", uniCard.getEvolveType().toString());
         obj.put("Element", uniCard.getCardElement().toString());
 
@@ -71,7 +71,7 @@ public class JSONWriter {
 
     //James Bailey 40156063
     //Put in the fields unique to an energy card type to the json object
-    public static JSONObject createJSONEnergyCardObject(JSONObject obj, EnergyCard energyCard) throws JSONException {
+    private static JSONObject createJSONEnergyCardObject(JSONObject obj, EnergyCard energyCard) throws JSONException {
         obj.put("EnergyType", energyCard.getType().toString());
         obj.put("EnergyCardEff", processEnergyCardEffects(energyCard.getEnergy()));
         return obj;
@@ -79,7 +79,7 @@ public class JSONWriter {
 
     //James Bailey 40156063
     //Processes each of the energy card's energy effects and puts them into the JSON object
-    public static JSONArray processEnergyCardEffects(Map<UnimonEvolveType,Map<EnergyType, Integer>> energyEff) throws JSONException {
+    private static JSONArray processEnergyCardEffects(Map<UnimonEvolveType,Map<EnergyType, Integer>> energyEff) throws JSONException {
         JSONArray  energyEffJSONArray = new JSONArray(); //holds the list of energy effects
         JSONObject energyEvolveTypeJSONObj = new JSONObject(); //holds the effects for a specific energy evolve type
 
@@ -108,7 +108,7 @@ public class JSONWriter {
 
     //James Bailey 40156063
     //Processes the moves a unimon card has, including the effect on the opponent's card and the requirements.
-    public static JSONArray processUnimonCardMoves(UnimonMoves[] uniMoves) throws JSONException {
+    private static JSONArray processUnimonCardMoves(UnimonMoves[] uniMoves) throws JSONException {
         JSONArray movesJSONArray = new JSONArray(); //holds the list of JSON unimon card's moves
 
         //iterate through the unimon card's moves and add them to the JSON object
@@ -133,7 +133,7 @@ public class JSONWriter {
 
     //James Bailey 40156063
     //return the stat value the move requires
-    public static String processUnimonMovesReq(MoveResource moveRes, Map<MoveResource, Integer> moveReq) {
+    private static String processUnimonMovesReq(MoveResource moveRes, Map<MoveResource, Integer> moveReq) {
         if (moveReq.containsKey(moveRes)) { //validates whether the stat type is in the move requirements.
             int requirementValue = moveReq.get(moveRes);
             return Integer.toString(requirementValue);
@@ -143,7 +143,7 @@ public class JSONWriter {
 
     //James Bailey 40156063
     //return the energy effect value the energy card applies
-    public static String processEnergyCardTypeEff(EnergyType energyType, Map<EnergyType, Integer> energyEff) {
+    private static String processEnergyCardTypeEff(EnergyType energyType, Map<EnergyType, Integer> energyEff) {
         if (energyEff.containsKey(energyType)) { //validates whether the stat type is in the energy effect list
             int energyEffVal = energyEff.get(energyType);
             return Integer.toString(energyEffVal);

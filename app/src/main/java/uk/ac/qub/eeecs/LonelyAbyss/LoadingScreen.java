@@ -75,7 +75,7 @@ public class LoadingScreen extends GameScreen {
 
     //James Bailey 40156063
     //generates the string that is displayed to the user as the cards are loading
-    public void generateLoadingString() {
+    private void generateLoadingString() {
         if (showLoading) {
             if (cycleDots == 0) {
                 loadingString = "Loading";
@@ -95,7 +95,7 @@ public class LoadingScreen extends GameScreen {
 
     //james Bailey 40156063
     //the formatting for the 'loading' text
-    public Paint formatText() {
+    private Paint formatText() {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setTextSize(80);
@@ -106,20 +106,20 @@ public class LoadingScreen extends GameScreen {
 
     //James Bailey 40156063
     //drawing the 'loading' text
-    public void drawLoadingText(IGraphics2D graphics2D, Paint textFormat) {
+    private void drawLoadingText(IGraphics2D graphics2D, Paint textFormat) {
        /// Rect loadingTextRect = new Rect(mScreenViewport.left+mScreenViewport, mScreenViewport.top, mScreenViewport.right/2, mScreenViewport.bottom);
         graphics2D.drawText(loadingString , mScreenViewport.centerX(), mScreenViewport.centerY(), textFormat);
     }
 
     //James Bailey 40156063
-    public void transitionToGridScreen() {
+    private void transitionToGridScreen() {
         mGame.getScreenManager().removeScreen(this.getName());
         GridLevel gLevel = new GridLevel(mGame);
         mGame.getScreenManager().addScreen(gLevel);
     }
 
     //James Bailey 40156063
-    public void transitionToMenuScreen() {
+    private void transitionToMenuScreen() {
         mGame.getScreenManager().removeScreen(this.getName());
         MenuScreen menuScreen = new MenuScreen(mGame);
         mGame.getScreenManager().addScreen(menuScreen);
@@ -171,7 +171,7 @@ public class LoadingScreen extends GameScreen {
 
         //James Bailey 40156063
         //Add all the corresponding template bitmaps to the game's unimon cards
-        public ArrayList<UnimonCard> loadUniCardBitmaps(AssetStore assets, ArrayList<UnimonCard> unimonCards) {
+        private ArrayList<UnimonCard> loadUniCardBitmaps(AssetStore assets, ArrayList<UnimonCard> unimonCards) {
             for (UnimonCard uCard: unimonCards) {
                 String cardID = uCard.getID();
                 assets.loadAndAddBitmap("u"+cardID, "img/Cards/Unimon/u" + cardID + ".png");

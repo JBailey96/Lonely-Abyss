@@ -14,7 +14,7 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
 
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Battle;
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Moves.UnimonMoves;
-        import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
+        import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.BattleSetup;
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Container;
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.Element;
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
@@ -66,7 +66,6 @@ public class OpponentState extends State {
     }
 
     @Override
-
     public void update(ElapsedTime elapsedTime) {
         if (active) {
             if (opponentStateType == OpponentStateType.VIEW_OPPONENT) {

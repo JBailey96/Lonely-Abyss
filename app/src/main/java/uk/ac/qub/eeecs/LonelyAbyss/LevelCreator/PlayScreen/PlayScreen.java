@@ -4,17 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Stack;
 
 
 import uk.ac.qub.eeecs.LonelyAbyss.DiscontinuedCode.ActiveEnergyState;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.BattleSetup;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Generic.Card;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.BattleSetup;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.GridLevel;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -60,7 +54,6 @@ public class PlayScreen extends GameScreen {
         mLayerViewPort = new LayerViewport(mScreenViewport.width/2, mScreenViewport.height/2, mScreenViewport.width/2, mScreenViewport.height/2);
         loadPlayScreenBitmaps();
         generateBackground();
-        //createTestBattleSetup();
         playerBattleSetup = mGame.getPlayer().getPlayerBattleSetup();
         createInitialState();
     }
@@ -93,7 +86,7 @@ public class PlayScreen extends GameScreen {
 
     //James Bailey 40156063
     //Updates all the states
-    public void updateStates(ElapsedTime elapsedTime) {
+    private void updateStates(ElapsedTime elapsedTime) {
         if (verifyState(activeUnimonState)) {
             activeUnimonState.update(elapsedTime);
         }
@@ -117,7 +110,7 @@ public class PlayScreen extends GameScreen {
 
     //James Bailey 40156063
     //verifies that the state has been initialised and is active
-    public boolean verifyState(State state) {
+    private boolean verifyState(State state) {
         if (state != null) {
             if (state.active) {
                 return true;
@@ -138,7 +131,7 @@ public class PlayScreen extends GameScreen {
 
     //James Bailey 40156063
     //Draws all the states
-    public void drawStates(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+    private void drawStates(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         if (verifyState(playOverviewState)) {
             playOverviewState.draw(elapsedTime, graphics2D);
         }
@@ -162,20 +155,20 @@ public class PlayScreen extends GameScreen {
 
     //James Bailey 40156063
     //Generates the background dimensions and loads the bitmap
-    public void generateBackground() {
+     private void generateBackground() {
         backgroundRect = new Rect(0, 0, mScreenViewport.width, mScreenViewport.height);
         background = mGame.getAssetManager().getBitmap("PlayAreaBackground");
     }
 
     //James Bailey 40156063
     //draw the play area's background
-    public void drawBackground(IGraphics2D graphics2D) {
+    private void drawBackground(IGraphics2D graphics2D) {
         graphics2D.drawBitmap(background, null, backgroundRect, null); //draw the background bitmap
     }
 
     //James Bailey 40156063
     //Loads the bitmaps that are used in all screens - the background
-    public void loadPlayScreenBitmaps() {
+    private void loadPlayScreenBitmaps() {
         mGame.getAssetManager().loadAndAddBitmap("PlayAreaBackground", "img/PlayArea/Background.jpeg");
     }
 
