@@ -71,8 +71,10 @@ public class GridLevel extends GameScreen {
 
     //sounds for the grid level
     protected Sound cardFlip;
-    protected Sound battlecardMusic;
+    //protected Sound battlecardMusic;
     protected Music gridMusic;
+    protected Music footsteps;
+    protected Sound battleSound;
 
     protected Thread transitionBattle; //the thread that starts when the user encounters a battle tile
     protected Thread movePlayerAction;
@@ -416,6 +418,7 @@ public class GridLevel extends GameScreen {
             this.player.setGridLevelTiles(gridArray);
             this.player.setPlayerGridPosI(this.playerGridPosI);
             this.player.setPlayerGridPosJ(this.playerGridPosJ);
+            battleSound.play();
             transitionBattle = new Thread(new TransitionBattle()); //initalise the thread that handles the transition to the battle screen
             transitionBattle.start();
         }
@@ -429,6 +432,12 @@ public class GridLevel extends GameScreen {
 
         getGame().getAssetManager().loadAndAddMusic("GRIDSOUND", "Music/GridMusic2.mp3");
         gridMusic = mGame.getAssetManager().getMusic("GRIDSOUND");
+
+        getGame().getAssetManager().loadAndAddMusic("FOOTSTEPS", "Sounds/footsteps-1.mp3");
+        footsteps = mGame.getAssetManager().getMusic("FOOTSTEPS");
+
+        getGame().getAssetManager().loadAndAddSound("BATTLEPARTY", "Sounds/party_time.mp3");
+        battleSound = mGame.getAssetManager().getSound("BATTLEPARTY");
     }
 
 
@@ -509,7 +518,10 @@ public class GridLevel extends GameScreen {
 
             //waits for the the player move animation to finish.
             try {
+                footsteps.setVolume(10);
+                footsteps.play();
                 Thread.sleep(timeToMovePlayer);
+                footsteps.stop();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -533,7 +545,7 @@ public class GridLevel extends GameScreen {
     public void playSounds() {
         //custom settings for grid music
         gridMusic.setLopping(true);
-        gridMusic.setVolume(10);
+        gridMusic.setVolume(1);
 
         //play the grid background music
         gridMusic.play();

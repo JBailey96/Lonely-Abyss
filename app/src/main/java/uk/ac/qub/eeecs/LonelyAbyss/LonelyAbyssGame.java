@@ -1,7 +1,8 @@
 package uk.ac.qub.eeecs.LonelyAbyss;
 
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.DeckManagement;
-import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.MenuScreen;
+import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.THXScreen;
+import uk.ac.qub.eeecs.LonelyAbyss.MenuScreen;
 import uk.ac.qub.eeecs.gage.Game;
 
 import android.os.Bundle;
@@ -48,8 +49,11 @@ public class LonelyAbyssGame extends Game {
         // want to do this within the onCreate method as the menu screen
         // will layout the buttons based on the size of the view.
 
-        MenuScreen MS = new MenuScreen(this);
-        getScreenManager().addScreen(MS);
+        /*SplashScreen SS = new SplashScreen(this);
+        getScreenManager().addScreen(SS);*/
+
+        THXScreen thx = new THXScreen(this);
+        getScreenManager().addScreen(thx);
 
         return view;
     }

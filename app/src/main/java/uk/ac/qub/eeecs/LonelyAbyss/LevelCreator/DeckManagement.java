@@ -22,6 +22,8 @@ import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.PlayScreen;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.CustomGage.DrawAssist;
+import uk.ac.qub.eeecs.gage.engine.audio.Music;
+import uk.ac.qub.eeecs.gage.engine.audio.Sound;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -76,7 +78,8 @@ public class DeckManagement extends GameScreen {
     protected Rect quickSetupRect;
     protected ReleaseButton quickSetupButton;
 
-    /*protected Music deckManagementMusic;*/
+    protected Music backgroundMusic;
+    protected Sound buttonClick;
 
     private Paint counterTextFormat;
 
@@ -119,7 +122,11 @@ public class DeckManagement extends GameScreen {
         accessBitmaps();
         generateButtons();
         loadButtons();
+        deckSounds();
 
+        backgroundMusic.play();
+        backgroundMusic.setLopping(true);
+        backgroundMusic.isLooping();
         /*loadingSound();
         playSound();*/
     }
@@ -251,21 +258,27 @@ public class DeckManagement extends GameScreen {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 if (nextButton.pushTriggered()) { //the status of the button is 'pressed'
+                    buttonClick.play();
                     next();
                     break;
                 } else if (previousButton.pushTriggered()) {
+                    buttonClick.play();
                     previous();
                     break;
                 } else if (manaSearchButton.pushTriggered()) {
+                    buttonClick.play();
                     touchMana();
                     break;
                 }else if(staminaSearchButton.pushTriggered()){
+                    buttonClick.play();
                     touchStamina();
                     break;
                 }else if(quickSetupButton.pushTriggered()){
+                    buttonClick.play();
                     quickSetup();
                     break;
                 }else if(touchUnimonCard(t)){
+                    buttonClick.play();
                     manualSelection = true;
                     break;
                 }
@@ -958,6 +971,15 @@ public class DeckManagement extends GameScreen {
         graphics2D.drawText(counterValue,counterValueRect.centerX(), counterValueRect.centerY(), counterTextFormat);
     }
 
+
+    //J Devlin 40150554: Background Sounds
+    public void deckSounds(){
+        getGame().getAssetManager().loadAndAddMusic("DECKBACKGROUND", "Music/Desolation.mp3");
+        backgroundMusic = getGame().getAssetManager().getMusic("DECKBACKGROUND");
+
+        getGame().getAssetManager().loadAndAddMusic("BUTTON", "Sounds/button.mp3");
+        buttonClick = getGame().getAssetManager().getSound("BUTTON");
+    }
 
 
 /*   public void loadingSound(){

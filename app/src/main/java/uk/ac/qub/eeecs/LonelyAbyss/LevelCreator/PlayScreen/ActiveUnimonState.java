@@ -41,7 +41,7 @@ public class ActiveUnimonState extends State {
     private ReleaseButton applyEnergyButton;
     private ReleaseButton evolveButton;
     private ReleaseButton retreatButton;
-
+    protected boolean touchActive;
     //Move battle options
     List<ReleaseButton> moveButtons = new ArrayList<>();
 
@@ -57,6 +57,7 @@ public class ActiveUnimonState extends State {
 
         this.playScreen = (PlayScreen) mGameScreen;
         this.battleSetup = battleSetup;
+        touchActive = true;
     }
 
     //James Bailey - 40156063

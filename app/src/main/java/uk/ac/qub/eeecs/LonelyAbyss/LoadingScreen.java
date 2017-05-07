@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Energy.EnergyCard;
 import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.GridLevel;
-import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.MenuScreen;
+import uk.ac.qub.eeecs.LonelyAbyss.MenuScreen;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;

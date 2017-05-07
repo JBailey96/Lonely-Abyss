@@ -19,6 +19,7 @@ import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.GridLevel;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.ScreenManager;
+import uk.ac.qub.eeecs.gage.engine.audio.Music;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -45,13 +46,17 @@ public class PlayScreen extends GameScreen {
     protected ActiveEnergyState activeEnergyState;
     protected BenchState benchState;
     protected HandCardsState handCardsState;
+    protected DeadState deadState;
+    protected ActiveOpponentState activeOpponentState;
 
     private BattleSetup playerBattleSetup; //the battle setup the player has
+   // private BattleSetup opponentBattleSetup;
 
     //the background bitmap and the dimensions on the screen to be drawn in
     protected Bitmap background;
     protected Rect backgroundRect;
 
+    protected Music battleSong;
 
     public PlayScreen(Game game) {
         super("PlayScreen", game);
@@ -61,7 +66,21 @@ public class PlayScreen extends GameScreen {
         generateBackground();
         //createTestBattleSetup();
         playerBattleSetup = mGame.getPlayer().getPlayerBattleSetup();
+//;        opponentBattleSetup = mGame.getOpponentPlayer().getPlayerBattleSetup();
         createInitialState();
+        backgroundMusic();
+    }
+
+    //J Devlin 40150554
+    //Load the background battle music
+    public void backgroundMusic(){
+        getGame().getAssetManager().loadAndAddMusic("BGMusic", "Music/TheChase.mp3");
+        battleSong = getGame().getAssetManager().getMusic("BGMusic");
+        battleSong.play();
+        battleSong.setLopping(true);
+        battleSong.isLooping();
+
+
     }
 
     //James Bailey 40156063
@@ -78,6 +97,8 @@ public class PlayScreen extends GameScreen {
         this.opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, playerBattleSetup, false);
         this.activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
         this.handCardsState = new HandCardsState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
+        this.deadState = new DeadState(mScreenViewport, mLayerViewPort, mGame, this, false);
+        this.activeOpponentState = new ActiveOpponentState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
     }
 
 
@@ -106,6 +127,9 @@ public class PlayScreen extends GameScreen {
         }
         if (verifyState(handCardsState)) {
             handCardsState.update(elapsedTime);
+        }
+        if (verifyState(activeOpponentState)) {
+            activeOpponentState.update(elapsedTime);
         }
         //activeEnergyState.update(elapsedTime);
     }
@@ -148,6 +172,12 @@ public class PlayScreen extends GameScreen {
         }
         if (verifyState(handCardsState)) {
             handCardsState.draw(elapsedTime, graphics2D);
+        }
+        if(verifyState(deadState)){
+            deadState.draw(elapsedTime, graphics2D);
+        }
+        if (verifyState(activeOpponentState)) {
+            activeOpponentState.draw(elapsedTime, graphics2D);
         }
        //activeEnergyState.draw(elapsedTime, graphics2D);
     }
@@ -236,4 +266,16 @@ public class PlayScreen extends GameScreen {
     public void setBattleSetup(BattleSetup battleSetup) {
         this.playerBattleSetup = battleSetup;
     }
+
+    //jdevlin 40150554
+    public DeadState getDeadState() {
+        return deadState;
+    }
+    public void setDeadState(DeadState deadState){this.deadState = deadState;}
+
+    //J Devlin 40150554
+    public ActiveOpponentState getActiveOpponentState() {
+        return activeOpponentState;
+    }
 }
+

@@ -21,6 +21,7 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen;
         import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonEvolveType;
         import uk.ac.qub.eeecs.gage.Game;
         import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+        import uk.ac.qub.eeecs.gage.engine.audio.Music;
         import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
         import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
         import uk.ac.qub.eeecs.gage.CustomGage.ReleaseButton;
@@ -42,6 +43,8 @@ public class OpponentState extends State {
     ReleaseButton back; // a button to go back to the main screen
     ReleaseButton showDetailsButton; // a button to show deatils od the active unimon
 
+
+
     protected PlayScreen playScreen;
     protected BattleSetup battleSetup;
 
@@ -50,7 +53,13 @@ public class OpponentState extends State {
     protected int opponentCardHealthBefore; //the health of the opponent's card before a move has been applied.
     protected int opponentCardHealthAfter; //the health after the player has applied a move.
 
-
+    //J Devlin 40150554
+    protected Music heartBeat;
+    protected Music deadMusic;
+    boolean decreasingHealth = false;
+    protected Bitmap bloodSplatter;
+    protected Rect bloodSplatterRect;
+    protected Paint bloodSplatterPaint;
 
     public OpponentState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, BattleSetup battleSetup, Boolean active) {
         super(mScreenViewport, mLayerViewPort, mGame, mGameScreen, active);
@@ -97,6 +106,7 @@ public class OpponentState extends State {
         if(active){
             drawActive(elapsedTime, graphics2D);
         }
+        showBloodSplatter(graphics2D);
     }
 
     //draw opponents active unimon and show deatils button
@@ -152,7 +162,49 @@ public class OpponentState extends State {
         Thread thread = new Thread(new DecreaseHealth());
         thread.start();
 
+        decreaseHealthSound();
+        decreasingHealth = true;
+
     }
+
+    //J Devlin 40150554
+    public void decreaseHealthSound(){
+        mGameScreen.getGame().getAssetManager().loadAndAddMusic("EKGHEART", "Sounds/ekgHeart.mp3");
+        heartBeat = mGameScreen.getGame().getAssetManager().getMusic("EKGHEART");
+        heartBeat.play();
+        heartBeat.setLopping(true);
+        heartBeat.isLooping();
+
+    }
+    //J Devlin 40150554
+
+    public void showBloodSplatter(IGraphics2D graphics2D){
+        if( decreasingHealth){
+            mGameScreen.getGame().getAssetManager().loadAndAddBitmap("BLOODSPLATTER", "img/Backgrounds/bloodSplatter.png");
+            bloodSplatter = mGameScreen.getGame().getAssetManager().getBitmap("BLOODSPLATTER");
+            bloodSplatterPaint = new Paint();
+            bloodSplatterPaint.setAlpha(60);
+            bloodSplatterRect = new Rect (0, 0, mScreenViewport.width, mScreenViewport.height);
+            graphics2D.drawBitmap(bloodSplatter, null, bloodSplatterRect, bloodSplatterPaint);
+            /*Thread bloodSplatterThread = new Thread(new splatterFade());
+            bloodSplatterThread.start();
+            graphics2D.drawBitmap(bloodSplatter, null, bloodSplatterRect, bloodSplatterPaint);*/
+        }
+    }
+
+    //J Devlin 40150554
+     /*class splatterFade implements Runnable{
+        @Override
+        public void run() {
+            try
+            {
+                   bloodSplatterPaint.setAlpha(150);
+                Thread.sleep(10);
+                    bloodSplatterPaint.setAlpha(50);
+            }catch (InterruptedException e){
+            }
+        }
+    }*/
 
     //James Bailey 40156063
     //Thread that decreases the health of the opponent card gradually to present the impact of the player's move
@@ -174,15 +226,20 @@ public class OpponentState extends State {
                     }
                     battleSetup.setActiveCard(playerCard); //set the battlesetup's active card to the now updated health's card
                 }
-
+                heartBeat.setLopping(false);
                 Thread.sleep(2000); //provides the user a short time to view the health of the opponent after the move.
 
                 active = false;
+
+                //J Devlin 40150554: Transitioning to the dead notification screen.
+                deadStateTransition();
 
                 //need to refresh states that use the player's active unimon card - stats changed
                 playScreen.getPlayOverviewState().refresh();
                 playScreen.getActiveUnimonState().refresh();
                 playScreen.getBenchState().refresh();
+
+                playScreen.battleSong.play();
 
                 //present the playoverview state to the user again and allow the user to interact with it
                 playScreen.getPlayOverviewState().active = true;
@@ -193,6 +250,17 @@ public class OpponentState extends State {
         }
     }
 
+    //J Devlin 40150554: Transitioning to the dead notification screen.
+    public void deadStateTransition(){
+        if(opponentCardHealthAfter <= 0){
+            playScreen.getDeadState().active = true;
+            heartBeat.stop();
+            mGame.getAssetManager().loadAndAddMusic("YOUREDEAD", "Music/deadNotSurprise.mp3");
+            deadMusic = mGame.getAssetManager().getMusic("YOUREDEAD");
+            playScreen.battleSong.stop();
+            deadMusic.play();
+        }
+    }
 
     //loads test card
     public void loadTestCard() {
@@ -201,7 +269,7 @@ public class OpponentState extends State {
         Bitmap cardImage = selectBitmap("CARD");
         OpponentActiveCard = new UnimonCard((mScreenViewport.width / 2), (mScreenViewport.height / 2), (mScreenViewport.width / 2.3f), (mScreenViewport.height), cardImage, mGameScreen,
                 "0", null, null, null, "Demon Slayer",
-                UnimonEvolveType.DEMON, Element.EARTH, null, 500, 600, 700, "test Description",
+                UnimonEvolveType.DEMON, Element.EARTH, null, 250, 600, 700, "test Description",
                 20, 2, Element.FIRE, 50, Element.HOLY, true, Container.ACTIVE);
     }
 
