@@ -10,6 +10,7 @@ import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Types.Unimon.UnimonCard;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.CustomGage.DrawAssist;
+import uk.ac.qub.eeecs.gage.engine.audio.Sound;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.CustomGage.ReleaseButton;
@@ -49,6 +50,8 @@ public class HandCardsState extends State {
 
     protected PlayScreen playScreen;
 
+    protected Sound buttonClick;
+
     //James Bailey 40156063
     public HandCardsState(ScreenViewport mScreenViewport, LayerViewport mLayerViewPort, Game mGame, GameScreen mGameScreen, Boolean active, BattleSetup battleSetup) {
         super(mScreenViewport, mLayerViewPort, mGame, mGameScreen, active);
@@ -63,6 +66,7 @@ public class HandCardsState extends State {
         copyHandCards();
         generateHandCards();
         generateButtons();
+        loadMusic();
     }
 
     //James Bailey 40156063
@@ -158,16 +162,20 @@ public class HandCardsState extends State {
     //method that is called to check whether the user has touched one of the buttons
     private boolean touchButtons() {
     if (prevButton.isPushed()) {
+        buttonClick.play();
         prevSelectedCard();
         return true;
     } else if (nextButton.isPushed()) {
         nextSelectedCard();
+        buttonClick.play();
         return true;
     } else if (useButton.isPushed()) {
         useHandCard();
+        buttonClick.play();
         return true;
     } else if (discardButton.isPushed()) {
         discardHandCard();
+        buttonClick.play();
         return true;
     }
 
@@ -512,6 +520,12 @@ public class HandCardsState extends State {
         }
 
         DrawAssist.showMessage(mGame, message);
+    }
+
+    //J Devlin 40150554: Load sound for button click
+    public void loadMusic() {
+        mGameScreen.getGame().getAssetManager().loadAndAddSound("BUTTONCLICK", "Sounds/button.mp3");
+        buttonClick = mGame.getAssetManager().getSound("BUTTONCLICK");
     }
 
 }

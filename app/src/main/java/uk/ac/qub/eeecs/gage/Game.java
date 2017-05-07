@@ -1,6 +1,7 @@
 package uk.ac.qub.eeecs.gage;
 
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.Player;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.OpponentPlayer;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
 import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.ScreenManager;
@@ -9,7 +10,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IRenderSurface;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-
+import android.app.Activity;
 import android.app.Fragment;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public abstract class Game extends Fragment {
 
     //the player of the game
 	private Player player;
+	private OpponentPlayer opponentPlayer;
 
 	// /////////////////////////////////////////////////////////////////////////
 	// Properties: Frames per Second
@@ -650,4 +652,8 @@ public abstract class Game extends Fragment {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
+    public OpponentPlayer getOpponentPlayer(){return opponentPlayer;}
+
+	public void setOpponentPlayer(OpponentPlayer opponentPlayer){this.opponentPlayer = opponentPlayer;}
 }

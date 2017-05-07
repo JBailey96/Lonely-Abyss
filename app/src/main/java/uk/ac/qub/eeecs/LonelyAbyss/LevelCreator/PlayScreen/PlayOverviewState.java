@@ -169,6 +169,7 @@ public class PlayOverviewState extends State {
                 touchActiveUnimon(t);
                 touchDeckButton();
                 touchGraveyardButton();
+                touchOpponentButton(t);
             }
         }
     }
@@ -185,7 +186,10 @@ public class PlayOverviewState extends State {
     //checks whether the opponent button has been touched
     private void touchOpponentButton(TouchEvent t) {
         if ((opponentButton.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
-            playScreen.getOpponentState().active = true;
+            //J Devlin 40150554
+            this.touchActive = false;
+            playScreen.getActiveOpponentState().active = true;
+            //playScreen.getPlayOverviewState().active = false;
         }
     }
 

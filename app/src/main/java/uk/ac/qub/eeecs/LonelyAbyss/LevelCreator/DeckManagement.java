@@ -22,6 +22,8 @@ import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.PlayScreen;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.CustomGage.DrawAssist;
+import uk.ac.qub.eeecs.gage.engine.audio.Music;
+import uk.ac.qub.eeecs.gage.engine.audio.Sound;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -76,6 +78,9 @@ public class DeckManagement extends GameScreen {
     protected Rect quickSetupRect;
     protected ReleaseButton quickSetupButton;
 
+    protected Music backgroundMusic;
+    protected Sound buttonClick;
+
     /*protected Music deckManagementMusic;*/
 
     private Toast objMessage = null;
@@ -121,6 +126,11 @@ public class DeckManagement extends GameScreen {
         accessBitmaps();
         generateButtons();
         loadButtons();
+        deckSounds();
+
+        backgroundMusic.play();
+        backgroundMusic.setLopping(true);
+        backgroundMusic.isLooping();
 
         /*loadingSound();
         playSound();*/
@@ -255,20 +265,26 @@ public class DeckManagement extends GameScreen {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 if (nextButton.pushTriggered()) { //the status of the button is 'pressed'
                     next();
+                    buttonClick.play();
                     break;
                 } else if (previousButton.pushTriggered()) {
+                    buttonClick.play();
                     previous();
                     break;
                 } else if (manaSearchButton.pushTriggered()) {
+                    buttonClick.play();
                     touchMana();
                     break;
                 }else if(staminaSearchButton.pushTriggered()){
+                    buttonClick.play();
                     touchStamina();
                     break;
                 }else if(quickSetupButton.pushTriggered()){
+                    buttonClick.play();
                     quickSetup();
                     break;
                 }else if(touchUnimonCard(t)){
+                    buttonClick.play();
                     manualSelection = true;
                     break;
                 }
@@ -970,6 +986,17 @@ public class DeckManagement extends GameScreen {
         graphics2D.drawText(counterValue,counterValueRect.centerX(), counterValueRect.centerY(), counterTextFormat);
     }
 
+    //J Devlin 40150554: Background Sounds
+    public void deckSounds(){
+        getGame().getAssetManager().loadAndAddMusic("DECKBACKGROUND", "Music/Desolation.mp3");
+        backgroundMusic = getGame().getAssetManager().getMusic("DECKBACKGROUND");
+
+        getGame().getAssetManager().loadAndAddMusic("BUTTON", "Sounds/button.mp3");
+        buttonClick = getGame().getAssetManager().getSound("BUTTON");
+    }
+
+
+
 /*   public void loadingSound(){
        getGame().getAssetManager().loadAndAddMusic("DeckManagment", "Music/GridMusic2.mp3");
        deckManagementMusic = mGame.getAssetManager().getMusic("DeckManagement");
@@ -980,6 +1007,149 @@ public class DeckManagement extends GameScreen {
        deckManagementMusic.play();
    }*/
 
+
+   /* public Card extraCardSpace(){
+        Bitmap bitmap = selectBitmap("extra");
+        Card extra = new UnimonCard(0,0,0,0,bitmap,this,"",null,null,null,"",null,null,null,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,"",0,0,null,0,null,false,Container.LOADED);
+       return extra;
+    }*/
+
+
+
+
+    //Loads the card bitmaps from the asset manager. Adds the token of the Bitmap to an ArrayList
+   /* public void loadCardBitmaps() {
+        getGame().getAssetManager().loadAndAddBitmap("CARD", "img/Cards/Earth Dragon.png");;
+        getGame().getAssetManager().loadAndAddBitmap("CARD1", "img/Cards/Knight of Fire - Spirit.png");
+        cardBitmapReference = new ArrayList<>();
+        cardBitmapReference.add("CARD");
+        cardBitmapReference.add("CARD");
+        cardBitmapReference.add("CARD");
+        cardBitmapReference.add("CARD1");
+        cardBitmapReference.add("CARD1");
+        cardBitmapReference.add("CARD1");
+
+    }*/
+
+    //FOR SORTING WHEN TAKEN IN FROM JSON AND ARRANGING INTO ARRAYS;
+/*
+    public void searchingForUnimon(){
+        unimonCards = new ArrayList<UnimonCard>();
+        energyCards = new ArrayList<EnergyCard>();
+        for(Card item: allCards){
+            if(instanceCheck(item)){
+                unimonCards.add((UnimonCard)(item));
+            }else{
+                energyCards.add((EnergyCard)(item));
+            }
+        }
+    }
+
+    public boolean instanceCheck(Card card){
+        if(card instanceof UnimonCard){
+            return true;
+        }
+        return false;
+    }*/
+
+/*  public void equalCards(){
+        int mod = newUnimonCardSort.size() % 3;
+        Card extra = extraCardSpace();
+        if((mod) != 0){
+            int spaceToBeAdded = (3 - mod);
+            for(int i = 0; i < spaceToBeAdded; i++){
+                newUnimonCardSort.add((UnimonCard)(extra));
+            }
+        }
+    }*/
+
+    /*public void prevButtonDraw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+        *//*if (nextCardIndex > 3) {//If the nextCardIndex is > 3 there is previous cards to view
+            previousButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
+        }*//*
+
+    }
+
+    public void nextButtonDraw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+          *//* if (nextCardIndex + 3 <= newUnimonCard.size()) {// if the nextCardIndex+3 is less than the size of the card array then there is more cards to be displayed
+               nextButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
+           }*//*
+
+    }*/
+
+
+   /* public void drawingCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+        for (Card drawCard : drawCards) {
+            drawCard.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
+        }
+    }*/
+
+    // Sets up an array of type Bitmap which gets filled with the token of the Bitmaps using a foreach loop and counter.
+    /*public void gettingNextCards(List<UnimonCard> unimonCards) {
+
+        unimonCardsToDraw = new Card[3];
+        int uniCard = 0;
+        int j;
+
+        for (j = nextCardIndex; j < nextCardIndex + 3; j++) {
+            unimonCardsToDraw[uniCard] = unimonCards.get(j);
+            uniCard++;
+        }
+        nextCardIndex = j;
+    }*/
+
+    // selects the previous 3 cards of the cardBitmapReference arrayList
+    /*public void gettingPreviousCards(List<UnimonCard> unimonCards) {
+        unimonCardsToDraw = new Card[3];// only holds 3 cards which can be drawen to the screen
+        int uniCard = 2;//need to make sure that the order of the cards being printed are in the same order as before
+        nextCardIndex -= 4;// need to decrement back 4 to get to the last previous card index
+        int j;
+
+        for (j = nextCardIndex; j >= nextCardIndex - 2; j--) {
+            unimonCardsToDraw[uniCard] = unimonCards.get(j);
+            uniCard--;
+        }
+        nextCardIndex = j + 4;//Need to leave the nextCardIndex at the start index of the next 3 cards
+    }
+    //Creates an Array of size numCardsDisplayed and of type GameObject
+
+    public void createCard() {
+        drawCards = new Card[numCardsDisplayed];
+        Card setUpCards;
+        //Runs a for loop, creating a instance of UnimonObject, Which sets the cards location on the screen.
+        //Adds all the unimonObjects to the drawCards array array.
+        for (int i = 0; i < numCardsDisplayed; i++) {
+            if (i == 0) {
+                setUpCards = unimonCardsToDraw[i];
+                generateCardDimensions((mLayerViewport.getLeft() + mLayerViewport.x / 3),setUpCards);
+                drawCards[i] = setUpCards;
+            } else if (i == 2) {
+                setUpCards = unimonCardsToDraw[i];
+                generateCardDimensions((mLayerViewport.getRight() - mLayerViewport.x / 3),setUpCards);
+                drawCards[i] = setUpCards;
+            } else {
+                setUpCards = unimonCardsToDraw[i];
+                generateCardDimensions(mLayerViewport.x,setUpCards);
+                drawCards[i] = setUpCards;
+            }
+        }
+    }*/
+
+    /*public void updateNextButtonCheck(ElapsedTime elapsedTime){
+            *//*if (nextCardIndex + 3 <= newUnimonCard.size()) {// if the nextCardIndex+3 is less than the size of the card array then there is more cards to be displayed
+                nextButton.update(elapsedTime);
+            }*//*
+
+
+
+    }
+
+    public void updatePreviousButtonCheck(ElapsedTime elapsedTime){
+        *//*if (nextCardIndex > 3) {//If the nextCardIndex is > 3 there is previous cards to view
+            previousButton.update(elapsedTime);
+        }*//*
+
+    }*/
 }
 
 
