@@ -47,6 +47,7 @@ public class ReleaseButton extends GameObject {
 
     protected Bitmap glowEffect;
     protected Rect glowEffectDimen;
+    protected boolean enableGlow;
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -86,7 +87,7 @@ public class ReleaseButton extends GameObject {
         mPushBitmap = assetStore.getBitmap(pushBitmap);
 
         mReleaseSound = (releaseSound == null) ? null : assetStore.getSound(releaseSound);
-
+        this.enableGlow = true;
     }
 
     /**
@@ -159,6 +160,15 @@ public class ReleaseButton extends GameObject {
         }
     }
 
+    public boolean isEnableGlow() {
+        return enableGlow;
+    }
+
+    public void setEnableGlow(boolean enableGlow) {
+        this.enableGlow = enableGlow;
+    }
+
+
 
     /**
      * Return true if the button has been triggered.
@@ -204,7 +214,7 @@ public class ReleaseButton extends GameObject {
                 (int) (position.y + mBound.halfHeight));
 
 
-        if (mIsPushed) { //validates whether the button has been touched
+        if (mIsPushed && enableGlow) { //validates whether the button has been touched
             drawGlow(graphics2D);
         }
 

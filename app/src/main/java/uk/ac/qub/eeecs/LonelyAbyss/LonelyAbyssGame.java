@@ -60,8 +60,7 @@ public class LonelyAbyssGame extends Game {
             return false;
 
         getScreenManager().removeScreen(mScreenManager.getCurrentScreen().getName());
-        DeckManagement level = new DeckManagement(this);
-        getScreenManager().addScreen(level);
+        System.exit(0);
 
         return true;
     }

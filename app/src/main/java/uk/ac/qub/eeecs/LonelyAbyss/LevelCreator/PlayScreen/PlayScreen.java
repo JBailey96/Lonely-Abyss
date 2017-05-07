@@ -45,6 +45,7 @@ public class PlayScreen extends GameScreen {
     protected ActiveEnergyState activeEnergyState;
     protected BenchState benchState;
     protected HandCardsState handCardsState;
+    protected CoinState coinState;
 
     private BattleSetup playerBattleSetup; //the battle setup the player has
 
@@ -73,11 +74,12 @@ public class PlayScreen extends GameScreen {
     //James Bailey 40156063
     //create the other states that require the initialisation of an active unimon card.
     public void createOtherStates() {
-        this.playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, true, playerBattleSetup); //state active initalised to true - first state
+        this.playOverviewState = new PlayOverviewState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup); //state active initalised to true - first state
         this.activeUnimonState = new ActiveUnimonState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
         this.opponentState = new OpponentState(mScreenViewport, mLayerViewPort, mGame, this, playerBattleSetup, false);
         this.activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
         this.handCardsState = new HandCardsState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
+        this.coinState = new CoinState(mScreenViewport,mLayerViewPort,mGame,this,true);
     }
 
 
@@ -103,6 +105,9 @@ public class PlayScreen extends GameScreen {
         }
         if (verifyState(benchState)) {
             benchState.update(elapsedTime);
+        }
+        if(verifyState(coinState)){
+            coinState.update(elapsedTime);
         }
         if (verifyState(handCardsState)) {
             handCardsState.update(elapsedTime);
@@ -146,6 +151,9 @@ public class PlayScreen extends GameScreen {
         if (verifyState(benchState)) {
             benchState.draw(elapsedTime, graphics2D);
         }
+        if(verifyState(coinState)){
+            coinState.draw(elapsedTime,graphics2D);
+        }
         if (verifyState(handCardsState)) {
             handCardsState.draw(elapsedTime, graphics2D);
         }
@@ -188,6 +196,9 @@ public class PlayScreen extends GameScreen {
 
     public void setPlayOverviewState(PlayOverviewState playOverviewState) {
         this.playOverviewState = playOverviewState;
+    }
+    public CoinState getCoinState(){
+        return coinState;
     }
 
     public ActiveUnimonState getActiveUnimonState() {

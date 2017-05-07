@@ -197,9 +197,9 @@ public class BenchState extends State {
         DrawAssist.clearMessage();
         mInput.resetAccumulators();
 
-        if (currentStateType == StateType.CHOOSE_ACTIVE) {
+        /*if (currentStateType == StateType.CHOOSE_ACTIVE) {
             playScreen.getPlayOverviewState().showInitialHelpMessage(); //show the initial help message for the playoverviewstate
-        }
+        }*/
 
         setCurrentStateType(StateType.VIEW_BENCH);
         refresh(); //needs to refresh state - bench card list changes in Battle's chooseActive method.
