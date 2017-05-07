@@ -1,16 +1,12 @@
 package uk.ac.qub.eeecs.LonelyAbyss;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 
-import android.graphics.Camera;
 import android.graphics.Rect;
 
 
 import java.util.List;
 
-import uk.ac.qub.eeecs.LonelyAbyss.RulesScreen;
-import uk.ac.qub.eeecs.LonelyAbyss.LoadingScreen;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.audio.Music;

@@ -188,7 +188,7 @@ public class PlayOverviewState extends State {
         if ((opponentButton.getBound().contains((int) t.x, (int) mLayerViewPort.getTop() - t.y))) {
             //J Devlin 40150554
             this.touchActive = false;
-            playScreen.getActiveOpponentState().active = true;
+            //playScreen.getActiveOpponentState().active = true;
             //playScreen.getPlayOverviewState().active = false;
         }
     }

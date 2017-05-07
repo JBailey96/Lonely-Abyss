@@ -41,7 +41,6 @@ public class PlayScreen extends GameScreen {
     protected BenchState benchState;
     protected HandCardsState handCardsState;
     protected DeadState deadState;
-    protected ActiveOpponentState activeOpponentState;
     protected CoinState coinState;
 
     private BattleSetup playerBattleSetup; //the battle setup the player has
@@ -91,7 +90,6 @@ public class PlayScreen extends GameScreen {
         this.activeEnergyState = new ActiveEnergyState(mScreenViewport, mLayerViewPort, mGame, this, false);
         this.handCardsState = new HandCardsState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
         this.deadState = new DeadState(mScreenViewport, mLayerViewPort, mGame, this, false);
-        this.activeOpponentState = new ActiveOpponentState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
         this.coinState = new CoinState(mScreenViewport,mLayerViewPort,mGame,this,true);
     }
 
@@ -125,10 +123,6 @@ public class PlayScreen extends GameScreen {
         if (verifyState(handCardsState)) {
             handCardsState.update(elapsedTime);
         }
-        if (verifyState(activeOpponentState)) {
-            activeOpponentState.update(elapsedTime);
-        }
-        //activeEnergyState.update(elapsedTime);
     }
 
     //James Bailey 40156063
@@ -176,10 +170,6 @@ public class PlayScreen extends GameScreen {
         if(verifyState(deadState)){
             deadState.draw(elapsedTime, graphics2D);
         }
-        if (verifyState(activeOpponentState)) {
-            activeOpponentState.draw(elapsedTime, graphics2D);
-        }
-       //activeEnergyState.draw(elapsedTime, graphics2D);
     }
 
     //James Bailey 40156063
@@ -275,10 +265,5 @@ public class PlayScreen extends GameScreen {
         return deadState;
     }
     public void setDeadState(DeadState deadState){this.deadState = deadState;}
-
-    //J Devlin 40150554
-    public ActiveOpponentState getActiveOpponentState() {
-        return activeOpponentState;
-    }
 }
 

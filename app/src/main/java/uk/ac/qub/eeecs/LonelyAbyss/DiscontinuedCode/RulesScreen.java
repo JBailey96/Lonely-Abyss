@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.LonelyAbyss;
+package uk.ac.qub.eeecs.LonelyAbyss.DiscontinuedCode;
 
 import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.PlayScreen.PlayScreen;
 import uk.ac.qub.eeecs.gage.Game;
