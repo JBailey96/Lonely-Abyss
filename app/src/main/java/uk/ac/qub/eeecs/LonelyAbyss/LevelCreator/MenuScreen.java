@@ -28,7 +28,7 @@ public class MenuScreen extends GameScreen {
 
     protected Bitmap background; // the background of the menu screen
 
-    protected Bitmap logo; //the logo of the game
+
 
     protected Rect backgroundRect; //background of the menu screen
 
@@ -38,7 +38,7 @@ public class MenuScreen extends GameScreen {
     protected Rect exitButtonRect; //the exit game button dimensions
     protected ReleaseButton exitButton; //exit button the user presses to exit the game
 
-    protected Rect logoRect; //contains the game logo
+
 
     protected ScreenViewport mScreenViewport;
     protected LayerViewport mLayerViewport;
@@ -50,7 +50,7 @@ public class MenuScreen extends GameScreen {
     public MenuScreen(Game game) {
         super("MainMenu", game);
 
-        loadMenuBitmaps(); //load bitmaps needed for the various bitmaps used (buttons and logo)
+        loadMenuBitmaps(); //load bitmaps needed for the various bitmaps used (buttons)
         mLayerViewport = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());
 
@@ -101,17 +101,11 @@ public class MenuScreen extends GameScreen {
     }
 
     public void generateButtonsDimen() {
-        int playLeftDimen = mScreenViewport.width/2-mScreenViewport.width/8;
-        int playTopDimen = (int) (mScreenViewport.height*0.75)-mScreenViewport.height/8;
-        int playRightDimen = (mScreenViewport.width/2+mScreenViewport.width/8);
-        int playBottomDimen = (int) (mScreenViewport.height*0.75)+mScreenViewport.height/8;
+        int playLeftDimen = mScreenViewport.width/50;
+        int playTopDimen = (int) (mScreenViewport.height*0.75)-mScreenViewport.height/3;
+        int playRightDimen = (mScreenViewport.width/3);
+        int playBottomDimen = (int) (mScreenViewport.height*0.6)+mScreenViewport.height/12;
         playButtonRect = new Rect(playLeftDimen, playTopDimen, playRightDimen, playBottomDimen);
-
-        int logoLeftDimen = mScreenViewport.width/8;
-        int logoTopDimen = mScreenViewport.height/8;
-        int logoRightDimen = mScreenViewport.width-mScreenViewport.width/8;
-        int logoBottomDimen = logoTopDimen+mScreenViewport.height/4;
-        logoRect = new Rect(logoLeftDimen, logoTopDimen, logoRightDimen, logoBottomDimen);
 
 
         int exitLeftDimen = mScreenViewport.width-mScreenViewport.width/18;
@@ -130,7 +124,7 @@ public class MenuScreen extends GameScreen {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         graphics2D.drawBitmap(background, null, backgroundRect, null); //draw the background bitmap,
-        graphics2D.drawBitmap(logo, null, logoRect, null); //the logo
+
         exitButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //exit button
         playButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //play button
 
@@ -141,7 +135,6 @@ public class MenuScreen extends GameScreen {
     public void loadMenuBitmaps() {
         getGame().getAssetManager().loadAndAddBitmap("BACKGROUND", "img/MenuImages/MenuBackground2.png");
         getGame().getAssetManager().loadAndAddBitmap("PLAY", "img/MenuImages/PlayButton.png");
-        getGame().getAssetManager().loadAndAddBitmap("LOGO", "img/MenuImages/Logo.png");
         getGame().getAssetManager().loadAndAddBitmap("EXIT", "img/MenuImages/ExitButton.png");
     }
 
@@ -155,7 +148,6 @@ public class MenuScreen extends GameScreen {
 
     public void accessBitmaps() {
         background = mGame.getAssetManager().getBitmap("BACKGROUND");
-        logo = mGame.getAssetManager().getBitmap("LOGO");
 
     }
 }
