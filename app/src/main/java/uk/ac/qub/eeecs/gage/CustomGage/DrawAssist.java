@@ -41,7 +41,7 @@ public class DrawAssist {
     //rotate a bitmap x degrees clockwise
     public static Bitmap rotateBitmap(Bitmap bitmap, float rotateVal) {
         Matrix matrix = new Matrix();
-        matrix.postRotate(90);
+        matrix.postRotate(rotateVal);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
