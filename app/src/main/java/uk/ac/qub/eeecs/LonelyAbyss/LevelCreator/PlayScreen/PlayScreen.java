@@ -19,7 +19,6 @@ import uk.ac.qub.eeecs.LonelyAbyss.LevelCreator.GridLevel;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.ScreenManager;
-import uk.ac.qub.eeecs.gage.engine.audio.Music;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -48,9 +47,9 @@ public class PlayScreen extends GameScreen {
     protected HandCardsState handCardsState;
     protected DeadState deadState;
     protected ActiveOpponentState activeOpponentState;
+    protected CoinState coinState;
 
     private BattleSetup playerBattleSetup; //the battle setup the player has
-   // private BattleSetup opponentBattleSetup;
 
     //the background bitmap and the dimensions on the screen to be drawn in
     protected Bitmap background;
@@ -99,6 +98,7 @@ public class PlayScreen extends GameScreen {
         this.handCardsState = new HandCardsState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
         this.deadState = new DeadState(mScreenViewport, mLayerViewPort, mGame, this, false);
         this.activeOpponentState = new ActiveOpponentState(mScreenViewport, mLayerViewPort, mGame, this, false, playerBattleSetup);
+        this.coinState = new CoinState(mScreenViewport,mLayerViewPort,mGame,this,true);
     }
 
 
@@ -124,6 +124,9 @@ public class PlayScreen extends GameScreen {
         }
         if (verifyState(benchState)) {
             benchState.update(elapsedTime);
+        }
+        if(verifyState(coinState)){
+            coinState.update(elapsedTime);
         }
         if (verifyState(handCardsState)) {
             handCardsState.update(elapsedTime);
@@ -169,6 +172,9 @@ public class PlayScreen extends GameScreen {
         }
         if (verifyState(benchState)) {
             benchState.draw(elapsedTime, graphics2D);
+        }
+        if(verifyState(coinState)){
+            coinState.draw(elapsedTime,graphics2D);
         }
         if (verifyState(handCardsState)) {
             handCardsState.draw(elapsedTime, graphics2D);
@@ -218,6 +224,9 @@ public class PlayScreen extends GameScreen {
 
     public void setPlayOverviewState(PlayOverviewState playOverviewState) {
         this.playOverviewState = playOverviewState;
+    }
+    public CoinState getCoinState(){
+        return coinState;
     }
 
     public ActiveUnimonState getActiveUnimonState() {
