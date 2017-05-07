@@ -1,7 +1,7 @@
 package uk.ac.qub.eeecs.gage;
 
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.OpponentPlayer;
-import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Cards.Player.Player;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.OpponentPlayer;
+import uk.ac.qub.eeecs.LonelyAbyss.GamePieces.Player.Player;
 import uk.ac.qub.eeecs.gage.engine.AssetStore;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.ScreenManager;

@@ -96,15 +96,11 @@ public class MenuScreen extends GameScreen {
     }
 
     //checks if one of the menu buttons is pressed
-    public void touchButton(List<TouchEvent> touchEvents) {
+    private void touchButton(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
             if (t.type == TouchEvent.TOUCH_UP) { //if the user has touched the screen
                 if (playButton.pushTriggered()) { //the status of the button is 'pressed'
-                    mGame.getScreenManager().removeScreen(this.getName());
-                    LoadingScreen lScreen = new LoadingScreen(mGame);
-                    mGame.getScreenManager().addScreen(lScreen);
-                    menuMusic.stop();
-                    buttonClick.play();
+                    handlePlayButtonTouch();
                 } /*else if (rulesButton.pushTriggered()) {
                     mGame.getScreenManager().removeScreen(this.getName());
                     RulesScreen RS = new RulesScreen(mGame);
@@ -119,7 +115,17 @@ public class MenuScreen extends GameScreen {
         }
     }
 
-    public void generateButtonsDimen() {
+    //James Bailey 40156063
+    //handle the player touching the playbutton, transitioning to loading the various elements of the playarea.
+    private void handlePlayButtonTouch() {
+        mGame.getScreenManager().removeScreen(this.getName());
+        LoadingScreen lScreen = new LoadingScreen(mGame);
+        mGame.getScreenManager().addScreen(lScreen);
+        menuMusic.stop();
+        buttonClick.play();
+    }
+
+    private void generateButtonsDimen() {
         int playLeftDimen = mScreenViewport.width/50;
         int playTopDimen = (int) (mScreenViewport.height*0.75)-mScreenViewport.height/3;
         int playRightDimen = (mScreenViewport.width/3);
@@ -146,7 +152,7 @@ public class MenuScreen extends GameScreen {
         uWotMateRect = new Rect(exitLeftDimen, exitTopDimen, exitRightDimen, exitBottomDimen);*/
     }
 
-    public void loadButtons() {
+    private void loadButtons() {
         //the exit and play button constructed with the dimensions above and the bitmaps loaded
         exitButton = new ReleaseButton(exitButtonRect.exactCenterX(), exitButtonRect.exactCenterY(), exitButtonRect.width(), exitButtonRect.height(), "EXIT", "EXIT", "", this);
         playButton = new ReleaseButton(playButtonRect.exactCenterX(), playButtonRect.exactCenterY(), playButtonRect.width(), playButtonRect.height(), "PLAY", "PLAY", "", this);
@@ -168,7 +174,7 @@ public class MenuScreen extends GameScreen {
     }
 
     //load the bitmaps needed to construct the interactive and non-interactive buttons
-    public void loadMenuBitmaps() {
+    private void loadMenuBitmaps() {
         getGame().getAssetManager().loadAndAddBitmap("BACKGROUND", "img/Backgrounds/backgroundNew.png");
         getGame().getAssetManager().loadAndAddBitmap("PLAY", "img/MenuImages/PlayButton.png");
        // getGame().getAssetManager().loadAndAddBitmap("LOGO", "img/MenuImages/Logo.png");

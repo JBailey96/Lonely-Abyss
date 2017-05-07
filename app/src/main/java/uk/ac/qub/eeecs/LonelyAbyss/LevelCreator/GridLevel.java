@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.LonelyAbyss.LevelCreator;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 
 import java.util.List;
 import java.util.Random;
@@ -92,11 +93,17 @@ public class GridLevel extends GameScreen {
 
     protected Player player; //the player
 
+    protected Rect backgroundRect;
+    protected Bitmap backgroundBitmap;
+
+
     public GridLevel(Game game) {
         super("GridLevel", game);
         mLayerViewport = new LayerViewport(game.getScreenWidth() / 2, game.getScreenHeight() / 2, game.getScreenWidth() / 2, game.getScreenHeight() / 2);
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(), game.getScreenHeight());createGrid(); //calculate the size of grid and create the grid
         setPlayer();
+
+        loadAndGenerateBackground();
         loadGrid();
         loadPlayer();
 
@@ -123,6 +130,14 @@ public class GridLevel extends GameScreen {
         this.player.setGridLevelTiles(null);
         loadGrid();
         loadPlayer();
+    }
+
+    //James Bailey 40156063
+    //Generates the background for the grid.
+    private void loadAndGenerateBackground() {
+        getGame().getAssetManager().loadAndAddBitmap("GRIDBACKGROUND", "img/Backgrounds/gridBackground.jpg");
+        this.backgroundRect = new Rect(0, 0, mScreenViewport.width, mScreenViewport.height);
+        this.backgroundBitmap = mGame.getAssetManager().getBitmap("GRIDBACKGROUND");
     }
 
     //James Bailey 40156063
@@ -164,7 +179,11 @@ public class GridLevel extends GameScreen {
         //sets the basic view of the screenviewport
         graphics2D.clear(Color.BLACK);
         graphics2D.clipRect(mScreenViewport.toRect());
+
+        graphics2D.drawBitmap(backgroundBitmap, null, backgroundRect, null); //draw the background of the grid level
+
         drawGridTiles(elapsedTime, graphics2D);
+
         playerSprite.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
     }
 
