@@ -11,8 +11,8 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c02b86f2-5f11-4d78-9221-140a075da180" name="Default" comment="Functionali">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/assets/img/MenuImages/Logo.png" />
+    <list default="true" id="c02b86f2-5f11-4d78-9221-140a075da180" name="Default" comment="Jordan and Kyle:&#10;&#10;Re-updated the menu background image and commented out the rules button (no implementation)&#10;Forgot to give JPa menmu image one without the buttons drawn">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/assets/img/MenuImages/MenuBackground2.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
@@ -21,14 +21,15 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/assets/img/Backgrounds/backgroundNew.png" afterPath="$PROJECT_DIR$/src/main/assets/img/Backgrounds/backgroundNew.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/espresso_core_2_2_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/espresso_core_2_2_2.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/espresso_idling_resource_2_2_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/espresso_idling_resource_2_2_2.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/exposed_instrumentation_api_publish_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/exposed_instrumentation_api_publish_0_5.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/rules_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/rules_0_5.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/runner_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/runner_0_5.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.iml" afterPath="$PROJECT_DIR$/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/MenuScreen.java" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/MenuScreen.java" />
     </list>
     <ignored path="app.iws" />
@@ -61,55 +62,48 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DeckManagement.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="633">
-              <caret line="128" column="21" selection-start-line="128" selection-start-column="21" selection-end-line="128" selection-end-column="21" />
-              <folding />
-            </state>
+      <file leaf-file-name="Battle.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/assets/img/GridSquares/Battle.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayScreen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="58" column="19" selection-start-line="58" selection-start-column="19" selection-end-line="58" selection-end-column="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
+      <file leaf-file-name="Hidden.jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/assets/img/GridSquares/Hidden.jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplashScreen.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/SplashScreen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-241">
-              <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-              <folding />
-            </state>
+      <file leaf-file-name="End.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/assets/img/GridSquares/End.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="MenuScreen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/MenuScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1038">
-              <caret line="194" column="10" selection-start-line="194" selection-start-column="10" selection-end-line="194" selection-end-column="10" />
+            <state relative-caret-position="711">
+              <caret line="171" column="89" selection-start-line="171" selection-start-column="89" selection-end-line="171" selection-end-column="89" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CanvasGraphics2D.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/CanvasGraphics2D.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-              <folding />
-            </state>
+      <file leaf-file-name="backgroundNew.png" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/assets/img/Backgrounds/backgroundNew.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuBackground2.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/assets/img/MenuImages/MenuBackground2.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -130,7 +124,7 @@
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
       <map>
-        <entry key="$PROJECT_DIR$" value="C:\Users\JP\.gradle\wrapper\dists\gradle-3.3-all\55gk2rcmfc6p2dg9u9ohc3hw9\gradle-3.3" />
+        <entry key="$PROJECT_DIR$" value="C:\Users\Jordan\.gradle\wrapper\dists\gradle-3.3-all\55gk2rcmfc6p2dg9u9ohc3hw9\gradle-3.3" />
       </map>
     </option>
     <option name="myGradleVersions">
@@ -840,7 +834,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="$PROJECT_DIR$" value="1489611911000" />
-        <entry key="C:\Users\JP\Desktop\android\Recent Version From Git\csc2043-1617-115\app" value="1494136876148" />
+        <entry key="C:\Users\Jordan\AndroidStudioProjects\csc2043-1617-115\app" value="1493986505609" />
         <entry key="C:\Users\Michael Conway\Documents\CSC2044\csc2043-1617-115\app" value="1493826982980" />
         <entry key="C:\Users\Michael Conway\Documents\csc2043-1617-115\app" value="1494162635618" />
       </map>
@@ -1095,7 +1089,6 @@
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/DrawAssist.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/HandCardsState.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/ui/ReleaseButton.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/TestScreens/DeckManagement1.java" />
         <option value="$PROJECT_DIR$/src/main/assets/ClassObjectJSON/Cards.json" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/io/JSONReader.java" />
@@ -1123,10 +1116,11 @@
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/DiscontinuedCode/OldDeckManagement.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/CoinState.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/CustomGage/ReleaseButton.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LonelyAbyssGame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/MenuScreen.java" />
       </list>
     </option>
@@ -1134,8 +1128,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1066" />
+    <option name="width" value="2576" />
+    <option name="height" value="1416" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1162,10 +1156,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1237,6 +1228,14 @@
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GridSquares" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1252,8 +1251,26 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Music" />
+              <option name="myItemId" value="img" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Backgrounds" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1365,50 +1382,187 @@
               <option name="myItemId" value="eeecs" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LonelyAbyss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GamePieces" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eeecs" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="device.picker.selection" value="Nexus_5_API_25" />
+    <property name="device.picker.selection" value="Nexus_5_API_24" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\JP\Desktop\android\Recent Version From Git\csc2043-1617-115\app\src\main\assets\img\MenuImages" />
-      <recent name="$PROJECT_DIR$/src/main/assets/img/Cards" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/assets/img/Cards/Unimon" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/assets/img/Cards" />
+    </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/libraries/espresso_core_2_2_2.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/libraries/espresso_idling_resource_2_2_2.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/libraries/exposed_instrumentation_api_publish_0_5.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/libraries/rules_0_5.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/libraries/runner_0_5.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/local.properties</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/AndroidManifest.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/GridLevel.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveUnimonState.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/HandCardsState.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/OpponentState.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayOverviewState.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LoadingScreen.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LonelyAbyssGame.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/Game.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Music/Desolation.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Music/MenuMusic.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Music/TheChase.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Music/deadNotSurprise.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Music/film-reel.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Music/thxsound.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Sounds/button.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Sounds/ekgHeart.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Sounds/footsteps-1.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/Sounds/heartbeart.mp3</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/img/Backgrounds/CBStudios.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/img/Backgrounds/backgroundNew.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/img/Backgrounds/blackDead.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/img/Backgrounds/bloodSplatter.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/img/Backgrounds/skull.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/img/MenuImages/Logo.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/assets/img/MenuImages/black.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/DiscontinuedCode/OldMenuScreen.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/GamePieces/Cards/Player/Opponent.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/ActiveOpponentState.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/DeadState.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/THXScreen.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/MenuScreen.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/RulesScreen.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/SplashScreen.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Android App.app">
     <configuration default="false" name="EnergyCardTesting" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
@@ -1974,29 +2128,29 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.4939577" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.327787" sideWeight="0.49093655" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32750398" sideWeight="0.49093655" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29229608" sideWeight="0.28798187" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3006608" sideWeight="0.7439577" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.016638935" sideWeight="0.4939577" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49046105" sideWeight="0.7439577" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.015898252" sideWeight="0.4939577" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6812081" sideWeight="0.46072507" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294702" sideWeight="0.49697885" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.014900662" sideWeight="0.53927493" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24040511" sideWeight="0.71201813" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24046105" sideWeight="0.71201813" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.47885197" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2062,7 +2216,8 @@
     <MESSAGE value="Cards now are associated with a player and the battle setup they take into battle is generated (PlayScreen for testing purposes). Transitioned the PlayArea's Play OverView Screen for the most part to use the cards in the battle setup. Copy constructors implemented for EnergyCard, UnimonCard and UnimonMoves used to facilitate this." />
     <MESSAGE value="Refactored the PlayArea and its states' code. Implemented an abstract copy method in the Card class and a overloaded setPosition() method in the GameObject class that avoided code repetition when setting up a Card's dimension in a new GameScreen. Created a DrawAssist class that has static methods that help when manipulating bitmaps and text. A move's name is now drawn onto the battle option buttons and this is scaled uniformly." />
     <MESSAGE value="Implemented selecting an initial active card, viewing the current bench cards and swapping the active card with a bench card (BenchState class). Removing a card from the hand and drawing a card from the deck is now handled. Functionality to apply a move to the opponent’s unimon card and show an animation of the opponent’s health bar decreasing by the move added. Battle class created that handles basic turn moves the player can make with the play area." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented selecting an initial active card, viewing the current bench cards and swapping the active card with a bench card (BenchState class). Removing a card from the hand and drawing a card from the deck is now handled. Functionality to apply a move to the opponent’s unimon card and show an animation of the opponent’s health bar decreasing by the move added. Battle class created that handles basic turn moves the player can make with the play area." />
+    <MESSAGE value="Jordan and Kyle:&#10;&#10;Re-updated the menu background image and commented out the rules button (no implementation)&#10;Forgot to give JPa menmu image one without the buttons drawn" />
+    <option name="LAST_COMMIT_MESSAGE" value="Jordan and Kyle:&#10;&#10;Re-updated the menu background image and commented out the rules button (no implementation)&#10;Forgot to give JPa menmu image one without the buttons drawn" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2071,34 +2226,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/world/Sprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/ClassObjectJSON/Cards.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="349" column="7" selection-start-line="349" selection-start-column="7" selection-end-line="349" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/TestObjects/Testing/UnimonCardTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="237" column="0" selection-start-line="237" selection-start-column="0" selection-end-line="237" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/TestObjects/Testing/UnimonMoveTesting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3345">
-          <caret line="25" column="32" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/TestObjects/Testing/EnergyCardTesting.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-320">
@@ -2131,7 +2258,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2139,7 +2265,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2147,7 +2272,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
           <caret line="27" column="85" selection-start-line="27" selection-start-column="85" selection-end-line="27" selection-end-column="85" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2155,9 +2279,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2160">
           <caret line="156" column="37" selection-start-line="156" selection-start-column="37" selection-end-line="156" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2186,7 +2307,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-605">
           <caret line="221" column="30" selection-start-line="221" selection-start-column="30" selection-end-line="221" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2194,10 +2314,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-515">
           <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-          <folding>
-            <element signature="e#3035#3036#0" expanded="true" />
-            <element signature="e#3068#3069#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2212,7 +2328,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="17" column="82" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2227,7 +2342,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1740">
           <caret line="142" column="13" selection-start-line="142" selection-start-column="13" selection-end-line="142" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2263,7 +2377,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-9815">
           <caret line="50" column="46" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2351,13 +2464,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LoadingScreen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#4611#4612#0" expanded="false" />
+            <element signature="e#4646#4647#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2388,6 +2502,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11169">
+          <caret line="179" column="24" selection-start-line="179" selection-start-column="24" selection-end-line="179" selection-end-column="24" />
+          <folding>
+            <element signature="e#33722#33944#0" expanded="false" />
+            <element signature="e#33943#33944#0" expanded="false" />
+            <element signature="e#33983#33984#0" expanded="false" />
+            <element signature="e#34018#34019#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/BenchState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3247">
@@ -2404,6 +2531,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="76" column="106" selection-start-line="76" selection-start-column="106" selection-end-line="76" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayOverviewState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="355">
@@ -2412,51 +2547,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/DeckManagement.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/MenuScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="128" column="21" selection-start-line="128" selection-start-column="21" selection-end-line="128" selection-end-column="21" />
+        <state relative-caret-position="555">
+          <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/PlayScreen/PlayScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="58" column="19" selection-start-line="58" selection-start-column="19" selection-end-line="58" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/gage/engine/graphics/CanvasGraphics2D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/MenuScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1038">
-          <caret line="194" column="10" selection-start-line="194" selection-start-column="10" selection-end-line="194" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/assets/img/MenuImages/Logomakr_0LNI2c.png">
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/GridSquares/Battle.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/SplashScreen.java">
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/GridSquares/Hidden.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/LevelCreator/THXScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-241">
-          <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+        <state relative-caret-position="136">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/GridSquares/End.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/MenuImages/Logo.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/MenuImages/MenuBackground2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/qub/eeecs/LonelyAbyss/MenuScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="711">
+          <caret line="171" column="89" selection-start-line="171" selection-start-column="89" selection-end-line="171" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/assets/img/Backgrounds/backgroundNew.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
   </component>

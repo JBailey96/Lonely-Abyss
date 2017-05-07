@@ -39,8 +39,8 @@ public class MenuScreen extends GameScreen {
     protected Rect uWotMateRect;
     protected ReleaseButton uWotMateButton;*/
 
-    protected Rect rulesButtonRect;
-    protected ReleaseButton rulesButton;
+    //protected Rect rulesButtonRect;
+    //protected ReleaseButton rulesButton;
 
     protected Rect backgroundRect; //background of the menu screen
 
@@ -50,7 +50,7 @@ public class MenuScreen extends GameScreen {
     protected Rect exitButtonRect; //the exit game button dimensions
     protected ReleaseButton exitButton; //exit button the user presses to exit the game
 
-    protected Rect logoRect; //contains the game logo
+
 
     protected ScreenViewport mScreenViewport;
     protected LayerViewport mLayerViewport;
@@ -85,7 +85,7 @@ public class MenuScreen extends GameScreen {
         //updates the toggle status of the buttons (whether the user has touched them)
         playButton.update(elapsedTime);
         exitButton.update(elapsedTime);
-        rulesButton.update(elapsedTime);
+        //rulesButton.update(elapsedTime);
 
         //retrieve the input from the user
         mInput = mGame.getInput();
@@ -105,13 +105,13 @@ public class MenuScreen extends GameScreen {
                     mGame.getScreenManager().addScreen(lScreen);
                     menuMusic.stop();
                     buttonClick.play();
-                } else if (rulesButton.pushTriggered()) {
+                } /*else if (rulesButton.pushTriggered()) {
                     mGame.getScreenManager().removeScreen(this.getName());
                     RulesScreen RS = new RulesScreen(mGame);
                     mGame.getScreenManager().addScreen(RS);
                     menuMusic.stop();
                     buttonClick.play();
-                } else if (exitButton.pushTriggered()) {
+                } */ else if (exitButton.pushTriggered()) {
                     //the user has chosen to exit the game, the game exits.
                     System.exit(0);
                 }
@@ -120,17 +120,11 @@ public class MenuScreen extends GameScreen {
     }
 
     public void generateButtonsDimen() {
-        int playLeftDimen = mScreenViewport.width / 2 - mScreenViewport.width / 8;
-        int playTopDimen = (int) (mScreenViewport.height * 0.75) - mScreenViewport.height / 8;
-        int playRightDimen = (mScreenViewport.width / 2 + mScreenViewport.width / 8);
-        int playBottomDimen = (int) (mScreenViewport.height * 0.75) + mScreenViewport.height / 8;
+        int playLeftDimen = mScreenViewport.width/50;
+        int playTopDimen = (int) (mScreenViewport.height*0.75)-mScreenViewport.height/3;
+        int playRightDimen = (mScreenViewport.width/3);
+        int playBottomDimen = (int) (mScreenViewport.height*0.6)+mScreenViewport.height/12;
         playButtonRect = new Rect(playLeftDimen, playTopDimen, playRightDimen, playBottomDimen);
-
-        int logoLeftDimen = mScreenViewport.width / 8;
-        int logoTopDimen = mScreenViewport.height / 8;
-        int logoRightDimen = mScreenViewport.width - mScreenViewport.width / 8;
-        int logoBottomDimen = logoTopDimen + mScreenViewport.height / 4;
-        logoRect = new Rect(logoLeftDimen, logoTopDimen, logoRightDimen, logoBottomDimen);
 
 
         int exitLeftDimen = mScreenViewport.width - mScreenViewport.width / 18;
@@ -139,11 +133,11 @@ public class MenuScreen extends GameScreen {
         int exitBottomDimen = mScreenViewport.height / 12;
         exitButtonRect = new Rect(exitLeftDimen, exitTopDimen, exitRightDimen, exitBottomDimen);
 
-        int rulesLeftDimen = (int) (mScreenViewport.width / 1.5);
+       /* int rulesLeftDimen = (int) (mScreenViewport.width / 1.5);
         int rulesTopDimen = (int) (mScreenViewport.height * 0.75) - mScreenViewport.height / 8;
         int rulesRightDimen = (int) (mScreenViewport.width - 100);
         int rulesBottomDimen = (int) (mScreenViewport.height * 0.75) + mScreenViewport.height / 8;
-        rulesButtonRect = new Rect(rulesLeftDimen, rulesTopDimen, rulesRightDimen, rulesBottomDimen);
+        rulesButtonRect = new Rect(rulesLeftDimen, rulesTopDimen, rulesRightDimen, rulesBottomDimen); */
 
         /*exitLeftDimen = 0;
         exitTopDimen = mScreenViewport.width - 1000;
@@ -156,7 +150,7 @@ public class MenuScreen extends GameScreen {
         //the exit and play button constructed with the dimensions above and the bitmaps loaded
         exitButton = new ReleaseButton(exitButtonRect.exactCenterX(), exitButtonRect.exactCenterY(), exitButtonRect.width(), exitButtonRect.height(), "EXIT", "EXIT", "", this);
         playButton = new ReleaseButton(playButtonRect.exactCenterX(), playButtonRect.exactCenterY(), playButtonRect.width(), playButtonRect.height(), "PLAY", "PLAY", "", this);
-        rulesButton = new ReleaseButton(rulesButtonRect.exactCenterX(), rulesButtonRect.exactCenterY(), rulesButtonRect.width(), rulesButtonRect.height(), "PLAY", "PLAY", "", this);
+       // rulesButton = new ReleaseButton(rulesButtonRect.exactCenterX(), rulesButtonRect.exactCenterY(), rulesButtonRect.width(), rulesButtonRect.height(), "PLAY", "PLAY", "", this);
         //uWotMateButton = new ReleaseButton(uWotMateRect.exactCenterX(), uWotMateRect.exactCenterY(), uWotMateRect.width(), uWotMateRect.height(), "EXIT", "EXIT", "", this);
 
     }
@@ -167,7 +161,7 @@ public class MenuScreen extends GameScreen {
         //  graphics2D.drawBitmap(logo, null, logoRect, null); //the logo
         exitButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //exit button
         playButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport); //play button
-        rulesButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
+      //  rulesButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
        //uWotMateButton.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
 
 
