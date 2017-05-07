@@ -177,7 +177,7 @@ public class MenuScreen extends GameScreen {
     public void loadMenuBitmaps() {
         getGame().getAssetManager().loadAndAddBitmap("BACKGROUND", "img/Backgrounds/backgroundNew.png");
         getGame().getAssetManager().loadAndAddBitmap("PLAY", "img/MenuImages/PlayButton.png");
-        getGame().getAssetManager().loadAndAddBitmap("LOGO", "img/MenuImages/Logo.png");
+       // getGame().getAssetManager().loadAndAddBitmap("LOGO", "img/MenuImages/Logo.png");
         getGame().getAssetManager().loadAndAddBitmap("EXIT", "img/MenuImages/ExitButton.png");
         //  getGame().getAssetManager().loadAndAddBitmap("PLAY", "img/MenuImages/PlayButton.png");
     }
@@ -192,7 +192,7 @@ public class MenuScreen extends GameScreen {
 
     public void accessBitmaps() {
         background = mGame.getAssetManager().getBitmap("BACKGROUND");
-        logo = mGame.getAssetManager().getBitmap("LOGO");
+        //logo = mGame.getAssetManager().getBitmap("LOGO");
         //uWotMate = mGame.getAssetManager().getBitmap("LOGO");
     }
 
