@@ -93,9 +93,11 @@ public class GridLevel extends GameScreen {
 
     protected Player player; //the player
 
+    //the background dimensions, position and bitmap
     protected Rect backgroundRect;
     protected Bitmap backgroundBitmap;
 
+    protected boolean generateGridActive; //true - a new grid is being generated, grid tiles cannot be drawn and updated. false otherwise.
 
     public GridLevel(Game game) {
         super("GridLevel", game);
@@ -109,6 +111,8 @@ public class GridLevel extends GameScreen {
 
         loadSounds(); //load sounds used in the screen
         playSounds(); //play the sounds
+
+        this.generateGridActive = false;
 
         transitionBattle = new Thread(new TransitionBattle()); //initalise the thread that handles the transition to the battle scree
         movePlayerAction = new Thread(new MovePlayerSprite());
@@ -127,9 +131,10 @@ public class GridLevel extends GameScreen {
     private void generateNewGridAndPlayer() {
         this.playerGridPosI = 0;
         this.playerGridPosJ = 0;
-        this.player.setGridLevelTiles(null);
+        this.generateGridActive = true;
         loadGrid();
         loadPlayer();
+        this.generateGridActive = false;
     }
 
     //James Bailey 40156063
@@ -166,12 +171,14 @@ public class GridLevel extends GameScreen {
 
     @Override
     public void update(ElapsedTime elapsedTime) {
-        if (!isTransitionThreadAlive()) {
-            mInput = mGame.getInput(); //get the users multiple inputs
-            touchEvents = mInput.getTouchEvents(); //get the touch events from the user's input
-            touchGrid(touchEvents); //checks if the user has touched a grid.
+        if (!generateGridActive) {
+            if (!isTransitionThreadAlive()) {
+                mInput = mGame.getInput(); //get the users multiple inputs
+                touchEvents = mInput.getTouchEvents(); //get the touch events from the user's input
+                touchGrid(touchEvents); //checks if the user has touched a grid.
+            }
+            playerSprite.update(elapsedTime);
         }
-        playerSprite.update(elapsedTime);
     }
 
     @Override
@@ -182,9 +189,11 @@ public class GridLevel extends GameScreen {
 
         graphics2D.drawBitmap(backgroundBitmap, null, backgroundRect, null); //draw the background of the grid level
 
-        drawGridTiles(elapsedTime, graphics2D);
+        if (!generateGridActive) {
+            drawGridTiles(elapsedTime, graphics2D);
 
-        playerSprite.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
+            playerSprite.draw(elapsedTime, graphics2D, mLayerViewport, mScreenViewport);
+        }
     }
 
     //James Bailey 40156063
@@ -593,7 +602,7 @@ public class GridLevel extends GameScreen {
     //Generates the two dimensional grid array
     private void createGrid() {
         //4x4, 5x5, 6x6 - randomly sets the size of the grid
-        this.gridSize = rand.nextInt(2)+this.minimumTiles;
+        this.gridSize = rand.nextInt(4)+this.minimumTiles;
         this.gridArray = new Grid[gridSize][gridSize]; //2-dimensional array to hold the grid squares in rows and columns
     }
 
